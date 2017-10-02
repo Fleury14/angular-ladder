@@ -1,0 +1,107 @@
+/* Begin Ticker bar styles */
+
+.ticker-bar {
+    height: 50px;
+    width: 100%;
+    color: #fff;
+    background-color: rgba(20,20,20,1);
+    position: fixed;
+    bottom: 0px;
+    z-index: 5;
+    font-family: 'Titillium Web', sans-serif;
+    
+
+}
+
+.ticker-sub {
+  height: 100%;
+  width: 20%;
+  border-right: 2px dashed yellow;
+  float: left;
+
+}
+
+.ticker-sub, .ticker-tex {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding-left: 9px;
+
+
+  -webkit-transition: all 1s;
+    -moz-transition: all 1s;
+    -o-transition: all 1s;
+    transition: all 1s;
+    margin: 0px;
+
+
+}
+
+.ticker-hidden {
+  opacity: 0;
+
+}
+
+.ticker-spacing {
+    height: 50px;
+    width: 100%;
+    visibility: hidden;
+    background-color: transparent;
+}
+
+/*End ticker bar Styles */
+
+/* Begin footer styles */
+
+.footer-container {
+    margin-top: 50px;
+    min-height: 100px;
+    
+    background-color: #a63446;
+}
+
+.footer-copy-box {
+    font-family: "Crete Round", serif;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+}
+
+.footer-site-map {
+    font-family: "Crete Round";
+    font-size: 10px;
+    color: #fff;
+}
+
+.footer-site-map-head {
+    
+    text-align: center;
+}
+
+.footer-site-map-col {
+    text-align: center;
+}
+
+.footer-site-map-col a {
+    color: #fff;
+}
+
+
+.footer-icon-box {
+    height: 100px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.footer-icon-box .fa {
+    color: #fff;
+    font-size: 30px;
+    transition: all .4s;
+}
+
+.footer-icon-box .fa:hover {
+    color: gray;
+}

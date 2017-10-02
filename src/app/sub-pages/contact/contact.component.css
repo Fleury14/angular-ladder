@@ -1,0 +1,17 @@
+
+.contact-list-group {
+    font-family: "Titillium Web", sans-serif;
+    margin-top: 30px;
+}
+
+.contact-list-group a {
+    color: #000;
+
+    transition: 0.3s all;
+}
+
+.contact-list-group a:hover {
+    background-color: #a63446;
+    color: #fff;
+    text-decoration: none;
+}
