@@ -1,0 +1,16 @@
+<p class="header-column">MATCH HISTORY</p>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="list-group match-results">
+              <p *ngIf="recordDisplay.length < 1">ERROR: No Match records available to display :(</p>
+              <div *ngFor="let match of recordDisplay">
+                  <button type="button" class="list-group-item"><strong>{{ match.game }} - {{ match.date }}</strong> 
+                      <span class="label label-default">{{ match.winnerRank }}</span> {{ match.winnerName }} ({{ match.winnerChar }}) def. 
+                      <span class="label label-default">{{ match.loserRank }}</span> {{ match.loserName }} ({{ match.loserChar }}), {{ match.wins }}-{{ match.losses }}
+                    </button></div>
+              
+            </div>
+        </div>
+    </div>
+</div>
