@@ -10,6 +10,11 @@ nav {
     background-color: #a63446;
 }
 
+.active {
+    background-color: pink;
+    color: #fff;
+}
+
 .navbar-list {
     margin: 0px;
     width: 100%;
