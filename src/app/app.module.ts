@@ -12,6 +12,7 @@ import { AboutComponent } from './sub-pages/about/about.component';
 import { RulesComponent } from './sub-pages/rules/rules.component';
 import { ChallengeComponent } from './sub-pages/challenges/challenge.component';
 import { MatchHistoryComponent } from './sub-pages/match-history/match-history.component';
+import { StandingsComponent } from './sub-pages/standings/standings.component';
 
 const routes: Routes = [{
   path: 'home',
@@ -38,6 +39,10 @@ const routes: Routes = [{
   component: MatchHistoryComponent
 },
 {
+  path: 'standings',
+  component: StandingsComponent
+},
+{
   path: '',
   redirectTo: 'home',
   pathMatch: 'full'
@@ -47,7 +52,7 @@ const routes: Routes = [{
 @NgModule({
   declarations: [
     AppComponent, NavComponent, FooterComponent, HomeComponent, ContactComponent, AboutComponent, RulesComponent, ChallengeComponent,
-    MatchHistoryComponent
+    MatchHistoryComponent, StandingsComponent
   ],
   imports: [
     BrowserModule, RouterModule.forRoot(routes)
