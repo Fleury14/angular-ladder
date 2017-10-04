@@ -1,0 +1,58 @@
+<p class="header-column">STANDINGS</p>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <h3 class="standing-header">Marvel vs Capcom Infinite (PS4)</h3>
+            <table class="table table-striped standing-table">
+                 <thead>
+                     <tr>
+                         <th>Rank</th>
+                         <th>Name</th>
+                         <th>PSN ID</th>
+                         <th>Win-Loss</th>
+                         <th>ELO</th>
+                         <th>Streak</th>
+                     </tr>
+                 </thead>
+                 <tbody>
+                    <p class="text-center">Coming Soon, apply now!</p>
+                     
+                 </tbody>
+            </table>
+        </div>
+    </div> <!-- end marvel row -->
+    <div class="row">
+        <div class="col-sm-12">
+            <h3 class="standing-header">Tekken 7 (PS4)</h3>
+            <table class="table table-striped standing-table">
+                 <thead>
+                     <tr>
+                         <th>Rank</th>
+                         <th>Name</th>
+                         <th>PSN ID</th>
+                         <th>Win-Loss</th>
+                         <th>ELO</th>
+                         <th>Streak</th>
+                     </tr>
+                 </thead>
+                 <tbody id="table-body">
+                    <tr *ngFor="let item of masterLadder.tekken.players">
+                        <th>{{item.rank}}</th>
+                        <td>{{item.name}}</td>
+                        <td>{{item.psnId}}</td>
+                        <td>{{item.wins}}-{{item.losses}}</td>
+                        <td>{{item.elo}}</td>
+                        <td>{{item.streak}}</td>    
+                    </tr>         
+                    
+                 </tbody>
+            </table>
+            <div class="standing-sort-button-row">
+                <button class="btn btn-danger" id="sort-rank" (click)="masterLadder.sortPlayers('tekken', 'rank', 'a')">Sort by ladder rank</button>
+                <button class="btn btn-danger" id="sort-elo" (click)="masterLadder.sortPlayers('tekken', 'elo', 'd')">Sort by ELO</button>
+                <button class="btn btn-danger" id="sort-wins" (click)="masterLadder.sortPlayers('tekken', 'wins', 'd')">Sort by Wins</button>
+                <button class="btn btn-danger" id="sort-losses" (click)="masterLadder.sortPlayers('tekken', 'losses', 'd')">Sort by Losses</button>
+            </div>
+        </div>
+    </div> <!-- end tekken row -->
+</div> <!-- End container -->

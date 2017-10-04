@@ -1,0 +1,14 @@
+
+.standing-header {
+    font-family: "Titillium Web", sans-serif;
+}
+
+.standing-table  {
+    font-family: "Titillium Web", sans-serif;
+}
+
+.standing-sort-button-row {
+    display: flex;
+    justify-content: space-around;
+    
+}
