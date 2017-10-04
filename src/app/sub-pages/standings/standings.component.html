@@ -36,80 +36,22 @@
                      </tr>
                  </thead>
                  <tbody id="table-body">
-                     
-                     <!--<tr>-->
-                     <!--    <th>1</th>-->
-                     <!--    <td>Domezy</td>-->
-                     <!--    <td>Domezy</td>-->
-                     <!--    <td>2-0</td>-->
-                     <!--    <td>1533</td>-->
-                     <!--    <td>Win 2</td>-->
-                     <!--</tr>-->
-                     <!--<tr>-->
-                     <!--    <th>2</th>-->
-                     <!--    <td>Reckless</td>-->
-                     <!--    <td>Reckless</td>-->
-                     <!--    <td>1-1</td>-->
-                     <!--    <td>1500</td>-->
-                     <!--    <td>Lost 1</td>-->
-                     <!--</tr>-->
-                     <!--<tr>-->
-                     <!--    <th>3</th>-->
-                     <!--    <td>El Rado</td>-->
-                     <!--    <td>Eraldo_Coil</td>-->
-                     <!--    <td>2-1</td>-->
-                     <!--    <td>1514</td>-->
-                     <!--    <td>Won 1</td>-->
-                     <!--</tr>-->
-                     <!--<tr>-->
-                     <!--    <th>4</th>-->
-                     <!--    <td>Fobi_Yo</td>-->
-                     <!--    <td>Fobi_yo</td>-->
-                     <!--    <td>2-2</td>-->
-                     <!--    <td>1501</td>-->
-                     <!--    <td>Won 1</td>-->
-                     <!--</tr>-->
-                     <!--<tr>-->
-                     <!--    <th>5</th>-->
-                     <!--    <td>Fleury14</td>-->
-                     <!--    <td>LQFleury14</td>-->
-                     <!--    <td>1-3</td>-->
-                     <!--    <td>1469</td>-->
-                     <!--    <td>Lost 1</td>-->
-                     <!--</tr>-->
-                     <!--<tr>-->
-                     <!--    <th>6</th>-->
-                     <!--    <td>Jard</td>-->
-                     <!--    <td>Quiksilver1209</td>-->
-                     <!--    <td>0-1</td>-->
-                     <!--    <td>1483</td>-->
-                     <!--    <td>Lost 1</td>-->
-                     <!--</tr>-->
-                     <!--<tr>-->
-                     <!--    <th>7</th>-->
-                     <!--    <td>Fernook</td>-->
-                     <!--    <td>N/A</td>-->
-                     <!--    <td>0-0</td>-->
-                     <!--    <td>1500</td>-->
-                     <!--    <td>Lost 0</td>-->
-                         
-                     <!--</tr>-->
-                     <!--<tr>-->
-                     <!--    <th>8</th>-->
-                     <!--    <td>Negaduck</td>-->
-                     <!--    <td>DarkBurritoEX</td>-->
-                     <!--    <td>0-0</td>-->
-                     <!--    <td>1500</td>-->
-                     <!--    <td>Lost 0</td>-->
-                         
-                     <!--</tr>-->
+                    <tr *ngFor="let item of masterLadder.tekken.players">
+                        <th>{{item.rank}}</th>
+                        <td>{{item.name}}</td>
+                        <td>{{item.psnId}}</td>
+                        <td>{{item.wins}}-{{item.losses}}</td>
+                        <td>{{item.elo}}</td>
+                        <td>{{item.streak}}</td>    
+                    </tr>         
+                    
                  </tbody>
             </table>
             <div class="standing-sort-button-row">
-                <button class="btn btn-danger" id="sort-rank">Sort by ladder rank</button>
-                <button class="btn btn-danger" id="sort-elo">Sort by ELO</button>
-                <button class="btn btn-danger" id="sort-wins">Sort by Wins</button>
-                <button class="btn btn-danger" id="sort-losses">Sort by Losses</button>
+                <button class="btn btn-danger" id="sort-rank" (click)="masterLadder.sortPlayers('tekken', 'rank', 'a')">Sort by ladder rank</button>
+                <button class="btn btn-danger" id="sort-elo" (click)="masterLadder.sortPlayers('tekken', 'elo', 'd')">Sort by ELO</button>
+                <button class="btn btn-danger" id="sort-wins" (click)="masterLadder.sortPlayers('tekken', 'wins', 'd')">Sort by Wins</button>
+                <button class="btn btn-danger" id="sort-losses" (click)="masterLadder.sortPlayers('tekken', 'losses', 'd')">Sort by Losses</button>
             </div>
         </div>
     </div> <!-- end tekken row -->
