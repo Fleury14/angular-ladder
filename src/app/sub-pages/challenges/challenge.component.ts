@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 import Challenge from '../../interfaces/challenge';
-import ChallengeList from '../../classes/challengelist';
+import ChallengeList from '../../classes/challengeList';
 
 
 @Component({

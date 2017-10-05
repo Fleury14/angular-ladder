@@ -50,9 +50,10 @@
                         <div class="sidebar-panel-head deep-red-bg">
                             <p>CHALLENGES</p>
                         </div>
-                        <div class="sidebar-panel-body text-center">
-                            <p>8/16: Domezy vs. Reckless</p>
-                            <p>8/16: Fleury14 vs. Fobi_Yo</p>
+                        <p *ngIf="sidebarChallengeList.length < 1">No Active Challenges</p>
+                        <div *ngFor="let challenge of sidebarChallengeList" class="sidebar-panel-body text-center">
+                            <p>{{challenge.deadline}}: {{challenge.challengerName}} vs. {{challenge.challengeeName}}</p>
+                            
                         </div>
                     </div> <!-- End Challenges sidebar container -->
                 </div>
@@ -64,9 +65,7 @@
                             <p>Recent Matches</p>
                         </div>
                         <div class="sidebar-panel-body text-center">
-                            <p>8/3: Fleury14 def. Jard: 5-1</p>
-                            <p>7/24: El Rado def. Fobi_Yo: 5-3</p>
-                            <p>7/24: Domezy def. El Rado: 5-0</p>
+                            <p *ngFor="let match of recentMatches">{{match.date}}: {{match.winnerName}} def. {{match.loserName}} {{match.wins}}-{{match.losses}}</p>
                         </div>
                     </div> <!-- End Recent sidebar container -->
                 </div>

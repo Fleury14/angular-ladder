@@ -5,7 +5,7 @@ export default class MatchRecordList {
 
     private buildList() {
 
-        let listArr: any[] = [];
+        const listArr: any[] = [];
 
         listArr.push(['Tekken', '7/12', 'Reckless', 1, 'Steve', 'Fobi_Yo', 4, 'Jack, Kuma', 5, 1]);
         listArr.push(['Tekken', '7/19', 'Fobi_Yo', 4, 'Kuma', 'Fleury14', 6, 'Lars', 5, 4]);
@@ -59,5 +59,9 @@ export default class MatchRecordList {
 
     public getMatchRecord(iteration: number) {
         return this.list[iteration];
+    }
+
+    public getRecentMatches() {
+        return [this.list[0], this.list[1], this.list[2]];
     }
 }
