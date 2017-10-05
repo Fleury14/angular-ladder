@@ -7,13 +7,19 @@ body {
     font-family: "Titillium Web", sans-serif;
 }
 
+.font-bangers {
+    font-family: "Bangers", cursive;
+}
+
 .deep-red-bg {
     background-color: #a63446;
 }
 
 .header-column {
     text-align: center;
-    font-family: "Titillium Web", sans-serif;
-    font-size: 30px;
+    font-family: "Bangers", cursive;
+    font-size: 48px;
     margin-top: 30px;
+    text-shadow: 2px 2px 2px #c75466;
+    color: #000;
 }
