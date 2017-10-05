@@ -1,4 +1,6 @@
 import { Component, AfterViewInit } from '@angular/core';
+import NewsItem from './../interfaces/news-item';
+import CurrentNews from './../classes/current-news';
 
 @Component({
     selector: 'app-home',
@@ -7,6 +9,10 @@ import { Component, AfterViewInit } from '@angular/core';
 })
 
 export class HomeComponent implements AfterViewInit {
+
+    private news = new CurrentNews;
+    public recentNews = this.news.getFirstThree();
+    public olderNews = this.news.getOlderNews();
 
     ngAfterViewInit() {
         // SHOW-HIDE NEWS SECTION
