@@ -12,7 +12,7 @@ import ChallengeList from '../../classes/challengeList';
 
 export class ChallengeComponent {
     public myList = new ChallengeList;
-    private currentList = [];
+    public currentList = [];
 
     constructor() {
         for (let i = 0; i < this.myList.getLength(); i++) {
