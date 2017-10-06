@@ -31,7 +31,7 @@ export default class MasterLadder {
         tempArr.push(['Negaduck', 'DarkBurritoEX', 0, 0, 1500, 'None']);
 
         for (let i = 0; i < tempArr.length; i++) { // instantiate players
-            console.log(tempArr[i]);
+            // console.log(tempArr[i]);
             this.tekken.players.push({
                 name: tempArr[i][0],
                 psnId: tempArr[i][1],
