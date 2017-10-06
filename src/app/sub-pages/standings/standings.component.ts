@@ -16,6 +16,7 @@ export class StandingsComponent implements AfterViewInit {
 
     public masterLadder = new MasterLadder;
 
+
     ngAfterViewInit() {
 
 

@@ -63,4 +63,13 @@ export default class MasterLadder {
             console.log('Error: Incorrect order passed to sort method.');
         }
     }
+
+    public getPlayers(game: string) {
+        if (!this.ladder[game]) {
+            console.log('Incorrect game passed in getPlayers');
+            return;
+        } else {
+            return this.ladder[game].players;
+        }
+    }
 }
