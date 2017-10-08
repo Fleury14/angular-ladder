@@ -8,6 +8,11 @@ export default class CurrentNews {
 
         // INSERT NEWS ITEMS HERE FOR NOW
         this.news.unshift({
+            date: 'October 8th, 2017',
+            author: 'Fleury14',
+            content: `Added the stream status for several CenCal streams. ESL_SC2 is also listed simply as a reference
+            so I can make sure the stream viewer is working, since it's always up.`
+        },{
             date: 'October 5th, 2017',
             author: 'Fleury14',
             content: 'Did a little redesigning and font changing.'
