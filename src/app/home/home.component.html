@@ -11,6 +11,27 @@
     
 </header>
 
+<div class="container stream-container">
+    <p class="text-center header-column">Streams</p> 
+    <div class="row">
+        <div *ngFor="let stream of listOfStreams" class="col-sm-6 text-center">
+            <a href="https://twitch.tv/{{stream}}" class="stream-link" target="_blank">
+                <div *ngIf="twitchStatus.results[stream] === null" class="text-center font-bangers">
+                    <span class="text-center font-titi">{{ stream }}:</span>
+                    <span >OFFLINE</span>
+                </div>
+                <div *ngIf="twitchStatus.results[stream] !== null">
+                    <span class="text-center font-titi">{{ stream }}:</span>
+                    <span class="text-center font-bangers">ONLINE, Playing {{twitchStatus.results[stream].game}} for {{twitchStatus.results[stream].viewers}} viewers</span>
+                    <!-- <img src="{{twitchStatus.results[stream].preview.small}}" alt="" class="img-responsive"> -->
+                </div>
+
+                
+            </a>
+        </div>
+    </div>
+</div>
+
 <div class="container">
     <div class="row">
         <div class="col-sm-10"> <!-- Begin left side (news) box -->

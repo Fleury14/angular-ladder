@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
@@ -13,6 +14,8 @@ import { RulesComponent } from './sub-pages/rules/rules.component';
 import { ChallengeComponent } from './sub-pages/challenges/challenge.component';
 import { MatchHistoryComponent } from './sub-pages/match-history/match-history.component';
 import { StandingsComponent } from './sub-pages/standings/standings.component';
+
+import { TwitchStatusService } from './services/twitch-status.service';
 
 const routes: Routes = [{
   path: 'home',
@@ -55,9 +58,9 @@ const routes: Routes = [{
     MatchHistoryComponent, StandingsComponent
   ],
   imports: [
-    BrowserModule, RouterModule.forRoot(routes)
+    BrowserModule, RouterModule.forRoot(routes), HttpModule
   ],
-  providers: [],
+  providers: [ TwitchStatusService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

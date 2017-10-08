@@ -7,6 +7,8 @@ import CurrentNews from './../classes/current-news';
 import ChallengeList from './../classes/challengeList';
 import MatchRecordList from './../classes/match-history-list';
 
+import { TwitchStatusService } from './../services/twitch-status.service';
+
 @Component({
     selector: 'app-home',
     templateUrl: './home.component.html',
@@ -24,12 +26,20 @@ export class HomeComponent implements AfterViewInit {
     private matchList = new MatchRecordList; // create a list of completed matches
     public recentMatches = this.matchList.getRecentMatches();
     // and use the function in the class to get the 3 most recent ones and put them in this array
+    public listOfStreams: string[];
+    public streamInfo;
 
-    constructor() {
+    constructor(public twitchStatus: TwitchStatusService) { // build note: this servce may need to be public
         this.sidebarChallengeList = [];
         for (let i = 0; i < this.homeList.getLength(); i++) {
             this.sidebarChallengeList.push(this.homeList.getChallenge(i));
         } // end for
+
+        // List of Stream to be shown on front page
+        this.listOfStreams = this.twitchStatus.getStreamList();
+
+        this.twitchStatus.buildStatus();
+
     }
 
     ngAfterViewInit() {
@@ -54,4 +64,6 @@ export class HomeComponent implements AfterViewInit {
 
         showNewsBtn.addEventListener('click', toggleNews);
     }
+
+
  }
