@@ -18,6 +18,14 @@
     font-size: 18px;
 }
 
+.stream-container {
+    margin-bottom: 50px;
+}
+
+.stream-link {
+    color: #a63446;
+}
+
 .panel-danger {
     border-color: #ebccd1;
     box-shadow: 3px 3px 3px #ebccd1;
@@ -81,7 +89,6 @@
     font-size: 10px;
     font-weight: bold;
     font-variant: small-caps;
-    display: inline-block;
     float: right;
     margin-top: 0px;
 }
@@ -117,3 +124,4 @@
 }
 
 /* End Main body Styles */
+
