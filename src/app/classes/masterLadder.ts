@@ -34,9 +34,9 @@ export default class MasterLadder {
 
 
         // LIST OF CURRENT MARVEL LADDER
-        tempMarvel.push(['Domezy', 'domezy', 2, 0, 1533, 'Win 2']);
-        tempMarvel.push(['Reckless', 'Reckless', 1, 1, 1500, 'Lost 1']);
-        tempMarvel.push(['El Rado', 'Eraldo_Coil', 2, 1, 1514, 'Won 1']);
+        tempMarvel.push(['Fobi_Yo', 'Fobi_yo', 0, 0, 1500, 'Win 0']);
+        tempMarvel.push(['Sigma349', '???', 0, 0, 1500, 'Lost 0']);
+        tempMarvel.push(['Scythe', 'Scythe_Wielder', 0, 0, 1500, 'Won 1']);
         tempMarvel.push(['Fobi_Yo', 'Fobi_yo', 2, 2, 1501, 'Won 1']);
         tempMarvel.push(['Fleury14', 'LQFleury14', 1, 3, 1469, 'Lost 1']);
         tempMarvel.push(['Jard', 'Quiksilver1209', 0, 1, 1483, 'Lost 1']);

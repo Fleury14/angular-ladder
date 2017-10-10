@@ -23,3 +23,7 @@ body {
     text-shadow: 2px 2px 2px #c75466;
     color: #000;
 }
+
+.margin-auto {
+    margin: 0 auto;
+}
