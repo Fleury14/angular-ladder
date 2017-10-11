@@ -9,6 +9,7 @@ import { RulesComponent } from './sub-pages/rules/rules.component';
 import { ChallengeComponent } from './sub-pages/challenges/challenge.component';
 import { MatchHistoryComponent } from './sub-pages/match-history/match-history.component';
 import { StandingsComponent } from './sub-pages/standings/standings.component';
+import { MissingPageComponent } from './sub-pages/error/missing-page.component';
 
 const routes: Routes = [{
     path: 'home',
@@ -42,6 +43,10 @@ const routes: Routes = [{
     path: '',
     redirectTo: 'home',
     pathMatch: 'full'
+  },
+  {
+    path: '**',
+    component: MissingPageComponent
   }
   ];
 
@@ -53,5 +58,5 @@ const routes: Routes = [{
 export class MainRoutingModule {}
 
 export const MainRoutingComponents = [ HomeComponent, AboutComponent, ContactComponent, RulesComponent, ChallengeComponent,
-    MatchHistoryComponent, StandingsComponent];
+    MatchHistoryComponent, StandingsComponent, MissingPageComponent];
 
