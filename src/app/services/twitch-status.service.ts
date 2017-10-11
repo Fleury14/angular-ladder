@@ -39,7 +39,7 @@ export class TwitchStatusService {
     }
 
     private twitchAPICall(userstream) {
-        return this.http.get(`${this.twitchAPI}${userstream}?client_id=${this.APIKey}?callback=JSONP_CALLBACK`)
+        return this.http.get(`${this.twitchAPI}${userstream}?client_id=${this.APIKey}`)
         .map((res: Response) => res.json().stream);
 
     }

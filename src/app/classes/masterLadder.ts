@@ -37,11 +37,7 @@ export default class MasterLadder {
         tempMarvel.push(['Fobi_Yo', 'Fobi_yo', 0, 0, 1500, 'Win 0']);
         tempMarvel.push(['Sigma349', '???', 0, 0, 1500, 'Lost 0']);
         tempMarvel.push(['Scythe', 'Scythe_Wielder', 0, 0, 1500, 'Won 1']);
-        tempMarvel.push(['Fobi_Yo', 'Fobi_yo', 2, 2, 1501, 'Won 1']);
-        tempMarvel.push(['Fleury14', 'LQFleury14', 1, 3, 1469, 'Lost 1']);
-        tempMarvel.push(['Jard', 'Quiksilver1209', 0, 1, 1483, 'Lost 1']);
-        tempMarvel.push(['Fernook', 'N/A', 0, 0, 1500, 'None']);
-        tempMarvel.push(['Negaduck', 'DarkBurritoEX', 0, 0, 1500, 'None']);
+
 
         for (let i = 0; i < tempArr.length; i++) { // instantiate players
             // console.log(tempArr[i]);
@@ -55,6 +51,11 @@ export default class MasterLadder {
                 rank: i + 1
 
             }); // end push
+
+
+        } // end for
+
+        for (let i = 0; i < tempMarvel.length; i++) { // instantiate players
 
             this.mvci.players.push({
                 name: tempMarvel[i][0],
