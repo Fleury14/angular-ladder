@@ -31,37 +31,17 @@ export class TwitchStatusService {
 
     constructor(private http: Http) {
 
-        // this.streamStatus = [];
-        // const streamOutput = [];
-        // const testFunc = this.buildStatus;
+
         for (const stream  of this.listOfStreams) {
             const index = this.listOfStreams.indexOf(stream);
             this.twitchAPICall(stream).subscribe( response => { this.results[stream] = response; });
-            // this.twitchAPICall(stream);
-
         }
-        // // this.buildStatus(streamOutput);
     }
 
     private twitchAPICall(userstream) {
-        return this.http.get(`${this.twitchAPI}${userstream}?client_id=${this.APIKey}?callback=JSONP_CALLBACK`)
+        return this.http.get(`${this.twitchAPI}${userstream}?client_id=${this.APIKey}`)
         .map((res: Response) => res.json().stream);
-        // .map((response: Response) => {
-        //     return (<any>response.json()).stream.map(mystream => {
-        //         return new StreamModelResult({
-        //             game: mystream.channel.game,
-        //             status: mystream.channel.status,
-        //             display_name: mystream.channel.display_name,
-        //             viewers: mystream.channel.viewers,
-        //             language: mystream.channel.language,
-        //             followers: mystream.channel.followers,
-        //             url: mystream.channel.url,
-        //             logo: mystream.channel.logo
-        //         });
-        //     });
-        // });
 
-        // .subscribe(response => { this.streamStatus.push(response); });
     }
 
     public buildStatus() {
@@ -75,7 +55,7 @@ export class TwitchStatusService {
         if (this.listOfStreams.indexOf(stream) < 0) {
             console.log('Error: Invalid stream passed to getStatus() in the twitch-status service.');
             return;
-        } else if (this.streamStatus[this.listOfStreams.indexOf(stream)]['stream'] === null) {
+        } else if (this.results[stream] === null) {
             return 'Offline';
         } else {
 

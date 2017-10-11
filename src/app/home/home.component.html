@@ -23,7 +23,8 @@
                 <div *ngIf="twitchStatus.results[stream] !== null">
                     <span class="text-center font-titi">{{ stream }}:</span>
                     <span class="text-center font-bangers">ONLINE, Playing {{twitchStatus.results[stream].game}} for {{twitchStatus.results[stream].viewers}} viewers</span>
-                    <!-- <img src="{{twitchStatus.results[stream].preview.small}}" alt="" class="img-responsive"> -->
+                    <br><p *ngIf="twitchStatus.results[stream].channel !== undefined" class="font-titi">{{ twitchStatus.results[stream].channel.status }}</p>
+                    <img *ngIf="twitchStatus.results[stream].preview !== undefined" src="{{twitchStatus.results[stream].preview.medium}}" alt="" class="img-responsive margin-auto">
                 </div>
 
                 
