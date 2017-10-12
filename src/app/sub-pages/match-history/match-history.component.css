@@ -2,3 +2,33 @@
     font-family: "Titillium Web", sans-serif;
     font-size: 18px;
 }
+
+.match-history-row {
+    border: 1px solid #a63446;
+    margin-bottom: 10px;
+}
+
+.match-history-game {
+    background-color: #a63446;
+    color: #fff;
+    float: left;
+    width: 20%;
+}
+
+.match-history-date {
+    background-color: #a63446;
+    color: #fff;
+    float: right;
+    width: 20%;
+}
+
+.match-history-score {
+    font-size: 20px;
+    padding: 0px 20px;
+}
+
+@media only screen and (max-width: 768px) {
+    .match-history-game {
+        width: 50%;
+    }
+}

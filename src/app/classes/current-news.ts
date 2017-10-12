@@ -8,6 +8,12 @@ export default class CurrentNews {
 
         // INSERT NEWS ITEMS HERE FOR NOW
         this.news.unshift({
+            date: 'October 12th, 2017',
+            author: 'Fleury14',
+            content: `Redesigned the match history page to look a littel nicer. We got our first few participants for the
+            Marvel ladder! Sign up now, while you can. I also updated the upcoming events with Bitwise Beatdown #7.`
+        },
+        {
             date: 'October 9th, 2017',
             author: 'Fleury14',
             content: `Included results from BWB #6 and MUM on the ticker.`

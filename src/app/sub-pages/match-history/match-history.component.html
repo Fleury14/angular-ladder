@@ -4,10 +4,13 @@
         <div class="col-sm-12">
             <div class="list-group match-results">
               <p *ngIf="recordDisplay.length < 1">ERROR: No Match records available to display :(</p>
-              <div *ngFor="let match of recordDisplay">
-                  <button type="button" class="list-group-item"><strong>{{ match.game }} - {{ match.date }}</strong> 
-                      <span class="label label-default">{{ match.winnerRank }}</span> {{ match.winnerName }} ({{ match.winnerChar }}) def. 
-                      <span class="label label-default">{{ match.loserRank }}</span> {{ match.loserName }} ({{ match.loserChar }}), {{ match.wins }}-{{ match.losses }}
+              <div *ngFor="let match of recordDisplay" class="match-history-row">
+                  <div class="match-history-game flex-container justify-center align-center font-bangers">{{ match.game }}</div>
+                  <div class="match-history-date font-bangers text-center">{{ match.date }}</div>
+                  <button type="button" class="list-group-item">
+                      <span class="label label-default">Rank {{ match.winnerRank }}</span><strong> {{ match.winnerName }}</strong> ({{ match.winnerChar }})
+                      <span class="font-bangers match-history-score">{{ match.wins }} : {{ match.losses }}</span>
+                      <strong> {{ match.loserName }}</strong> ({{ match.loserChar }}) <span class="label label-default">Rank {{ match.loserRank }}</span>
                     </button></div>
               
             </div>

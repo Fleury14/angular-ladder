@@ -27,3 +27,15 @@ body {
 .margin-auto {
     margin: 0 auto;
 }
+
+.flex-container {
+    display: flex;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+.align-center {
+    align-items: center;
+}
