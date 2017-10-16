@@ -10,6 +10,7 @@ import { FooterComponent } from './footer/footer.component';
 
 import { TwitchStatusService } from './services/twitch-status.service';
 import { LadderService } from './services/ladder.service';
+import { MatchHistoryService } from './services/match-history.service';
 
 
 @NgModule({
@@ -19,7 +20,7 @@ import { LadderService } from './services/ladder.service';
   imports: [
     BrowserModule, MainRoutingModule, HttpModule
   ],
-  providers: [ TwitchStatusService, LadderService ],
+  providers: [ TwitchStatusService, LadderService, MatchHistoryService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
