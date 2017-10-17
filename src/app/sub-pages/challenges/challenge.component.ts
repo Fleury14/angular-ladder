@@ -15,7 +15,7 @@ export class ChallengeComponent {
     // public myList = new ChallengeList;
     public currentList = [];
 
-    constructor( private myList: ChallengeListService ) {
+    constructor( public myList: ChallengeListService ) {
         for (let i = 0; i < this.myList.getLength(); i++) {
             this.currentList.push(this.myList.getChallenge(i));
             // console.log(this.myList.getChallenge(i));
