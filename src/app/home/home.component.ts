@@ -4,11 +4,11 @@ import NewsItem from './../interfaces/news-item';
 import Challenge from './../interfaces/challenge';
 import MatchRecord from './../interfaces/match-record';
 import CurrentNews from './../classes/current-news';
-import ChallengeList from './../classes/challengeList';
 import MatchRecordList from './../classes/match-history-list';
 
 import { TwitchStatusService } from './../services/twitch-status.service';
 import { MatchHistoryService } from './../services/match-history.service';
+import { ChallengeListService } from './../services/challenge-list.service';
 
 @Component({
     selector: 'app-home',
@@ -21,7 +21,7 @@ export class HomeComponent implements AfterViewInit {
     private news = new CurrentNews; // create a news list
     public recentNews = this.news.getFirstThree(); // put the recent news in this var
     public olderNews = this.news.getOlderNews(); // and the older news in this var
-    private homeList = new ChallengeList; // create a new list of challenges;
+    // private homeList = new ChallengeList; // create a new list of challenges;
     public sidebarChallengeList: Challenge[]; // make an array that will hold the challenges that will be displayed in the side bar.
     // the actual list is instantiated in the constructor
 
@@ -32,7 +32,8 @@ export class HomeComponent implements AfterViewInit {
 
     constructor(
         public twitchStatus: TwitchStatusService,
-        private matchList: MatchHistoryService
+        private matchList: MatchHistoryService,
+        private homeList: ChallengeListService
     ) { // build note: this servce may need to be public
         this.sidebarChallengeList = [];
         for (let i = 0; i < this.homeList.getLength(); i++) {
