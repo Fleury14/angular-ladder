@@ -12,6 +12,7 @@ import { TwitchStatusService } from './services/twitch-status.service';
 import { LadderService } from './services/ladder.service';
 import { MatchHistoryService } from './services/match-history.service';
 import { ChallengeListService } from './services/challenge-list.service';
+import { NewsService } from './services/news-service';
 
 
 @NgModule({
@@ -21,7 +22,7 @@ import { ChallengeListService } from './services/challenge-list.service';
   imports: [
     BrowserModule, MainRoutingModule, HttpModule
   ],
-  providers: [ TwitchStatusService, LadderService, MatchHistoryService, ChallengeListService ],
+  providers: [ TwitchStatusService, LadderService, MatchHistoryService, ChallengeListService, NewsService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
