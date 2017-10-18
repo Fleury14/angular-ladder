@@ -12,6 +12,12 @@ export class NewsService {
 
         // INSERT NEWS ITEMS HERE FOR NOW
         this.news.unshift({
+            date: 'October 18th, 2017',
+            author: 'Fleury14',
+            content: `Since I'm comfortable with the stream status working, I switched ESL over to CapcomFighters.
+            I also added a couple of Marvel participants.`
+        },
+        {
             date: 'October 12th, 2017',
             author: 'Fleury14',
             content: `Redesigned the match history page to look a littel nicer. We got our first few participants for the

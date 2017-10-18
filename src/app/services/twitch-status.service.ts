@@ -15,7 +15,7 @@ export class TwitchStatusService {
 
     public streamStatus: Object[] = [];
     public results = {
-        esl_sc2: {},
+        capcomfighters: {},
         fresnogaminglive: {},
         TZN_Gaming: {},
         XsK_Samurai: {},
@@ -25,7 +25,7 @@ export class TwitchStatusService {
     private APIKey: String = '53wv511ngkdeb0lh2msons49a8p37z';
     private twitchAPI: String = 'https://api.twitch.tv/kraken/streams/';
 
-    private listOfStreams: string[] = [ 'esl_sc2', 'fresnogaminglive', 'TZN_Gaming', 'XsK_Samurai', 'Sigma349', 'LQFleury14' ];
+    private listOfStreams: string[] = [ 'capcomfighters', 'fresnogaminglive', 'TZN_Gaming', 'XsK_Samurai', 'Sigma349', 'LQFleury14' ];
     public numberOfStreams: number = this.listOfStreams.length;
 
 

@@ -38,7 +38,11 @@ export class LadderService {
         // LIST OF CURRENT MARVEL LADDER
         tempMarvel.push(['Fobi_Yo', 'Fobi_yo', 0, 0, 1500, 'Win 0']);
         tempMarvel.push(['Sigma349', '???', 0, 0, 1500, 'Lost 0']);
-        tempMarvel.push(['Scythe', 'Scythe_Wielder', 0, 0, 1500, 'Won 1']);
+        tempMarvel.push(['Scythe', 'Scythe_Wielder', 0, 0, 1500, 'Won 0']);
+        tempMarvel.push(['Domezy', 'domezy', 0, 0, 1500, 'Won 0']);
+        tempMarvel.push(['KindaFresh', '', 0, 0, 1500, 'Won 0']);
+        tempMarvel.push(['Negaduck', 'DarkBurritoEX', 0, 0, 1500, 'Won 0']);
+        tempMarvel.push(['Fleury14', 'LQFleury14', 0, 0, 1500, 'Won 0']);
 
 
         for (let i = 0; i < tempArr.length; i++) { // instantiate players
