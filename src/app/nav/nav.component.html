@@ -9,4 +9,9 @@
       <li role="presentation" routerLinkActive="active"><a routerLink="/challenges">Challenges</a></li>
       <li role="presentation" routerLinkActive="active"><a routerLink="/match-history">Match History</a></li>
     </ul>
+    <div class="flex-container login-row">
+      <button class="btn btn-success btn-sm" [disabled]="login.getLoggedInUser()" (click)="login.login()">Login</button>
+      <button class="btn btn-danger btn-sm" [disabled]="!login.getLoggedInUser()" (click)="login.logout()">Logout</button>
+      <span class="font-titi flex-container align-center" *ngIf="login.getLoggedInUser()">Logged in as {{ login.getLoggedInUser() }}</span>
+    </div>
 </nav>

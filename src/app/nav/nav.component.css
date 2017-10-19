@@ -93,3 +93,8 @@ nav {
 }
 
 /* End Nav Bar Styles */
+
+.login-row {
+    height: 25px;
+    justify-content: flex-start;
+}
