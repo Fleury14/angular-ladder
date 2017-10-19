@@ -14,6 +14,6 @@
       <button class="btn btn-danger btn-sm" [disabled]="!login.getLoggedInUser()" (click)="login.logout()">Logout</button>
       <span class="font-titi flex-container align-center" *ngIf="login.afAuth.authState | async; let user; else showLogin">Logged in as {{ user.displayName }}</span>
       <!-- <button class="btn btn-info btn-sm" [disabled]="!login.getLoggedInUser()" (click)="login.checkStuff()">Log auth info</button> -->
-      <button *ngIf="login.afAuth.auth.currentUser?.providerData[0].uid==='114390552657346311906'">ADMIN</button>
+      <button *ngIf="login.afAuth.auth.currentUser?.providerData[0].uid==='114390552657346311906'" routerLink="/admin">ADMIN</button>
     </div>
 </nav>

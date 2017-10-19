@@ -10,6 +10,9 @@ import { ChallengeComponent } from './sub-pages/challenges/challenge.component';
 import { MatchHistoryComponent } from './sub-pages/match-history/match-history.component';
 import { StandingsComponent } from './sub-pages/standings/standings.component';
 import { MissingPageComponent } from './sub-pages/error/missing-page.component';
+import { AdminComponent } from './sub-pages/admin/admin.component';
+
+import { RouterGuard } from './services/router-guard.service';
 
 const routes: Routes = [{
     path: 'home',
@@ -40,6 +43,11 @@ const routes: Routes = [{
     component: StandingsComponent
   },
   {
+    path: 'admin',
+    component: AdminComponent,
+    canActivate: [ RouterGuard ]
+  },
+  {
     path: '',
     redirectTo: 'home',
     pathMatch: 'full'
@@ -52,11 +60,12 @@ const routes: Routes = [{
 
 @NgModule({
     imports: [ RouterModule.forRoot(routes)],
-    exports: [ RouterModule ]
+    exports: [ RouterModule ],
+    providers: [ RouterGuard ]
   })
 
 export class MainRoutingModule {}
 
 export const MainRoutingComponents = [ HomeComponent, AboutComponent, ContactComponent, RulesComponent, ChallengeComponent,
-    MatchHistoryComponent, StandingsComponent, MissingPageComponent];
+    MatchHistoryComponent, StandingsComponent, MissingPageComponent, AdminComponent];
 
