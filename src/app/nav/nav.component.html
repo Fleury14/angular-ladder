@@ -12,6 +12,8 @@
     <div class="flex-container login-row">
       <button class="btn btn-success btn-sm" [disabled]="login.getLoggedInUser()" (click)="login.login()">Login</button>
       <button class="btn btn-danger btn-sm" [disabled]="!login.getLoggedInUser()" (click)="login.logout()">Logout</button>
-      <span class="font-titi flex-container align-center" *ngIf="login.getLoggedInUser()">Logged in as {{ login.getLoggedInUser() }}</span>
+      <span class="font-titi flex-container align-center" *ngIf="login.afAuth.authState | async; let user; else showLogin">Logged in as {{ user.displayName }}</span>
+      <!-- <button class="btn btn-info btn-sm" [disabled]="!login.getLoggedInUser()" (click)="login.checkStuff()">Log auth info</button> -->
+      <button *ngIf="login.afAuth.auth.currentUser?.providerData[0].uid==='114390552657346311906'">ADMIN</button>
     </div>
 </nav>
