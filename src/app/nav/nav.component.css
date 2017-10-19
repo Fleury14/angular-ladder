@@ -93,3 +93,12 @@ nav {
 }
 
 /* End Nav Bar Styles */
+
+.login-row {
+    height: 25px;
+    justify-content: flex-start;
+}
+
+.login-row button, .login-row span {
+    margin-right: 20px;
+}
