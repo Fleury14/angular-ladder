@@ -12,6 +12,12 @@ export class NewsService {
 
         // INSERT NEWS ITEMS HERE FOR NOW
         this.news.unshift({
+            date: 'October 22nd, 2017',
+            author: 'Fleury14',
+            content: `You may notice the google login option, that will eventually lead to back-end stuff, so don't
+            worry about it for now. It should not have any effect for logging in as anyone other than me.`
+        },
+        {
             date: 'October 18th, 2017',
             author: 'Fleury14',
             content: `Since I'm comfortable with the stream status working, I switched ESL over to CapcomFighters.
