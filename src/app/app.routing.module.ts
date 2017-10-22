@@ -43,11 +43,6 @@ const routes: Routes = [{
     component: StandingsComponent
   },
   {
-    path: 'admin',
-    component: AdminComponent,
-    canActivate: [ RouterGuard ]
-  },
-  {
     path: '',
     redirectTo: 'home',
     pathMatch: 'full'
