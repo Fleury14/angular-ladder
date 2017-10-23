@@ -93,4 +93,8 @@ export class NewsService {
         }
         return olderNews;
     }
+
+    public getNewsLength() {
+        return this.news.length;
+    }
 }
