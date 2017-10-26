@@ -1,6 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { NewsService } from './../../../services/news-service';
+import { NewsDatabaseService } from './../../../services/database/news-databse.service';
+import { Observable } from 'rxjs/Observable';
+
+import NewsItem from './../../../interfaces/news-item';
 
 
 @Component({
@@ -9,10 +13,30 @@ import { NewsService } from './../../../services/news-service';
     styleUrls: [ './news-management.component.css']
 })
 
-export class NewsManagementComponent {
+export class NewsManagementComponent implements OnInit {
 
     public newsTotal = this.news.getNewsLength();
+    public newsList = [];
 
-    constructor( public news: NewsService) {}
+    constructor( public news: NewsService, private _newsData: NewsDatabaseService) {
+
+        this._newsData.newsObservable.map(newslist => {
+            return newslist.map(newsItem => {
+                const myNewsItem: NewsItem = {
+                    author: newsItem.author,
+                    date: newsItem.date,
+                    content: newsItem.content
+                };
+                return myNewsItem;
+            });
+        })
+        .subscribe( moreNews => {this.newsList = this.newsList.concat(moreNews);
+            // console.log(this.newsList);
+        });
+    }
+
+    ngOnInit() {
+        // console.log(this.newsData.);
+    }
 
 }
