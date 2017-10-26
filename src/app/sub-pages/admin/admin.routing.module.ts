@@ -12,10 +12,7 @@ const routes: Routes = [{
         path: 'admin',
         component: AdminComponent,
         canActivate: [ RouterGuard ],
-        children: [{
-            path: 'news',
-            component: NewsManagementComponent
-        },
+        children: [
         {
             path: 'players',
             component: PlayerManagementComponent
