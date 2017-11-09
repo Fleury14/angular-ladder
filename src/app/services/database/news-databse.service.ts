@@ -19,7 +19,7 @@ export class NewsDatabaseService {
 
         this.newsObservable.subscribe(news => {
             this._news = news;
-            console.log(this._news);
+            // console.log(this._news);
         });
     }
 

@@ -1,1 +1,7 @@
-<p>Viewing News from component YARR</p>
+<div>
+    <p class="text-center font-bangers">List of news items in the database</p>
+    {{ newsList }}
+    <ul>
+        <li *ngFor="let item of newsList">News: {{ item.date }}, {{ item.author }}</li>
+    </ul>
+</div>

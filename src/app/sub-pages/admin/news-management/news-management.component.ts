@@ -20,6 +20,7 @@ export class NewsManagementComponent implements OnInit {
 
     constructor( public news: NewsService, private _newsData: NewsDatabaseService) {
 
+        // map observable from the service and then subscribe to it via the newslist array
         this._newsData.newsObservable.map(newslist => {
             return newslist.map(newsItem => {
                 const myNewsItem: NewsItem = {
@@ -31,7 +32,7 @@ export class NewsManagementComponent implements OnInit {
             });
         })
         .subscribe( moreNews => {this.newsList = this.newsList.concat(moreNews);
-            // console.log(this.newsList);
+            console.log('from news base component', this.newsList);
         });
     }
 
