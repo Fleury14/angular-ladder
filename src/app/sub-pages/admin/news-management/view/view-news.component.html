@@ -1,6 +1,6 @@
 <div>
     <p class="text-center font-bangers">List of news items in the database</p>
-    {{ newsList }}
+    <pre>{{ newsList }}</pre>
     <ul>
         <li *ngFor="let item of newsList">News: {{ item.date }}, {{ item.author }}</li>
     </ul>

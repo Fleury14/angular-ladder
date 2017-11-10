@@ -23,4 +23,10 @@ export class NewsDatabaseService {
         });
     }
 
+    // public getNews() {
+    //     return this.newsObservable.map(news => {
+    //         console.log(news);
+    //     });
+    // }
+
 }
