@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+
+import { NewsDatabaseService } from './../../../../services/database/news-databse.service';
 
 @Component({
     selector: 'app-admin-add-news',
@@ -13,7 +16,7 @@ export class AddNewsComponent {
     private _monthsOfYear = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August',
     'Septmeber', 'October', 'November', 'December'];
 
-    constructor() {
+    constructor( private _database: NewsDatabaseService, private _router: Router, private _activatedRoute: ActivatedRoute  ) {
         this.todaysDate = new Date();
     }
 
@@ -27,6 +30,7 @@ export class AddNewsComponent {
             date: niceDate,
             content: form.content
         };
-        console.log(newItem);
+        return this._database.addNews(new Date(), newItem)
+        .then(() => this._router.navigate(['../view'], {relativeTo: this._activatedRoute}));
     }
 }
