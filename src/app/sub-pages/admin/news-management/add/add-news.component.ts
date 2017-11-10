@@ -6,4 +6,10 @@ import { Component } from '@angular/core';
 })
 
 
-export class AddNewsComponent {}
+export class AddNewsComponent {
+    public todaysDate: Date;
+
+    constructor() {
+        this.todaysDate = new Date();
+    }
+}
