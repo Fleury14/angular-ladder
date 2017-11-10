@@ -28,6 +28,11 @@ export class NewsDatabaseService {
         return this._database.list('news/').push(news);
     }
 
+    public deleteNews(newsId: string) {
+        console.log('Deleting from database....');
+        return this._database.list('news/').remove(newsId);
+    }
+
     // public getNews() {
     //     return this.newsObservable.map(news => {
     //         console.log(news);
