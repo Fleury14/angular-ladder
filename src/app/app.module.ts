@@ -7,6 +7,7 @@ import { AdminModule } from './sub-pages/admin/admin.module';
 import { AngularFireModule } from 'angularfire2';
 import { environment } from '../environments/environment';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
 
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
@@ -26,7 +27,8 @@ import { LoginService } from './services/login.service';
     AppComponent, NavComponent, FooterComponent, MainRoutingComponents
   ],
   imports: [
-    BrowserModule, AdminModule, MainRoutingModule, HttpModule, AngularFireModule.initializeApp(environment.firebase), AngularFireAuthModule
+    BrowserModule, AdminModule, MainRoutingModule, HttpModule, AngularFireModule.initializeApp(environment.firebase), AngularFireAuthModule,
+    AngularFireDatabaseModule
   ],
   providers: [ TwitchStatusService, LadderService, MatchHistoryService, ChallengeListService, NewsService, LoginService ],
   bootstrap: [AppComponent]

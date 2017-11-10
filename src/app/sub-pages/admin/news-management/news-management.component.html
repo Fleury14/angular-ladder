@@ -1,1 +1,11 @@
-<p>This is where news items will be managed</p>
+<div class="font-titi">
+    <h3 class="text-center font-bangers">News Management</h3>
+    <p>You have {{ newsList?.length || no }} news items in the database thus far.</p>
+    <div class="sub-menu-row">
+        <button class="btn btn-warning" routerLink="./add">Add news item</button>
+        <button class="btn btn-warning" routerLink="./view">View news items</button>
+
+        <button class="btn btn-warning" routerLink="./change">Change news items</button>
+    </div>
+    <router-outlet></router-outlet>
+</div>

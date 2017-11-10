@@ -12,6 +12,12 @@ export class NewsService {
 
         // INSERT NEWS ITEMS HERE FOR NOW
         this.news.unshift({
+            date: 'November 9th, 2017',
+            author: 'Fleury14',
+            content: `Updated ticker with Bitwise Beatdown results, added Super Bitwise Beatdown to events. There's
+            going to be a lot of games for this next tournament so check it out.`
+        },
+        {
             date: 'October 22nd, 2017',
             author: 'Fleury14',
             content: `You may notice the google login option, that will eventually lead to back-end stuff, so don't
@@ -92,5 +98,9 @@ export class NewsService {
             olderNews.push(this.news[i]);
         }
         return olderNews;
+    }
+
+    public getNewsLength() {
+        return this.news.length;
     }
 }
