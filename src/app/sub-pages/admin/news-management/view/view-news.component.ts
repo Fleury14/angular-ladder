@@ -24,6 +24,7 @@ export class ViewNewsComponent implements OnInit {
         this._newsService.newsObservable
         .map(newslist => {
             return newslist.map(newsItem => {
+                console.log(newslist);
                 const myNewsItem: NewsItem = {
                     author: newsItem.author,
                     date: newsItem.date,
