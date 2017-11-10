@@ -16,6 +16,11 @@ const routes: Routes = [{
             component: ViewNewsComponent
         },
         {
+            path: '',
+            redirectTo: 'view',
+            pathMatch: 'full'
+        },
+        {
             path: '**',
             component: ViewNewsComponent
         }
