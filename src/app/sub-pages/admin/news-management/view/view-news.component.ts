@@ -24,11 +24,12 @@ export class ViewNewsComponent implements OnInit {
         this._newsService.newsObservable
         .map(newslist => {
             return newslist.map(newsItem => {
-                console.log(newslist);
+                console.log('maybe', newslist.indexOf(newsItem), this._newsService.keylist);
                 const myNewsItem: NewsItem = {
                     author: newsItem.author,
                     date: newsItem.date,
-                    content: newsItem.content
+                    content: newsItem.content,
+                    id: this._newsService.keylist[newslist.indexOf(newsItem)]
                 };
                 return myNewsItem;
             });

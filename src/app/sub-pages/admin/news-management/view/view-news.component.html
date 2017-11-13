@@ -1,7 +1,7 @@
 <div>
     <p class="text-center font-bangers">List of news items in the database</p>
     <ul>
-        <li *ngFor="let item of newsList">News: {{ item.date }}, {{ item.author }} -- {{ item.content }} 
+        <li *ngFor="let item of newsList">News: {{ item.date }}, {{ item.author }} -- {{ item.content }} -- {{ item.id }}
             <button class="btn btn-xs btn-danger">Delete</button>
             <hr>
         </li>
