@@ -20,7 +20,7 @@ export class ViewNewsComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log('view news component...');
+        console.log('view news component...', this._newsService.secondArr);
         this._newsService.newsObservable
         .map(newslist => {
             return newslist.map(newsItem => {
