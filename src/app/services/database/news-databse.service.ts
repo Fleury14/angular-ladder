@@ -15,7 +15,7 @@ export class NewsDatabaseService {
     public newsObservable: Observable<NewsItem[]>;
     // public snapshotObs;
     public testObs;
-    public moretest;
+    public moretest: Observable<any>;
     public moreArr;
     public secondArr;
 
@@ -33,7 +33,7 @@ export class NewsDatabaseService {
         this.moretest = this._database.object('/news').valueChanges();
 
         this.moretest.subscribe(data => {
-            console.log('.moretest:', data);
+            // console.log('.moretest:', data);
             this.secondArr = [];
             this.moreArr = data;
             for (let item in data) {
@@ -49,7 +49,7 @@ export class NewsDatabaseService {
                 };
                 this.secondArr.push(soCloseItem);
             }
-            console.log('endresult omg did we do it?', this.secondArr);
+            // console.log('endresult omg did we do it?', this.secondArr);
         });
 
 
