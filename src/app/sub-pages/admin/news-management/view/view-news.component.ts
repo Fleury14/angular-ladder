@@ -64,6 +64,6 @@ export class ViewNewsComponent implements OnInit {
     } // end oninit
 
     public deleteNewsItem(id: string) {
-        console.log(`deleting item with id ${id}`);
+        this._newsService.deleteNews(id);
     }
 }
