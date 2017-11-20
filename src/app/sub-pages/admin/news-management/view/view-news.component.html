@@ -2,6 +2,10 @@
     <p class="text-center font-bangers">List of news items in the database</p>
     <ul>
         <li *ngFor="let item of secondList">News: {{ item.date }}, {{ item.author }} -- {{ item.content }} -- {{ item.id }}
+                    <button class="btn btn-xs btn-danger" (click)="deleteNewsItem(item.id)">Delete</button>
+                    <hr>
+                </li>
+        <li *ngFor="let item of thirdList">News: {{ item.date }}, {{ item.author }} -- {{ item.content }} -- {{ item.id }}
             <button class="btn btn-xs btn-danger" (click)="deleteNewsItem(item.id)">Delete</button>
             <hr>
         </li>
