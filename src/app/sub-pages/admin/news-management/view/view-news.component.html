@@ -7,6 +7,7 @@
                 </li>
         <li *ngFor="let item of thirdList">News: {{ item.date }}, {{ item.author }} -- {{ item.content }} -- {{ item.id }}
             <button class="btn btn-xs btn-danger" (click)="deleteNewsItem(item.id)">Delete</button>
+            <button class="btn btn-xs btn-info" (click)="changeNewsItem(item.id)">Change</button>
             <hr>
         </li>
     </ul>
