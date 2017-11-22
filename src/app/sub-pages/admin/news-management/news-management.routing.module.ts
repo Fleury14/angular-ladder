@@ -24,15 +24,15 @@ const routes: Routes = [{
             path: 'change/:id',
             component: ChangeNewsComponent
         },
-        {
-            path: '',
-            redirectTo: 'view',
-            pathMatch: 'full'
-        },
-        {
-            path: '**',
-            component: ViewNewsComponent
-        }
+        // {
+        //     path: '',
+        //     redirectTo: 'view',
+        //     pathMatch: 'full'
+        // },
+        // {
+        //     path: '**',
+        //     component: ViewNewsComponent
+        // }
         ]
 
 }];
@@ -43,6 +43,7 @@ const routes: Routes = [{
     providers: [ RouterGuard ]
 })
 
-export class NewsRoutingModule {}
+export class NewsRoutingModule {
+}
 
 export const NewsRoutingComponents = [ ViewNewsComponent, AddNewsComponent, ChangeNewsComponent ];
