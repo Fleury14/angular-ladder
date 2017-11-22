@@ -6,7 +6,7 @@ import { RouterGuard } from './../../../services/router-guard.service';
 
 import { ViewNewsComponent } from './view/view-news.component';
 import { AddNewsComponent } from './add/add-news.component';
-
+import { ChangeNewsComponent } from './change/change-news.component';
 
 const routes: Routes = [{
         path: 'admin/news',
@@ -19,6 +19,10 @@ const routes: Routes = [{
         {
             path: 'add',
             component: AddNewsComponent
+        },
+        {
+            path: 'change',
+            component: ChangeNewsComponent
         },
         {
             path: '',
@@ -41,4 +45,4 @@ const routes: Routes = [{
 
 export class NewsRoutingModule {}
 
-export const NewsRoutingComponents = [ ViewNewsComponent, AddNewsComponent ];
+export const NewsRoutingComponents = [ ViewNewsComponent, AddNewsComponent, ChangeNewsComponent ];
