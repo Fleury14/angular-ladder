@@ -85,7 +85,7 @@ export class NewsDatabaseService {
     }
 
     public addNews(date: Date, news: NewsItem) {
-        console.log('Adding to database...');
+        console.log('Adding to database...', news.date);
         return this._database.list('news/').push(news);
     }
 

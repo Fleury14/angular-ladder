@@ -1,6 +1,6 @@
 interface NewsItem {
 
-    date: string;
+    date: any;
     author: string;
     content: string;
     id?: string;
