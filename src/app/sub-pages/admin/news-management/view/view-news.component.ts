@@ -59,7 +59,7 @@ export class ViewNewsComponent implements OnInit {
     }
 
     public changeNewsItem(id: string) {
-        this._router.navigate(['../change'], {relativeTo: this._actroute});
+        this._router.navigate(['../change', id], { relativeTo: this._actroute});
         console.log('Post route navigate data check', id);
     }
 }

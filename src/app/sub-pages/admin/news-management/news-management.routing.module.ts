@@ -21,7 +21,7 @@ const routes: Routes = [{
             component: AddNewsComponent
         },
         {
-            path: 'change',
+            path: 'change/:id',
             component: ChangeNewsComponent
         },
         {
