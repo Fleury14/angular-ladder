@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { NewsDatabaseService } from './../../../../services/database/news-databse.service';
 import NewsItem from './../../../../interfaces/news-item';
@@ -20,7 +20,7 @@ export class ViewNewsComponent implements OnInit {
     public thirdList: NewsItem[];
     private moreArr;
 
-    constructor( private _newsService: NewsDatabaseService, private _actroute: ActivatedRoute ) {
+    constructor( private _newsService: NewsDatabaseService, private _actroute: ActivatedRoute, private _router: Router ) {
 
     }
 
@@ -56,5 +56,10 @@ export class ViewNewsComponent implements OnInit {
 
     public deleteNewsItem(id: string) {
         this._newsService.deleteNews(id);
+    }
+
+    public changeNewsItem(id: string) {
+        this._router.navigate(['../change'], {relativeTo: this._actroute});
+        console.log('Post route navigate data check', id);
     }
 }
