@@ -9,7 +9,7 @@ import { AddNewsComponent } from './add/add-news.component';
 import { ChangeNewsComponent } from './change/change-news.component';
 
 const routes: Routes = [{
-        path: 'admin/news',
+        path: 'news',
         component: NewsManagementComponent,
         canActivate: [ RouterGuard ],
         children: [{

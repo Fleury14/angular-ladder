@@ -7,12 +7,17 @@ import { RouterGuard } from './../../services/router-guard.service';
 import { NewsManagementComponent } from './news-management/news-management.component';
 import { ChallengeManagementComponent } from './challenge-management/challenge-management.component';
 import { PlayerManagementComponent } from './player-management/player-management.component';
+import { ViewNewsComponent } from './news-management/view/view-news.component';
 
 const routes: Routes = [{
         path: 'admin',
         component: AdminComponent,
         canActivate: [ RouterGuard ],
         children: [
+        {
+            path: 'news',
+            component: ViewNewsComponent
+        },
         {
             path: 'players',
             component: PlayerManagementComponent
