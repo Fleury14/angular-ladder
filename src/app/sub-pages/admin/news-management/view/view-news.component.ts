@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { NewsDatabaseService } from './../../../../services/database/news-databse.service';
 import NewsItem from './../../../../interfaces/news-item';
@@ -15,28 +16,50 @@ import { Observable } from 'rxjs/Observable';
 export class ViewNewsComponent implements OnInit {
 
     public newsList: NewsItem[];
+    public secondList: NewsItem[];
+    public thirdList: NewsItem[];
+    private moreArr;
 
-    constructor( private _newsService: NewsDatabaseService ) {
+    constructor( private _newsService: NewsDatabaseService, private _actroute: ActivatedRoute, private _router: Router ) {
+
     }
 
     ngOnInit() {
-        console.log('view news component...');
-        this._newsService.newsObservable
-        .map(newslist => {
-            return newslist.map(newsItem => {
-                const myNewsItem: NewsItem = {
-                    author: newsItem.author,
-                    date: newsItem.date,
-                    content: newsItem.content
-                };
-                return myNewsItem;
+
+        this._actroute.paramMap.subscribe(val => {
+            this._newsService.moretest.subscribe(data => {
+                console.log('moved to param subscription', data);
+                this.secondList = [];
+                this.moreArr = data;
+                for (let item in data) {
+                    const itemKey = item;
+                    // console.log('inside loop', item);
+                    // console.log('content too? please?', this.moreArr[item]);
+                    this.moreArr[item].id = item;
+                    const soCloseItem = {
+                        id: item,
+                        date: this.moreArr[item].date,
+                        content: this.moreArr[item].content,
+                        author: this.moreArr[item].author
+                    };
+                    this.secondList.push(soCloseItem);
+                }
+                console.log('endresult omg did we do it inside the component??', this.secondList);
             });
-        })
-        .subscribe(news => {
-            this.newsList = news;
+
+            console.log('view news component...', this._newsService.secondArr);
+            this.thirdList = this._newsService.secondArr;
         });
 
 
+    } // end oninit
+
+    public deleteNewsItem(id: string) {
+        this._newsService.deleteNews(id);
     }
 
+    public changeNewsItem(id: string) {
+        this._router.navigate(['../change', id], { relativeTo: this._actroute});
+        console.log('Post route navigate data check', id);
+    }
 }

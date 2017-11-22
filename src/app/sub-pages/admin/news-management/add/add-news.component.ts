@@ -30,6 +30,7 @@ export class AddNewsComponent {
             date: niceDate,
             content: form.content
         };
+
         return this._database.addNews(new Date(), newItem)
         .then(() => this._router.navigate(['../view'], {relativeTo: this._activatedRoute}));
     }

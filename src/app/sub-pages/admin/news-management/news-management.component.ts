@@ -35,7 +35,9 @@ export class NewsManagementComponent implements OnInit {
                 return myNewsItem;
             });
         })
-        .subscribe( moreNews => {this.newsList = this.newsList.concat(moreNews);
+        .subscribe( moreNews => {
+            this.newsList = [];
+            this.newsList = this.newsList.concat(moreNews);
             console.log('from news base component', this.newsList);
         });
     }

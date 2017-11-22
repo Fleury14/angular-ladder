@@ -19,6 +19,10 @@ const routes: Routes = [{
     component: HomeComponent
   },
   {
+    path: 'admin',
+    component: AdminComponent
+  },
+  {
     path: 'contact',
     component: ContactComponent
   },

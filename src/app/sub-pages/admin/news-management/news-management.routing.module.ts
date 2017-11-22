@@ -6,10 +6,10 @@ import { RouterGuard } from './../../../services/router-guard.service';
 
 import { ViewNewsComponent } from './view/view-news.component';
 import { AddNewsComponent } from './add/add-news.component';
-
+import { ChangeNewsComponent } from './change/change-news.component';
 
 const routes: Routes = [{
-        path: 'admin/news',
+        path: 'news',
         component: NewsManagementComponent,
         canActivate: [ RouterGuard ],
         children: [{
@@ -21,14 +21,18 @@ const routes: Routes = [{
             component: AddNewsComponent
         },
         {
-            path: '',
-            redirectTo: 'view',
-            pathMatch: 'full'
+            path: 'change/:id',
+            component: ChangeNewsComponent
         },
-        {
-            path: '**',
-            component: ViewNewsComponent
-        }
+        // {
+        //     path: '',
+        //     redirectTo: 'view',
+        //     pathMatch: 'full'
+        // },
+        // {
+        //     path: '**',
+        //     component: ViewNewsComponent
+        // }
         ]
 
 }];
@@ -39,6 +43,7 @@ const routes: Routes = [{
     providers: [ RouterGuard ]
 })
 
-export class NewsRoutingModule {}
+export class NewsRoutingModule {
+}
 
-export const NewsRoutingComponents = [ ViewNewsComponent, AddNewsComponent ];
+export const NewsRoutingComponents = [ ViewNewsComponent, AddNewsComponent, ChangeNewsComponent ];
