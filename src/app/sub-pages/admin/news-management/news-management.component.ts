@@ -4,6 +4,8 @@ import { NewsService } from './../../../services/news-service';
 import { NewsDatabaseService } from './../../../services/database/news-databse.service';
 import { Observable } from 'rxjs/Observable';
 
+import { NgForm } from '@angular/forms';
+
 import NewsItem from './../../../interfaces/news-item';
 
 
@@ -41,5 +43,10 @@ export class NewsManagementComponent implements OnInit {
             console.log('from news base component', this.newsList);
         });
     }
+
+    // method for submitting a new news item via form
+    public submitNews(formValue) {
+
+    } // end submitNews
 
 }

@@ -18,7 +18,7 @@
     <hr>
     <!-- Begin add news item -->
     <h3 class="text-center font-bangers">Add new news item</h3>
-    <form>
+    <form #newsForm="ngForm" (ngSubmit)="submitNews(newsForm.value)">
         <div class="container">
             <div class="row"> <!-- Begin author row -->
                 <div class="col-sm-1">
