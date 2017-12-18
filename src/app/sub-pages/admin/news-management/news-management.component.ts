@@ -20,6 +20,13 @@ export class NewsManagementComponent implements OnInit {
     public newsTotal = this.news.getNewsLength();
     public newsList = [];
 
+    // form pieces
+    public content: string;
+    public author: string;
+    public newsForm: NgForm;
+    public todaysDate = new Date();
+    private _days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
     constructor( public news: NewsService, private _newsData: NewsDatabaseService) {
 
 
@@ -46,6 +53,15 @@ export class NewsManagementComponent implements OnInit {
 
     // method for submitting a new news item via form
     public submitNews(formValue) {
+
+        const newsItemToBeSent = {
+            date: this.todaysDate,
+            author: formValue.author,
+            content: formValue.content
+        }
+
+        console.log(`Submitting news by ${newsItemToBeSent.author} on ${newsItemToBeSent.date}.`);
+        this._newsData.addNews(newsItemToBeSent);
 
     } // end submitNews
 

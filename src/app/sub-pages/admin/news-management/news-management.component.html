@@ -25,7 +25,7 @@
                     <label>Author:</label>
                 </div>
                 <div class="col-sm-11">
-                    <input type="text">
+                    <input name="author" ngModel required type="text">
                 </div>
             </div> <!-- End author row -->
             <div class="row"> <!-- Begin Content 'row' -->
@@ -33,7 +33,7 @@
                     <label for="">Content</label>
                 </div>
                 <div class="col-sm-12">
-                    <textarea name="" class="news-add-content" id="" cols="60" rows="10"></textarea>
+                    <textarea name="content" ngModel required class="news-add-content" id="" cols="60" rows="10"></textarea>
                 </div>
             </div> <!-- End content row -->
             <div class="row">
