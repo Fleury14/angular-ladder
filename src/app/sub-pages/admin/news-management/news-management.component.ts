@@ -55,7 +55,7 @@ export class NewsManagementComponent implements OnInit {
     public submitNews(formValue) {
 
         const newsItemToBeSent = {
-            date: this.todaysDate,
+            date: this._niceDate(this.todaysDate),
             author: formValue.author,
             content: formValue.content
         }
@@ -64,5 +64,14 @@ export class NewsManagementComponent implements OnInit {
         this._newsData.addNews(newsItemToBeSent);
 
     } // end submitNews
+
+    private _niceDate(date: Date) {
+        const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
+        'August', 'September', 'October', 'November', 'December'];
+        const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
+        const result = `${days[date.getDay()]}, ${months[date.getMonth()]} ${date.getDate()}`;
+        return result;
+    }
 
 }
