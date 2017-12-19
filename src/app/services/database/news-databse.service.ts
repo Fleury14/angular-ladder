@@ -13,6 +13,7 @@ export class NewsDatabaseService {
     private _news: NewsItem[];
     public keylist: string[] = [];
     public newsObservable: Observable<NewsItem[]>;
+    public rootObs: Observable<any>;
     // public snapshotObs;
     public testObs;
     public moretest: Observable<any>;
@@ -31,6 +32,11 @@ export class NewsDatabaseService {
         this.newsObservable = this._database.list('news').valueChanges<NewsItem>();
         // this.snapshotObs = this._database.list('news').snapshotChanges();
         this.moretest = this._database.object('/news').valueChanges();
+        this.rootObs = this._database.list('/').valueChanges();
+
+        this.rootObs.subscribe(data => {
+            // console.log('root attempt:', data[0]);
+        });
 
         this.moretest.subscribe(data => {
             // console.log('.moretest:', data);
@@ -49,7 +55,7 @@ export class NewsDatabaseService {
                 };
                 this.secondArr.push(soCloseItem);
             }
-            // console.log('endresult omg did we do it?', this.secondArr);
+            console.log('endresult omg did we do it?', this.secondArr);
         });
 
 
@@ -67,7 +73,13 @@ export class NewsDatabaseService {
         this.newsObservable
         .map(newslist => {
 
+            for (let item in newslist) {
+                console.log('key list??: ', item);
+            }
+
             return newslist.map(newsItem => {
+
+
 
                 // console.log('.map from service', newslist.indexOf(newsItem), this.keylist, this.keylist[0]);
                 const myNewsItem: NewsItem = {
@@ -84,20 +96,36 @@ export class NewsDatabaseService {
         });
     }
 
-    public addNews(date: Date, news: NewsItem) {
-        console.log('Adding to database...', news.date);
+    public addNews(news: NewsItem) {
+        console.log('Adding to database...', news);
         return this._database.list('news/').push(news);
     }
 
     public deleteNews(newsId: string) {
-        console.log('Deleting from database....');
-        return this._database.list('news/').remove(newsId);
-    }
+        if (confirm('Are you sure you wanna delete this news item?')) {
+            console.log('Deleting from database....');
+            return this._database.list('news/').remove(newsId);
+        }
 
-    // public getNews() {
-    //     return this.newsObservable.map(news => {
-    //         console.log(news);
-    //     });
-    // }
+    } // end delete news
+
+    // attempt to get news the same way its gotten in the room reserve service
+    public getNews() {
+        console.log('no really, get news was called');
+        return this.rootObs.map(news => {
+            const anotherNewsList = [];
+
+            for (let newsKey in news[0]) {
+                const evenMore = news[0][newsKey];
+                evenMore.id = newsKey;
+                anotherNewsList.push(evenMore);
+            }
+
+            news = anotherNewsList;
+            console.log('rr method check', news);
+            return news;
+
+        });
+    }
 
 }

@@ -12,6 +12,14 @@ export class NewsService {
 
         // INSERT NEWS ITEMS HERE FOR NOW
         this.news.unshift({
+            date: 'December 19th, 2017',
+            author: 'Fleury14',
+            content: `Whew! A lot of personal stuff going on including a move out of town stunted my progress thus far, but we're
+            settled in now so it's time to get cracking. Most of my work is going to be on the back end so you may not notice any changes.
+            I don't have 10 people for Marvel, but I can open that up for challenges if people would like. I will also prepare for AE as
+            I bet there's quite a lot of people that are excited for it.`
+        },
+        {
             date: 'November 9th, 2017',
             author: 'Fleury14',
             content: `Updated ticker with Bitwise Beatdown results, added Super Bitwise Beatdown to events. There's
