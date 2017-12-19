@@ -82,6 +82,10 @@ export class NewsManagementComponent implements OnInit {
 
         const result = `${days[date.getDay()]}, ${months[date.getMonth()]} ${date.getDate()}`;
         return result;
+    } // end niceDate
+
+    public deleteNewsItem(id) {
+        this._newsData.deleteNews(id);
     }
 
 }
