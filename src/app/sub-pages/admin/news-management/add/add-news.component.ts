@@ -31,7 +31,7 @@ export class AddNewsComponent {
             content: form.content
         };
 
-        return this._database.addNews(new Date(), newItem)
+        return this._database.addNews(newItem)
         .then(() => this._router.navigate(['../view'], {relativeTo: this._activatedRoute}));
     }
 }

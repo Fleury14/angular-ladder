@@ -19,6 +19,7 @@ export class NewsManagementComponent implements OnInit {
 
     public newsTotal = this.news.getNewsLength();
     public newsList = [];
+    public newsListWithId = [];
 
     // form pieces
     public content: string;
@@ -33,6 +34,13 @@ export class NewsManagementComponent implements OnInit {
     }
 
     ngOnInit() {
+
+        const lol = this._newsData.getNews()
+        .subscribe(result => {
+            // console.log('rr result', result);
+            this.newsListWithId = result;
+            // console.log('rr method result',this.newsListWithId);
+        });
         // map observable from the service and then subscribe to it via the newslist array
         this._newsData.newsObservable.map(newslist => {
             return newslist.map(newsItem => {
@@ -49,6 +57,8 @@ export class NewsManagementComponent implements OnInit {
             this.newsList = this.newsList.concat(moreNews);
             console.log('from news base component', this.newsList);
         });
+
+        
     }
 
     // method for submitting a new news item via form
