@@ -102,9 +102,12 @@ export class NewsDatabaseService {
     }
 
     public deleteNews(newsId: string) {
-        console.log('Deleting from database....');
-        return this._database.list('news/').remove(newsId);
-    }
+        if (confirm('Are you sure you wanna delete this news item?')) {
+            console.log('Deleting from database....');
+            return this._database.list('news/').remove(newsId);
+        }
+
+    } // end delete news
 
     // attempt to get news the same way its gotten in the room reserve service
     public getNews() {
