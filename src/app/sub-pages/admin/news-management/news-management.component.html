@@ -1,19 +1,23 @@
 <div class="font-titi">
     <h3 class="text-center font-bangers">News Management</h3>
-    <p>You have {{ newsList?.length || 'no' }} news items in the database thus far.</p>
+    <p class="text-center">You have {{ newsList?.length || 'no' }} news items in the database thus far.</p>
     <!-- Begin list of items from database -->
-    <div *ngFor="let item of newsListWithId">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-3">{{ item.date }}</div>
-                <div class="col-sm-3">{{ item.author }}</div>
-                <div class="col-sm-5">{{ item.content }}</div>
-                <div class="col-sm-1">
-                    <button class="btn btn-danger" (click)="deleteNewsItem(item.id)">Delete</button>
-                </div>
-            </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3 font-bangers">Date</div>
+            <div class="col-sm-3 font-bangers">Author</div>
+            <div class="col-sm-5 font-bangers">Content</div>
         </div>
-    </div>
+        <div class="row" *ngFor="let item of newsListWithId">
+            <div class="col-sm-3">{{ item.date }}</div>
+            <div class="col-sm-3">{{ item.author }}</div>
+            <div class="col-sm-5">{{ item.content }}</div>
+            <div class="col-sm-1">
+                <button class="btn btn-danger" (click)="deleteNewsItem(item.id)">Delete</button>
+            </div>
+        </div> <!-- end row that will be looped -->
+    </div> <!-- end container -->
+    
     <!-- End list of items from database -->
     <hr>
     <!-- Begin add news item -->
