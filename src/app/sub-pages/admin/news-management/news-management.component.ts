@@ -68,6 +68,7 @@ export class NewsManagementComponent implements OnInit {
     // method for submitting a new news item via form
     public submitNews(formValue) {
 
+        // Create the object that will be sent to the database. Include both a visible date for printing and a unix date for sorting
         const newsItemToBeSent = {
             date: this._niceDate(this.todaysDate),
             dateUnix: Date.now(),
@@ -75,9 +76,13 @@ export class NewsManagementComponent implements OnInit {
             content: formValue.content
         }
 
+        // confirm a send before actually pushing to the database
         if (confirm(`Verify sending of news item by ${newsItemToBeSent.author}`)) {
             console.log(`Submitting news by ${newsItemToBeSent.author} on ${newsItemToBeSent.date}.`);
             this._newsData.addNews(newsItemToBeSent);
+            // reset fields after submitting
+            this.author = '';
+            this.content = '';
         }
 
     } // end submitNews
