@@ -158,6 +158,29 @@ export class NewsDatabaseService {
         });
     } // end getfirstthree
 
+    public getTheRest() {
 
+        // beginning of map same as getting all the news, until...
+        return this.rootObs.map(news => {
+            const anotherNewsList = [];
+
+            for (let newsKey in news[0]) {
+                const evenMore = news[0][newsKey];
+                evenMore.id = newsKey;
+                anotherNewsList.push(evenMore);
+            }
+
+            news = anotherNewsList;
+
+            // ... this! first sort the array in descending order according to the unix date
+            news.sort(function(a, b) {return b.dateUnix - a.dateUnix; } );
+
+            // remove the three most recent items
+            news.splice(0, 3);
+
+            // then return that array. now the result should be the three most recent news items
+            return news;
+        });
+    } // end gettherest
 
 }
