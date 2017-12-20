@@ -75,8 +75,10 @@ export class NewsManagementComponent implements OnInit {
             content: formValue.content
         }
 
-        console.log(`Submitting news by ${newsItemToBeSent.author} on ${newsItemToBeSent.date}.`);
-        this._newsData.addNews(newsItemToBeSent);
+        if (confirm(`Verify sending of news item by ${newsItemToBeSent.author}`)) {
+            console.log(`Submitting news by ${newsItemToBeSent.author} on ${newsItemToBeSent.date}.`);
+            this._newsData.addNews(newsItemToBeSent);
+        }
 
     } // end submitNews
 
