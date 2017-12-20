@@ -9,6 +9,7 @@ import { TwitchStatusService } from './../services/twitch-status.service';
 import { MatchHistoryService } from './../services/match-history.service';
 import { ChallengeListService } from './../services/challenge-list.service';
 import { NewsService } from './../services/news-service';
+import { NewsDatabaseService } from './../services/database/news-databse.service';
 
 @Component({
     selector: 'app-home',
@@ -32,7 +33,8 @@ export class HomeComponent implements AfterViewInit {
         public twitchStatus: TwitchStatusService,
         private matchList: MatchHistoryService,
         private homeList: ChallengeListService,
-        private news: NewsService
+        private news: NewsService,
+        private _newsData: NewsDatabaseService
     ) { // build note: this servce may need to be public
         this.sidebarChallengeList = [];
         for (let i = 0; i < this.homeList.getLength(); i++) {
