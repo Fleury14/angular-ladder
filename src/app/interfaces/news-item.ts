@@ -4,6 +4,7 @@ interface NewsItem {
     author: string;
     content: string;
     id?: string;
+    dateUnix?: number;
 }
 
 export default NewsItem;

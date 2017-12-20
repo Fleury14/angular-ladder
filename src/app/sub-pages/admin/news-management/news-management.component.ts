@@ -36,6 +36,10 @@ export class NewsManagementComponent implements OnInit {
     ngOnInit() {
 
         const lol = this._newsData.getNews()
+        .map(data => {
+            data.sort(function(a, b) { return b.dateUnix - a.dateUnix; } );
+            return data;
+        })
         .subscribe(result => {
             // console.log('rr result', result);
             this.newsListWithId = result;
@@ -66,6 +70,7 @@ export class NewsManagementComponent implements OnInit {
 
         const newsItemToBeSent = {
             date: this._niceDate(this.todaysDate),
+            dateUnix: Date.now(),
             author: formValue.author,
             content: formValue.content
         }
