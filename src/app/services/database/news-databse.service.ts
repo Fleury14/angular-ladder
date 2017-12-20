@@ -128,4 +128,24 @@ export class NewsDatabaseService {
         });
     }
 
+    public getFirstThree() {
+        const firstThree = [];
+        return this.rootObs.map(news => {
+            const anotherNewsList = [];
+
+            for (let newsKey in news[0]) {
+                const evenMore = news[0][newsKey];
+                evenMore.id = newsKey;
+                anotherNewsList.push(evenMore);
+            }
+
+            news = anotherNewsList;
+            news.sort(function(a, b) {return b.dateUnix - a.dateUnix; } );
+            firstThree[0] = news[0];
+            firstThree[1] = news[1];
+            firstThree[2] = news[2];
+            return firstThree;
+        });
+    }
+
 }
