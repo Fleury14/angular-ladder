@@ -128,8 +128,12 @@ export class NewsDatabaseService {
         });
     }
 
+    // method for getting the first three news items for the front page
     public getFirstThree() {
+        // initialize array that will be returned
         const firstThree = [];
+
+        // beginning of map same as getting all the news, until...
         return this.rootObs.map(news => {
             const anotherNewsList = [];
 
@@ -140,12 +144,20 @@ export class NewsDatabaseService {
             }
 
             news = anotherNewsList;
+
+            // ... this! first sort the array in descending order according to the unix date
             news.sort(function(a, b) {return b.dateUnix - a.dateUnix; } );
+
+            // put the first three items in our array...
             firstThree[0] = news[0];
             firstThree[1] = news[1];
             firstThree[2] = news[2];
+
+            // then return that array. now the result should be the three most recent news items
             return firstThree;
         });
-    }
+    } // end getfirstthree
+
+
 
 }
