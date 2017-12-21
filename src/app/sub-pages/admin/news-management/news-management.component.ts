@@ -129,6 +129,10 @@ export class NewsManagementComponent implements OnInit {
             }
             return data;
         });
+    } // end edit news item
+
+    public cancelEditing() {
+        this.canEditNews = false;
     }
 
 }
