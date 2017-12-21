@@ -24,8 +24,8 @@ export class NewsManagementComponent implements OnInit {
     // variables for editing news items
     public canEditNews = false;
     public selectedNewsItem;
-    public authorEdit: String;
-    public contentEdit: String;
+    public authorEdit: string;
+    public contentEdit: string;
 
     // form pieces
     public content: string;
@@ -132,6 +132,11 @@ export class NewsManagementComponent implements OnInit {
     } // end edit news item
 
     public cancelEditing() {
+        this.canEditNews = false;
+    } // end cancelEditing
+
+    public changeItem(id) {
+        this._newsData.updatedNewsById(id, this.authorEdit, this.contentEdit);
         this.canEditNews = false;
     }
 

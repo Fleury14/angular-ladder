@@ -45,7 +45,7 @@
         </div> <!-- end row -->
         <div class="row">
             <div class="col-sm-12 flex-container justify-around">
-                <button class="btn info">Submit Changes</button>
+                <button class="btn info" (click)="changeItem(selectedNewsItem.id)">Submit Changes</button>
                 <button class="btn-danger" (click)="cancelEditing()">Cancel Editing</button>
             </div>
         </div> <!-- End row -->
