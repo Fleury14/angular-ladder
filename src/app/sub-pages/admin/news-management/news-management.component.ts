@@ -21,6 +21,10 @@ export class NewsManagementComponent implements OnInit {
     public newsList = [];
     public newsListWithId = [];
 
+    // variables for editing news items
+    public canEditNews = false;
+    public selectedNewsItem: NewsItem;
+
     // form pieces
     public content: string;
     public author: string;
@@ -98,6 +102,10 @@ export class NewsManagementComponent implements OnInit {
 
     public deleteNewsItem(id) {
         this._newsData.deleteNews(id);
+    } // end delete newsitem
+
+    public editNewsItem(id) {
+        this.canEditNews = true;
     }
 
 }
