@@ -122,6 +122,8 @@ export class NewsManagementComponent implements OnInit {
             if(data) {
                 console.log('selected item:', data);
                 this.selectedNewsItem = data;
+                this.authorEdit = this.selectedNewsItem.author;
+                this.contentEdit = this.selectedNewsItem.content;
             } else {
                 console.log('No news item. Possible bad id.');
             }
