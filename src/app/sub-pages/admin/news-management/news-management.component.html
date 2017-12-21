@@ -25,8 +25,8 @@
         <div class="row">
             <div class="col-sm-12">
                 <p class="text-center">Editing news item</p>
-                <label>Author:</label>
-                <input type="text">
+                <label>Author:     </label>
+                <input [(ngModel)]="authorEdite" name="" type="text">
             </div>
         </div> <!-- end row -->
         <div class="row">
@@ -34,7 +34,7 @@
                 <label for="">Content:</label>
             </div>
             <div class="col-sm-10">
-                <textarea name="" id="" cols="30" rows="10"></textarea>
+                <textarea [(ngModel)]="contentEdit" id="" cols="30" rows="10"></textarea>
             </div>
         </div> <!-- end row -->
     </div> <!-- end container -->
