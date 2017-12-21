@@ -184,13 +184,8 @@ export class NewsDatabaseService {
     } // end gettherest
 
     // method to get one particular news item when only given the id
-    public getNewsById(id: String) {
-        const selectedNewsItem = this._database.list('/news/' + id);
-        if(selectedNewsItem) {
-            console.log('selected item:', selectedNewsItem);
-        } else {
-            console.log('No news item. Possible bad id.');
-        }
+    public getNewsById(id: string) {
+        return this._database.list('/news/' + id).valueChanges();
     }
 
 }

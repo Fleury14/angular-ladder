@@ -23,7 +23,7 @@ export class NewsManagementComponent implements OnInit {
 
     // variables for editing news items
     public canEditNews = false;
-    public selectedNewsItem: NewsItem;
+    public selectedNewsItem;
     public authorEdit: String;
     public contentEdit: String;
 
@@ -108,7 +108,25 @@ export class NewsManagementComponent implements OnInit {
 
     public editNewsItem(id) {
         this.canEditNews = true;
-        this._newsData.getNewsById(id);
+        this._newsData.getNewsById(id).map(data => {
+            const result = {
+                author: data[0],
+                content: data[1],
+                date: data[2],
+                dateUnix: data[3],
+                id: id
+            };
+            return result;
+        })
+        .subscribe(data => {
+            if(data) {
+                console.log('selected item:', data);
+                this.selectedNewsItem = data;
+            } else {
+                console.log('No news item. Possible bad id.');
+            }
+            return data;
+        });
     }
 
 }
