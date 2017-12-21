@@ -19,8 +19,8 @@ import { NewsDatabaseService } from './../services/database/news-databse.service
 
 export class HomeComponent implements AfterViewInit {
 
-    public databaseNewsTest = this._newsData.getFirstThree();
-    public databaseOldNews = this._newsData.getTheRest();
+    public databaseFirstThree = this._newsData.getFirstThree();
+    public databaseTheRest = this._newsData.getTheRest();
     public recentNews = this.news.getFirstThree(); // put the recent news in this var
     public olderNews = this.news.getOlderNews(); // and the older news in this var
     public sidebarChallengeList: Challenge[]; // make an array that will hold the challenges that will be displayed in the side bar.
@@ -48,11 +48,11 @@ export class HomeComponent implements AfterViewInit {
 
         this.twitchStatus.buildStatus();
 
-        this.databaseNewsTest.subscribe( data => {
+        this.databaseFirstThree.subscribe( data => {
             console.log('from database service:', data);
         });
 
-        this.databaseOldNews.subscribe( data => {
+        this.databaseTheRest.subscribe( data => {
             console.log('older news from database service', data);
         });
     }

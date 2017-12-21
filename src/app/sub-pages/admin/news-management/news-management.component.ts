@@ -21,6 +21,12 @@ export class NewsManagementComponent implements OnInit {
     public newsList = [];
     public newsListWithId = [];
 
+    // variables for editing news items
+    public canEditNews = false; // flag to toggle whether to display editing fields or adding fields
+    public selectedNewsItem; // the entire news item that was selected
+    public authorEdit: string; // the contents of the author field binded 2-ways
+    public contentEdit: string; // ditto the content field
+
     // form pieces
     public content: string;
     public author: string;
@@ -98,6 +104,53 @@ export class NewsManagementComponent implements OnInit {
 
     public deleteNewsItem(id) {
         this._newsData.deleteNews(id);
+    } // end delete newsitem
+
+    // this method grabs a news item from the database based on the id gotten from the html loop, and then populates the editing
+    // fields to allow editing.
+    public editNewsItem(id) {
+        this.canEditNews = true; // change the flag to show the edit fields and hide the add fields
+
+        this._newsData.getNewsById(id).map(data => {
+            // because the data gotten from the service is sent back in array form, we use the map to translate it back to object form
+            // NOTE: this particular method doesnt jive with the NewsItem typing which is why I did not delcared selectedNewsItem 
+            // as a :NewsItem above
+            const result = {
+                author: data[0],
+                content: data[1],
+                date: data[2],
+                dateUnix: data[3],
+                id: id
+            };
+            return result;
+        })
+        .subscribe(data => {
+            // with the data now transforms into a more readable object we can do stuff with it. First a simple error check with an if
+            if(data) {
+                console.log('selected item:', data);
+                // ..then set the selected news item to the entire object
+                this.selectedNewsItem = data;
+                // and populate the fields with the appropriate content
+                this.authorEdit = this.selectedNewsItem.author;
+                this.contentEdit = this.selectedNewsItem.content;
+            } else {
+                console.log('No news item. Possible bad id.');
+            }
+            return data;
+        });
+    } // end edit news item
+
+    // this method simply reverts the flag back to false, hiding the edit view and showing the add view
+    public cancelEditing() {
+        this.canEditNews = false;
+    } // end cancelEditing
+
+    // method to update a news item with the data in the edit fields
+    public changeItem(id) {
+        this._newsData.updatedNewsById(id, this.authorEdit, this.contentEdit);
+        // rhide the editing fields uppon submitting. no need to reset them, since in order to see them again, a news item
+        // will have to be clicked which would repopulate the fields anywaay
+        this.canEditNews = false;
     }
 
 }

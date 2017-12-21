@@ -10,19 +10,52 @@
         </div>
         <div class="row" *ngFor="let item of newsListWithId">
             <div class="col-sm-3">{{ item.date }}</div>
-            <div class="col-sm-3">{{ item.author }}</div>
+            <div class="col-sm-2">{{ item.author }}</div>
             <div class="col-sm-5">{{ item.content }}</div>
+            <div class="col-sm-1">
+                <button class="btn btn-success" (click)="editNewsItem(item.id)">Change</button>
+            </div>
             <div class="col-sm-1">
                 <button class="btn btn-danger" (click)="deleteNewsItem(item.id)">Delete</button>
             </div>
         </div> <!-- end row that will be looped -->
     </div> <!-- end container -->
-    
+    <!-- Editing box will go here -->
+    <div class="container" *ngIf="canEditNews === true">
+        <div class="row">
+            <div class="col-sm-12">
+                <p class="text-center">Editing news item</p> 
+            </div>
+        </div> <!-- end row -->
+        <div class="row">
+            <div class="col-sm-1">
+                <label>Author:</label>
+            </div>
+            <div class="col-sm-11">
+                <input [(ngModel)]="authorEdit" name="" type="text">
+            </div>
+        </div> <!-- End row -->
+        <div class="row">
+            <div class="col-sm-1">
+                <label for="">Content:</label>
+            </div>
+            <div class="col-sm-11">
+                <textarea [(ngModel)]="contentEdit" class="news-add-content" id="" cols="30" rows="10"></textarea>
+            </div>
+        </div> <!-- end row -->
+        <div class="row">
+            <div class="col-sm-12 flex-container justify-around">
+                <button class="btn info" (click)="changeItem(selectedNewsItem.id)">Submit Changes</button>
+                <button class="btn-danger" (click)="cancelEditing()">Cancel Editing</button>
+            </div>
+        </div> <!-- End row -->
+    </div> <!-- end container -->
+    <!-- End editing box -->
     <!-- End list of items from database -->
     <hr>
     <!-- Begin add news item -->
-    <h3 class="text-center font-bangers">Add new news item</h3>
-    <form #newsForm="ngForm" (ngSubmit)="submitNews(newsForm.value)">
+    <h3 *ngIf="canEditNews === false" class="text-center font-bangers">Add new news item</h3>
+    <form #newsForm="ngForm" *ngIf="canEditNews === false" (ngSubmit)="submitNews(newsForm.value)">
         <div class="container">
             <div class="row"> <!-- Begin author row -->
                 <div class="col-sm-1">

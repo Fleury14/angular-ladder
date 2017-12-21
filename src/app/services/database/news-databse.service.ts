@@ -183,4 +183,19 @@ export class NewsDatabaseService {
         });
     } // end gettherest
 
+    // method to get one particular news item when only given the id
+    public getNewsById(id: string) {
+        // this simply returns the list without mapping the data. i could have mapped it here since its not likely that a different
+        // call would require a different morphing of the data, but i just wanted to demonstrate that i can do so at both the component
+        // and service level. if that makes sense, lol.
+        return this._database.list('/news/' + id).valueChanges();
+    }
+
+    // method to update a news item given id, author and content
+    public updatedNewsById(id: string, author: string, content: string) {
+        const newsRef = this._database.list('/news');
+        // note: using .update is non-destructive, as opposed to using .set, which is.
+        newsRef.update(id, {author: author, content: content});
+    }
+
 }
