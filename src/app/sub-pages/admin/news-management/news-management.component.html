@@ -24,26 +24,37 @@
     <div class="container" *ngIf="canEditNews === true">
         <div class="row">
             <div class="col-sm-12">
-                <p class="text-center">Editing news item</p>
-                <label>Author:     </label>
-                <input [(ngModel)]="authorEdit" name="" type="text">
+                <p class="text-center">Editing news item</p> 
             </div>
         </div> <!-- end row -->
         <div class="row">
-            <div class="col-sm-2">
+            <div class="col-sm-1">
+                <label>Author:</label>
+            </div>
+            <div class="col-sm-11">
+                <input [(ngModel)]="authorEdit" name="" type="text">
+            </div>
+        </div> <!-- End row -->
+        <div class="row">
+            <div class="col-sm-1">
                 <label for="">Content:</label>
             </div>
-            <div class="col-sm-10">
-                <textarea [(ngModel)]="contentEdit" id="" cols="30" rows="10"></textarea>
+            <div class="col-sm-11">
+                <textarea [(ngModel)]="contentEdit" class="news-add-content" id="" cols="30" rows="10"></textarea>
             </div>
         </div> <!-- end row -->
+        <div class="row">
+            <div class="col-sm-12 flex-container justify-center">
+                <button class="btn info">Submit Changes</button>
+            </div>
+        </div> <!-- End row -->
     </div> <!-- end container -->
     <!-- End editing box -->
     <!-- End list of items from database -->
     <hr>
     <!-- Begin add news item -->
-    <h3 class="text-center font-bangers">Add new news item</h3>
-    <form #newsForm="ngForm" (ngSubmit)="submitNews(newsForm.value)">
+    <h3 *ngIf="canEditNews === false" class="text-center font-bangers">Add new news item</h3>
+    <form #newsForm="ngForm" *ngIf="canEditNews === false" (ngSubmit)="submitNews(newsForm.value)">
         <div class="container">
             <div class="row"> <!-- Begin author row -->
                 <div class="col-sm-1">
