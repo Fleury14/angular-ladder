@@ -188,4 +188,10 @@ export class NewsDatabaseService {
         return this._database.list('/news/' + id).valueChanges();
     }
 
+    // method to update a news item given id, author and content
+    public updatedNewsById(id: string, author: string, content: string) {
+        const newsRef = this._database.list('/news');
+        newsRef.update(id, {author: author, content: content});
+    }
+
 }
