@@ -10,14 +10,18 @@
         </div>
         <div class="row" *ngFor="let item of newsListWithId">
             <div class="col-sm-3">{{ item.date }}</div>
-            <div class="col-sm-3">{{ item.author }}</div>
+            <div class="col-sm-2">{{ item.author }}</div>
             <div class="col-sm-5">{{ item.content }}</div>
+            <div class="col-sm-1">
+                <button class="btn btn-success">Change</button>
+            </div>
             <div class="col-sm-1">
                 <button class="btn btn-danger" (click)="deleteNewsItem(item.id)">Delete</button>
             </div>
         </div> <!-- end row that will be looped -->
     </div> <!-- end container -->
-    
+    <!-- Editing box will go here -->
+    <!-- End editing box -->
     <!-- End list of items from database -->
     <hr>
     <!-- Begin add news item -->
