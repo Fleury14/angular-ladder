@@ -35,7 +35,7 @@ export class LadderDatabaseService {
 
             return playerList;
         });
-    }
+    } // end get players
 
     // public instantiation() {
     //     this._tempPlayers.forEach(element => {

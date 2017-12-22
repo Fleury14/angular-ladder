@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { LadderDatabaseService } from './../../../services/database/ladder-database.service';
 
@@ -8,10 +8,19 @@ import { LadderDatabaseService } from './../../../services/database/ladder-datab
     styleUrls: [ './player-management.component.css']
 })
 
-export class PlayerManagementComponent {
+export class PlayerManagementComponent implements OnInit {
 
-    constructor(private _ladderDB: LadderDatabaseService) {}
+    public tekkenPlayers;
 
+    constructor(private _ladderDB: LadderDatabaseService) {
+
+    }
+
+    ngOnInit() {
+        this._ladderDB.getPlayers('tekken').subscribe(data => {
+            this.tekkenPlayers = data;
+        });
+    }
     // public initialize() {
     //     this._ladderDB.instantiation();
     // }
