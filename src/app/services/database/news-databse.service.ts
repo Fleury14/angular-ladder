@@ -55,7 +55,7 @@ export class NewsDatabaseService {
                 };
                 this.secondArr.push(soCloseItem);
             }
-            console.log('endresult omg did we do it?', this.secondArr);
+            // console.log('endresult omg did we do it?', this.secondArr);
         });
 
 
@@ -74,7 +74,7 @@ export class NewsDatabaseService {
         .map(newslist => {
 
             for (let item in newslist) {
-                console.log('key list??: ', item);
+                // console.log('key list??: ', item);
             }
 
             return newslist.map(newsItem => {
@@ -122,7 +122,7 @@ export class NewsDatabaseService {
             }
 
             news = anotherNewsList;
-            console.log('rr method check', news);
+            // console.log('rr method check', news);
             return news;
 
         });
@@ -137,8 +137,8 @@ export class NewsDatabaseService {
         return this.rootObs.map(news => {
             const anotherNewsList = [];
 
-            for (let newsKey in news[0]) {
-                const evenMore = news[0][newsKey];
+            for (let newsKey in news[1]) {
+                const evenMore = news[1][newsKey];
                 evenMore.id = newsKey;
                 anotherNewsList.push(evenMore);
             }

@@ -53,11 +53,11 @@ export class HomeComponent implements AfterViewInit {
         this.twitchStatus.buildStatus();
 
         this.databaseFirstThree.subscribe( data => {
-            console.log('from database service:', data);
+            // console.log('from database service:', data);
         });
 
         this.databaseTheRest.subscribe( data => {
-            console.log('older news from database service', data);
+            // console.log('older news from database service', data);
         });
     }
 
