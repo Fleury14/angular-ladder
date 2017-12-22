@@ -24,15 +24,19 @@ export class LadderDatabaseService {
     }
 
     public getPlayers(game: string) {
-        return this.ladderObs.map(data => {
+
+        // so in this case, we're eschewing the step of using a declared observable and .mapping straight from the .list
+        return this._database.list('/ladder/' + game ).valueChanges().map(data => {
+            // empty array to prevent overfills on changes
             const playerList = [];
 
-            for(let playerKey in data[game].players ) {
-                const playerLoop = data[game].players.playerKey;
+            // create player with the id intact
+            for(let playerKey in data[0] ) {
+                const playerLoop = data[0][playerKey];
                 playerLoop.id = playerKey;
                 playerList.push(playerLoop);
             }
-
+            // console.log('list of players from service with id:', playerList);
             return playerList;
         });
     } // end get players
