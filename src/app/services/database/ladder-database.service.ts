@@ -13,6 +13,7 @@ import { LadderService } from './../ladder.service';
 export class LadderDatabaseService {
 
     private _tempPlayers = this._ladder.getPlayers('tekken');
+    public ladderObs = this._database.list('/ladder').valueChanges();
 
     constructor(private _database: AngularFireDatabase, private _ladder: LadderService) {
         console.log(this._tempPlayers);
@@ -20,6 +21,20 @@ export class LadderDatabaseService {
 
     public addPlayer(game: string, player: Player) {
         return this._database.list('ladder/' + game + '/players/').push(player);
+    }
+
+    public getPlayers(game: string) {
+        return this.ladderObs.map(data => {
+            const playerList = [];
+
+            for(let playerKey in data[game].players ) {
+                const playerLoop = data[game].players.playerKey;
+                playerLoop.id = playerKey;
+                playerList.push(playerLoop);
+            }
+
+            return playerList;
+        });
     }
 
     // public instantiation() {
