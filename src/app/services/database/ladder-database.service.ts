@@ -22,10 +22,10 @@ export class LadderDatabaseService {
         return this._database.list('ladder/' + game + '/players/').push(player);
     }
 
-    public instantiation() {
-        this._tempPlayers.forEach(element => {
-            this.addPlayer('tekken', element);
-        });
-    }
+    // public instantiation() {
+    //     this._tempPlayers.forEach(element => {
+    //         this.addPlayer('tekken', element);
+    //     });
+    // }
 
 }

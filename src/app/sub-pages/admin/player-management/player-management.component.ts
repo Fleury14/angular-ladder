@@ -12,7 +12,7 @@ export class PlayerManagementComponent {
 
     constructor(private _ladderDB: LadderDatabaseService) {}
 
-    public initialize() {
-        this._ladderDB.instantiation();
-    }
+    // public initialize() {
+    //     this._ladderDB.instantiation();
+    // }
 }
