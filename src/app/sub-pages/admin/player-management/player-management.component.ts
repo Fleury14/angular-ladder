@@ -26,6 +26,7 @@ export class PlayerManagementComponent implements OnInit {
 
     public displayPlayerInfo(id) {
        this.selectedPlayer = this.tekkenPlayers.find(player => player.id === id);
+       console.log(this.selectedPlayer);
     }
     // public initialize() {
     //     this._ladderDB.instantiation();
