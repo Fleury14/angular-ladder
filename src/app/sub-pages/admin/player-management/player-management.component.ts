@@ -11,6 +11,8 @@ import { LadderDatabaseService } from './../../../services/database/ladder-datab
 export class PlayerManagementComponent implements OnInit {
 
     public tekkenPlayers;
+    public selectedPlayer;
+
 
     constructor(private _ladderDB: LadderDatabaseService) {
 
@@ -20,6 +22,10 @@ export class PlayerManagementComponent implements OnInit {
         this._ladderDB.getPlayers('tekken').subscribe(data => {
             this.tekkenPlayers = data;
         });
+    }
+
+    public displayPlayerInfo(id) {
+       this.selectedPlayer = this.tekkenPlayers.find(player => player.id === id);
     }
     // public initialize() {
     //     this._ladderDB.instantiation();
