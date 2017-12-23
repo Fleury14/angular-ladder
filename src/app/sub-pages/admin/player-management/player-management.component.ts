@@ -13,6 +13,7 @@ import Player from './../../../interfaces/player';
 export class PlayerManagementComponent implements OnInit {
 
     public tekkenPlayers;
+    public listOfPlayers;
     public selectedPlayer;
     public gameList;
     public currentGame = {
@@ -34,13 +35,14 @@ export class PlayerManagementComponent implements OnInit {
     }
 
     ngOnInit() {
-        this._ladderDB.getPlayers('tekken').subscribe(data => {
-            this.tekkenPlayers = data;
-        });
+        this.currentGame.ref = 'placeholder';
+        // this._ladderDB.getPlayers('tekken').subscribe(data => {
+        //     this.tekkenPlayers = data;
+        // });
     }
 
     public displayPlayerInfo(id) {
-       this.selectedPlayer = this.tekkenPlayers.find(player => player.id === id);
+       this.selectedPlayer = this.listOfPlayers.find(player => player.id === id);
        console.log(this.selectedPlayer);
     }
 
@@ -49,6 +51,9 @@ export class PlayerManagementComponent implements OnInit {
         this.currentGame.title = title;
         this._ladderDB.getNumOfPlayer(ref).subscribe(result => {
             this.currentGame.numOfPlayers = result;
+        });
+        this._ladderDB.getPlayers(this.currentGame.ref).subscribe(result => {
+            this.listOfPlayers = result;
         });
     }
 

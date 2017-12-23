@@ -13,7 +13,8 @@
         <div class="row">
             <div class="col-sm-6"> <!-- Begin left half of player management -->
                 <h3 class="text-center font-bangers">List of Players</h3>
-                <p *ngFor="let player of tekkenPlayers" class="player-listing font-bangers"  (click)="displayPlayerInfo(player.id)">{{ player.name }}</p>
+                <h3 *ngIf="currentGame.ref === 'placeholder'">Please Select a game</h3>
+                <p *ngFor="let player of listOfPlayers" class="player-listing font-bangers"  (click)="displayPlayerInfo(player.id)">{{ player.name }}</p>
                 <div class="flex-container justify-center">
                     <button class="btn btn-success" (click)="openAddPlayer()">Add Player</button>
                 </div>
@@ -27,7 +28,7 @@
                     <p class="text-center">PSN Id: {{ selectedPlayer.psnId }}</p>
                     <p class="text-center">Wins: {{ selectedPlayer.wins }}</p>
                     <p class="text-center">Losses: {{ selectedPlayer.losses }}</p>
-                    <p class="text-center">Streak: {{ selectedPlayer.Streak }}</p>
+                    <p class="text-center">Streak: {{ selectedPlayer.streak }}</p>
                     <div class="flex-container justify-around">
                         <button class="btn btn-success">Update Player</button>
                         <button class="btn btn-danger">Delete Player</button>
