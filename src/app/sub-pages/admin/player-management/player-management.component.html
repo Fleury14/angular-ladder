@@ -15,7 +15,7 @@
                 <h3 class="text-center font-bangers">List of Players</h3>
                 <p *ngFor="let player of tekkenPlayers" class="player-listing font-bangers"  (click)="displayPlayerInfo(player.id)">{{ player.name }}</p>
                 <div class="flex-container justify-center">
-                    <button class="btn btn-success">Add Player</button>
+                    <button class="btn btn-success" (click)="openAddPlayer()">Add Player</button>
                 </div>
             </div><!-- end left half -->
             <div class="col-sm-6"> <!-- Begin right half of player management -->
@@ -35,9 +35,17 @@
                 </div> <!-- end ngif'd selected player div -->
             </div><!-- end right half -->
         </div> <!-- end row -->
-        <div class="row"><!-- begin add row -->
+        <div class="row" *ngIf="canAddPlayers === true"><!-- begin add row -->
             <div class="col-sm-12">
-
+                <h3 class="font-bangers text-center">Add player</h3>
+            </div>
+            <div class="col-sm-4 col-sm-offset-4">
+                <label for="">Player Name</label>
+                <input type="text" [(ngModel)]="nameField"><br>
+                <label>PSN ID</label>
+                <input type="text" [(ngModel)]="psnField">
+                <p>Game: {{ currentGame.title }}</p>
+                <button class="btn btn-danger" (click)="cancelAddPlayer()">Cancel</button>
             </div>
         </div><!-- end add row -->
     </div> <!-- end container -->

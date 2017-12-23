@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 import { LadderDatabaseService } from './../../../services/database/ladder-database.service';
 
+import Player from './../../../interfaces/player';
+
 @Component({
     selector: 'app-admin-players',
     templateUrl: './player-management.component.html',
@@ -16,7 +18,13 @@ export class PlayerManagementComponent implements OnInit {
     public currentGame = {
         title: '',
         ref: ''
-    }
+    };
+
+    // add player stuffs
+    public canAddPlayers = false;
+    public playerToBeAdded: Player;
+    public nameField: string;
+    public psnField: string;
 
     constructor(private _ladderDB: LadderDatabaseService) {
         this._ladderDB.getGameList().subscribe(data => {
@@ -38,6 +46,26 @@ export class PlayerManagementComponent implements OnInit {
     public switchGame(ref, title) {
         this.currentGame.ref = ref;
         this.currentGame.title = title;
+    }
+
+    public openAddPlayer() {
+        this.canAddPlayers = true;
+    }
+
+    public cancelAddPlayer() {
+        this.canAddPlayers = false;
+    }
+
+    public addPlayer() {
+        this.playerToBeAdded = {
+            name: this.nameField,
+            psnId: this.psnField,
+            wins: 0,
+            losses: 0,
+            elo: 1500,
+            streak: 'None',
+            rank: 0
+        }
     }
 
     // public initialize() {
