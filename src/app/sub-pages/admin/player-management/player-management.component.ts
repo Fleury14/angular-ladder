@@ -57,6 +57,7 @@ export class PlayerManagementComponent implements OnInit {
     }
 
     public addPlayer() {
+        console.log('player length:', this._ladderDB.getNumOfPlayer(this.currentGame.ref));
         this.playerToBeAdded = {
             name: this.nameField,
             psnId: this.psnField,

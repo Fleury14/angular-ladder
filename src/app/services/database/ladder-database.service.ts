@@ -57,6 +57,12 @@ export class LadderDatabaseService {
         });
     } // end get gamelist
 
+    public getNumOfPlayer(game) {
+        return this._database.list('/ladder/' + game + '/players').valueChanges().map(data => {
+            return data.length;
+        })
+    }
+
     // public instantiation() {
     //     this._tempPlayers.forEach(element => {
     //         this.addPlayer('tekken', element);
