@@ -17,7 +17,8 @@ export class PlayerManagementComponent implements OnInit {
     public gameList;
     public currentGame = {
         title: '',
-        ref: ''
+        ref: '',
+        numOfPlayers: 0
     };
 
     // add player stuffs
@@ -46,6 +47,9 @@ export class PlayerManagementComponent implements OnInit {
     public switchGame(ref, title) {
         this.currentGame.ref = ref;
         this.currentGame.title = title;
+        this._ladderDB.getNumOfPlayer(ref).subscribe(result => {
+            this.currentGame.numOfPlayers = result;
+        });
     }
 
     public openAddPlayer() {
@@ -57,7 +61,8 @@ export class PlayerManagementComponent implements OnInit {
     }
 
     public addPlayer() {
-        console.log('player length:', this._ladderDB.getNumOfPlayer(this.currentGame.ref));
+
+
         this.playerToBeAdded = {
             name: this.nameField,
             psnId: this.psnField,
@@ -65,8 +70,13 @@ export class PlayerManagementComponent implements OnInit {
             losses: 0,
             elo: 1500,
             streak: 'None',
-            rank: 0
-        }
+            rank: this.currentGame.numOfPlayers + 1
+        };
+
+        console.log('player to be added: ', this.playerToBeAdded);
+        this._ladderDB.addPlayer(this.currentGame.ref, this.playerToBeAdded);
+        this.nameField = '';
+        this.psnField = '';
     }
 
     // public initialize() {

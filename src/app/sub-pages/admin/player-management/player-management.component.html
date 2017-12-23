@@ -45,7 +45,10 @@
                 <label>PSN ID</label>
                 <input type="text" [(ngModel)]="psnField">
                 <p>Game: {{ currentGame.title }}</p>
-                <button class="btn btn-danger" (click)="cancelAddPlayer()">Cancel</button>
+                <div class="flex-container justify-around">
+                    <button class="btn btn-danger" (click)="cancelAddPlayer()">Cancel</button>
+                    <button class="btn btn-success" (click)="addPlayer(currentGame.ref)" [disabled]="currentGame.title === '' || !nameField || !psnField">Add Player</button>    
+                </div>
             </div>
         </div><!-- end add row -->
     </div> <!-- end container -->
