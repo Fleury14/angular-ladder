@@ -44,15 +44,15 @@ export class LadderDatabaseService {
     public getGameList() {
         return this._database.list('/').valueChanges().map(data => {
             const gameList = [];
-            for (let game in data['ladder']) {
-                console.log('iteration:', game);
-                let gameLoop;
-                gameLoop.title = data['ladder'][game].title;
-                gameLoop.game = game;
+            for (let game in data[0]) {
+                console.log('iteration:', game, data[0][game]);
+                const gameLoop = {
+                    title: data[0][game].title,
+                    ref: game
+                };
                 gameList.push(gameLoop);
             }
 
-            console.log('gameList:', gameList);
             return gameList;
         });
     } // end get gamelist

@@ -12,10 +12,12 @@ export class PlayerManagementComponent implements OnInit {
 
     public tekkenPlayers;
     public selectedPlayer;
-
+    public gameList; 
 
     constructor(private _ladderDB: LadderDatabaseService) {
-
+        this._ladderDB.getGameList().subscribe(data => {
+            this.gameList = data;
+        });
     }
 
     ngOnInit() {
