@@ -12,7 +12,11 @@ export class PlayerManagementComponent implements OnInit {
 
     public tekkenPlayers;
     public selectedPlayer;
-    public gameList; 
+    public gameList;
+    public currentGame = {
+        title: '',
+        ref: ''
+    }
 
     constructor(private _ladderDB: LadderDatabaseService) {
         this._ladderDB.getGameList().subscribe(data => {
@@ -30,6 +34,12 @@ export class PlayerManagementComponent implements OnInit {
        this.selectedPlayer = this.tekkenPlayers.find(player => player.id === id);
        console.log(this.selectedPlayer);
     }
+
+    public switchGame(ref, title) {
+        this.currentGame.ref = ref;
+        this.currentGame.title = title;
+    }
+
     // public initialize() {
     //     this._ladderDB.instantiation();
     // }
