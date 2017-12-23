@@ -12,7 +12,7 @@ export class NavComponent {
 
     private _adminList = ['114390552657346311906'];
     // in order: jr, rado
-    private _adminUidList = ['mkomTbU76VUR5tIoLmmyP1luR5q1', 'Gxr9qQ1pczOCLyncfhLiLdhvhy32'];
+    private _adminUidList = ['mkomTbU76VUR5tIoLmmyP1luR5q1', 'Gxr9qQ1pczOCLyncfhLiLdhvhy32', 'xFDVJ8Dq9CZR8PmiixbSNX5FpNv2'];
 
     constructor(public login: LoginService) {
     }
