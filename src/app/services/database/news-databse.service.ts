@@ -115,8 +115,8 @@ export class NewsDatabaseService {
         return this.rootObs.map(news => {
             const anotherNewsList = [];
 
-            for (let newsKey in news[0]) {
-                const evenMore = news[0][newsKey];
+            for (let newsKey in news[1]) {
+                const evenMore = news[1][newsKey];
                 evenMore.id = newsKey;
                 anotherNewsList.push(evenMore);
             }
