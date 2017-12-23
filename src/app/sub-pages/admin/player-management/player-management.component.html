@@ -1,13 +1,20 @@
 <div>
     <p>This is where players will be managed</p>
     <div class="container">
+        <div class="row game-select-row">
+            <div class="col-sm-2">Select your game:</div>
+        </div>
         <div class="row">
             <div class="col-sm-6"> <!-- Begin left half of player management -->
                 <h3 class="text-center font-bangers">List of Players</h3>
                 <p *ngFor="let player of tekkenPlayers" class="player-listing font-bangers"  (click)="displayPlayerInfo(player.id)">{{ player.name }}</p>
+                <div class="flex-container justify-center">
+                    <button class="btn btn-success">Add Player</button>
+                </div>
             </div><!-- end left half -->
             <div class="col-sm-6"> <!-- Begin right half of player management -->
                 <div *ngIf="selectedPlayer">
+                    <h3 class="text-center font-bangers">Selected Player</h3>
                     <p class="text-center">Player Name: {{ selectedPlayer.name }}</p>
                     <p class="text-center">Player Rank: {{ selectedPlayer.rank }}</p>
                     <p class="text-center">ELO: {{ selectedPlayer.elo }}</p>
@@ -15,8 +22,17 @@
                     <p class="text-center">Wins: {{ selectedPlayer.wins }}</p>
                     <p class="text-center">Losses: {{ selectedPlayer.losses }}</p>
                     <p class="text-center">Streak: {{ selectedPlayer.Streak }}</p>
+                    <div class="flex-container justify-around">
+                        <button class="btn btn-success">Update Player</button>
+                        <button class="btn btn-danger">Delete Player</button>
+                    </div>
                 </div> <!-- end ngif'd selected player div -->
             </div><!-- end right half -->
         </div> <!-- end row -->
+        <div class="row"><!-- begin add row -->
+            <div class="col-sm-12">
+
+            </div>
+        </div><!-- end add row
     </div> <!-- end container -->
 </div>
