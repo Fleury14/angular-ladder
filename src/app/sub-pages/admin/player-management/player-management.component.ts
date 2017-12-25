@@ -93,6 +93,7 @@ export class PlayerManagementComponent implements OnInit {
 
         console.log('player to be added: ', this.playerToBeAdded);
         this._ladderDB.addPlayer(this.currentGame.ref, this.playerToBeAdded);
+        this.canAddPlayers = false;
         this.nameField = '';
         this.psnField = '';
     }
