@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 import { LadderDatabaseService } from './../../../services/database/ladder-database.service';
@@ -30,13 +30,15 @@ export class PlayerManagementComponent implements OnInit {
 
     // update player stuffs
     public canEditPlayer = false;
-    public updatePlayerForm: NgForm;
+    @ViewChild('playerUpdateForm')
+    private _playerUpdateForm: NgForm;
     public updateNameField: string;
     public updatePsnIdField: string;
+    public updateRankField: number;
     public updateWinsField: number;
     public updateLossesField: number;
     public updateEloField: number;
-    public updateStringField: string;
+    public updateStreakField: string;
 
     constructor(private _ladderDB: LadderDatabaseService) {
         this._ladderDB.getGameList().subscribe(data => {
@@ -96,6 +98,14 @@ export class PlayerManagementComponent implements OnInit {
 
     public allowUpdatePlayer() {
         this.canEditPlayer = true;
+        this.updateNameField = this.selectedPlayer.name;
+        this.updatePsnIdField = this.selectedPlayer.psnId;
+        this.updateWinsField = this.selectedPlayer.wins;
+        this.updateLossesField = this.selectedPlayer.losses;
+        this.updateStreakField = this.selectedPlayer.streak;
+        this.updateEloField = this.selectedPlayer.elo;
+        this.updateRankField = this.selectedPlayer.rank;
+        // this._playerUpdateForm.value.updateNameField = 'LOLOL';
     }
 
     public cancelUpdatePlayer() {
@@ -104,6 +114,7 @@ export class PlayerManagementComponent implements OnInit {
 
     public updatePlayer(value) {
         console.log('Updating with the following info', value);
+        console.log('room form val', this._playerUpdateForm);
     }
 
     // public initialize() {
