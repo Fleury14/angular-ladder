@@ -36,7 +36,7 @@ export class LadderDatabaseService {
             const playerList = [];
 
             // create player with the id intact
-            for(let playerKey in data[0] ) {
+            for (let playerKey in data[0]) {
                 const playerLoop = data[0][playerKey];
                 playerLoop.id = playerKey;
                 playerList.push(playerLoop);
@@ -65,7 +65,7 @@ export class LadderDatabaseService {
     public getNumOfPlayer(game) {
         return this._database.list('/ladder/' + game + '/players').valueChanges().map(data => {
             return data.length;
-        })
+        });
     }
 
     // public instantiation() {

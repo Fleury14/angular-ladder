@@ -124,7 +124,7 @@ export class PlayerManagementComponent implements OnInit {
             streak: value.updateStreakField,
             rank: value.updateRankField
         };
-
+        this._ladderDB.updatePlayer(updatedInfo, id, this.currentGame.ref);
     }
 
     // public initialize() {
