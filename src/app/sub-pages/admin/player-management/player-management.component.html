@@ -16,7 +16,7 @@
                 <h3 *ngIf="currentGame.ref === 'placeholder'">Please Select a game</h3>
                 <p *ngFor="let player of listOfPlayers" class="player-listing font-bangers"  (click)="displayPlayerInfo(player.id)">{{ player.name }}</p>
                 <div class="flex-container justify-center">
-                    <button class="btn btn-success" (click)="openAddPlayer()">Add Player</button>
+                    <button class="btn btn-success" [disabled]="currentGame.title === ''" (click)="openAddPlayer()">Add Player</button>
                 </div>
             </div><!-- end left half -->
             <div class="col-sm-6"> <!-- Begin right half of player management -->
