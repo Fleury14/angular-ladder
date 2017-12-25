@@ -32,6 +32,7 @@ export class PlayerManagementComponent implements OnInit {
     public canEditPlayer = false;
     @ViewChild('playerUpdateForm')
     private _playerUpdateForm: NgForm;
+    private _oldRank: number;
     public updateNameField: string;
     public updatePsnIdField: string;
     public updateRankField: number;

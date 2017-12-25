@@ -1,9 +1,9 @@
 <div>
     <p>This is where players will be managed</p>
     <div class="container">
-        <div class="row game-select-row">
+        <div class="row font-bangers game-select-row">
             <div class="col-sm-2">Select your game:</div>
-            <div class="col-sm-2" *ngFor="let game of gameList" (click)="switchGame(game.ref, game.title)">{{ game.title }}</div>
+            <div class="col-sm-2 game-select-item" *ngFor="let game of gameList" (click)="switchGame(game.ref, game.title)">{{ game.title }}</div>
         </div>
         <div class="row"> <!-- begin player header row -->
             <div class="col-sm-12 text-center">
@@ -71,6 +71,7 @@
                 <input type="text" name="updateStreakField" [(ngModel)]="updateStreakField" required><br>
                 <input type="submit" class="btn btn-success" [disabled]="playerUpdateForm.invalid">
                 <button class="btn btn-warning" (click)="cancelUpdatePlayer()">Cancel Update</button>
+                <p>Note: Changing rank manually may lead to sorting issues on the front page should two players share the same rank.</p>
             </form>
         </div> <!-- end update row -->
     </div> <!-- end container -->
