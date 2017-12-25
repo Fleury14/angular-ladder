@@ -44,7 +44,16 @@ export class NewsManagementComponent implements OnInit {
         const lol = this._newsData.getNews()
         .map(data => {
             data.sort(function(a, b) { return b.dateUnix - a.dateUnix; } );
-            return data;
+            return data.map(newsItem => {
+                const newLine = /\n/gi;
+                const iteratedNewsItem = {
+                    author: newsItem.author,
+                    date: newsItem.date,
+                    content: newsItem.content.replace(newLine, '<br/>'),
+                    id: newsItem.id
+                };
+                return iteratedNewsItem;
+            });
         })
         .subscribe(result => {
             // console.log('rr result', result);
@@ -54,10 +63,11 @@ export class NewsManagementComponent implements OnInit {
         // map observable from the service and then subscribe to it via the newslist array
         this._newsData.newsObservable.map(newslist => {
             return newslist.map(newsItem => {
+
                 const myNewsItem: NewsItem = {
                     author: newsItem.author,
                     date: newsItem.date,
-                    content: newsItem.content
+                    content: newsItem.content.replace('\n', 'LINEBREAK')
                 };
                 return myNewsItem;
             });

@@ -11,7 +11,7 @@
         <div class="row" *ngFor="let item of newsListWithId">
             <div class="col-sm-3">{{ item.date }}</div>
             <div class="col-sm-2">{{ item.author }}</div>
-            <div class="col-sm-5">{{ item.content }}</div>
+            <div class="col-sm-5" [innerHTML]="item.content"></div>
             <div class="col-sm-1">
                 <button class="btn btn-success" (click)="editNewsItem(item.id)">Change</button>
             </div>
