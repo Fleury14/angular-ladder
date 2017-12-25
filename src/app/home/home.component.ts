@@ -61,6 +61,15 @@ export class HomeComponent implements AfterViewInit {
         });
     }
 
+    public parseNewLine(content: string) {
+        const newLine = /\n/gi;
+        if (content) {
+            return content.replace(newLine, '<br>');
+        } else {
+            return content;
+        }
+    }
+
     ngAfterViewInit() {
         // SHOW-HIDE NEWS SECTION
 

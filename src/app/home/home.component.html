@@ -41,7 +41,7 @@
                     <div class="panel panel-danger">
                         <div class="panel-heading panel-heading-custom">{{item.date}}</div>
                         <div class="panel-body">
-                            <p class="panel-news-body">{{item.content}}</p>
+                            <p class="panel-news-body" [innerHTML]="parseNewLine(item.content)"></p>
                             <p class="news-sig">{{item.author}}</p>
                         </div>
                     </div>
