@@ -126,6 +126,9 @@ export class PlayerManagementComponent implements OnInit {
             rank: value.updateRankField
         };
         this._ladderDB.updatePlayer(updatedInfo, id, this.currentGame.ref);
+        this.cancelUpdatePlayer();
+        this.selectedPlayer = null;
+
     }
 
     // public initialize() {
