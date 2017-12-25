@@ -52,5 +52,23 @@
                 </div>
             </div>
         </div><!-- end add row -->
+        <div class="row" *ngIf="canEditPlayer === true"> <!-- begin update row -->
+            <h3 class="text-center font-bangers">Player edit</h3>
+            <form #playerUpdateForm="ngForm" action="">
+                <label>Name:</label>
+                <input name="updateNameField" type="text" ngModel required><br>
+                <label>PSN ID:</label>
+                <input type="text" name="updatePsnidField" ngModel required><br>
+                <label>Wins:</label>
+                <input type="number" name="updateWinsField" ngModel required><br>
+                <label>Losses:</label>
+                <input type="number" name="updateLossesField" ngModel required><br>
+                <label>ELO:</label>
+                <input type="number" name="updateEloField" ngModel required><br>
+                <label>Streak</label>
+                <input type="text" name="updateStreakField" ngModel required><br>
+                <input type="submit" class="btn btn-success">
+            </form>
+        </div> <!-- end update row -->
     </div> <!-- end container -->
 </div>

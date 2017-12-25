@@ -8,9 +8,9 @@ admin.initializeApp(functions.config().firebase);
 exports.playerCheck = functions.https.onRequest((req, res) => {
     // const player2BeChecked = req.body.player;
     // const game = req.body.game;
-    const playerList = functions.database.ref('/ladder/' + game + '/players/');
+    const playerList = functions.database.ref('/ladder/' + 'tekken' + '/players/');
     console.log(playerList);
-    res.send('testing', playerList)
+    res.send('testing', playerList);
 
     
 })

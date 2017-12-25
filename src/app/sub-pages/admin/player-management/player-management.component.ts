@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 import { LadderDatabaseService } from './../../../services/database/ladder-database.service';
 
@@ -12,7 +13,6 @@ import Player from './../../../interfaces/player';
 
 export class PlayerManagementComponent implements OnInit {
 
-    public tekkenPlayers;
     public listOfPlayers;
     public selectedPlayer;
     public gameList;
@@ -27,6 +27,16 @@ export class PlayerManagementComponent implements OnInit {
     public playerToBeAdded: Player;
     public nameField: string;
     public psnField: string;
+
+    // update player stuffs
+    public canEditPlayer = false;
+    public updatePlayerForm: NgForm;
+    public updateNameField: string;
+    public updatePsnIdField: string;
+    public updateWinsField: number;
+    public updateLossesField: number;
+    public updateEloField: number;
+    public updateStringField: string;
 
     constructor(private _ladderDB: LadderDatabaseService) {
         this._ladderDB.getGameList().subscribe(data => {
@@ -82,6 +92,10 @@ export class PlayerManagementComponent implements OnInit {
         this._ladderDB.addPlayer(this.currentGame.ref, this.playerToBeAdded);
         this.nameField = '';
         this.psnField = '';
+    }
+
+    public updatePlayer(value) {
+        console.log('Updating with the following info', value);
     }
 
     // public initialize() {
