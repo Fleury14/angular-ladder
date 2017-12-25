@@ -23,6 +23,11 @@ export class LadderDatabaseService {
         return this._database.list('ladder/' + game + '/players/').push(player);
     }
 
+    public updatePlayer(player: Player, id: string, game: string) {
+        const playerRef = this._database.list('ladder/' + game + '/players/');
+        playerRef.update(id, player);
+    }
+
     public getPlayers(game: string) {
 
         // so in this case, we're eschewing the step of using a declared observable and .mapping straight from the .list
