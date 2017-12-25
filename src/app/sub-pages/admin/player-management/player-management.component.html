@@ -30,7 +30,7 @@
                     <p class="text-center">Losses: {{ selectedPlayer.losses }}</p>
                     <p class="text-center">Streak: {{ selectedPlayer.streak }}</p>
                     <div class="flex-container justify-around">
-                        <button class="btn btn-success">Update Player</button>
+                        <button class="btn btn-success" (click)="allowUpdatePlayer()">Update Player</button>
                         <button class="btn btn-danger">Delete Player</button>
                     </div>
                 </div> <!-- end ngif'd selected player div -->
@@ -68,6 +68,7 @@
                 <label>Streak</label>
                 <input type="text" name="updateStreakField" ngModel required><br>
                 <input type="submit" class="btn btn-success">
+                <button class="btn btn-warning" (click)="cancelUpdatePlayer()">Cancel Update</button>
             </form>
         </div> <!-- end update row -->
     </div> <!-- end container -->

@@ -94,6 +94,14 @@ export class PlayerManagementComponent implements OnInit {
         this.psnField = '';
     }
 
+    public allowUpdatePlayer() {
+        this.canEditPlayer = true;
+    }
+
+    public cancelUpdatePlayer() {
+        this.canEditPlayer = false;
+    }
+
     public updatePlayer(value) {
         console.log('Updating with the following info', value);
     }
