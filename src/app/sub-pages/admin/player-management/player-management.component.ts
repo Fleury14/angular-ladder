@@ -113,9 +113,18 @@ export class PlayerManagementComponent implements OnInit {
         this.canEditPlayer = false;
     }
 
-    public updatePlayer(value) {
+    public updatePlayer(value, id) {
         console.log('Updating with the following info', value);
-        console.log('room form val', this._playerUpdateForm);
+        const updatedInfo: Player = {
+            name: value.updateNameField,
+            psnId: value.updatePsnIdField,
+            wins: value.updateWinsField,
+            losses: value.updateLossesField,
+            elo: value.updateEloField,
+            streak: value.updateStreakField,
+            rank: value.updateRankField
+        };
+
     }
 
     // public initialize() {
