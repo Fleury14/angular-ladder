@@ -24,8 +24,8 @@ export class LadderDatabaseService {
     }
 
     public deletePlayer(game: string, id: string) {
-        return this._database.list('ladder/' + game + 'players').remove(id)
-        .then(function() { this.sortAndRerank(game); });
+        return this._database.list('ladder/' + game + '/players').remove(id);
+        // .then(function() { this.parent.sortAndRerank(game); });
     }
 
     public updatePlayer(player: Player, id: string, game: string) {

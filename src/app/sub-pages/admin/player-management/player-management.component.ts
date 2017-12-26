@@ -133,7 +133,8 @@ export class PlayerManagementComponent implements OnInit {
     // button in a player after selecting them first. therefore, all the data we need is in selectedPlayer
     public deletePlayer() {
         if (confirm(`Do you really want to delete ${this.selectedPlayer.name}?`)) {
-            this._ladderDB.deletePlayer(this.currentGame.ref, this.selectedPlayer.id);
+            this._ladderDB.deletePlayer(this.currentGame.ref, this.selectedPlayer.id)
+            .then(() => {this._ladderDB.sortAndRerank(this.currentGame.title); });
         }
     }
 
