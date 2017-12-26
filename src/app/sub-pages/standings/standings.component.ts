@@ -7,6 +7,7 @@ import Ladder from './../../interfaces/ladder';
 import MasterLadder from './../../classes/masterLadder';
 
 import { LadderService } from './../../services/ladder.service';
+import { LadderDatabaseService } from './../../services/database/ladder-database.service';
 
 @Component({
     selector: 'app-standings',
@@ -17,7 +18,7 @@ import { LadderService } from './../../services/ladder.service';
 export class StandingsComponent {
 
 
-    constructor(public masterLadder: LadderService) {
+    constructor(public masterLadder: LadderService, private _ladderDB: LadderDatabaseService) {
         console.log('Ladder initialized');
      }
 

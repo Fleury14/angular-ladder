@@ -16,24 +16,31 @@ export class LadderDatabaseService {
     public ladderObs = this._database.list('/ladder').valueChanges();
 
     constructor(private _database: AngularFireDatabase, private _ladder: LadderService) {
-        console.log(this._tempPlayers);
+        // console.log(this._tempPlayers);
     }
 
+    // function to add a player to the database. requires a valid player object that follows the interface, and a game to add it to
     public addPlayer(game: string, player: Player) {
         return this._database.list('ladder/' + game + '/players/').push(player);
     }
 
+    // function to delete a player. required game the player is in and the id of the player to be deleted. i had initiallly considered
+    // calling a rerank here but i couldnt get it to work. now it calls the rerank fromm the components end.
     public deletePlayer(game: string, id: string) {
         return this._database.list('ladder/' + game + '/players').remove(id);
-        // .then(function() { this.parent.sortAndRerank(game); });
     }
 
+    // method to update player called both from editing a players info and the rerank function when adjusting rank
+    // requires new player object, id of the player to update and game the player is on
+    // note that i ask for the entire object on the input end so that i can use this in multiple functions
     public updatePlayer(player: Player, id: string, game: string) {
         const playerRef = this._database.list('ladder/' + game + '/players/');
         // console.log(`updating ladder ${game} and player id ${id} with the following object:`, player);
         playerRef.update(id, player);
     }
 
+    // method to get a list of players from a particular game with the id added on as another property
+    // we use dunlavys roomreserve method here as well
     public getPlayers(game: string) {
 
         // so in this case, we're eschewing the step of using a declared observable and .mapping straight from the .list
@@ -77,6 +84,8 @@ export class LadderDatabaseService {
         })
     }
 
+    // gets a list of games in the ladder. returns both a .ref and .title property so the future calls to the databse from this game
+    // list can use the  value of .ref a s a point of reference
     public getGameList() {
         return this._database.list('/').valueChanges().map(data => {
             const gameList = [];
@@ -93,6 +102,7 @@ export class LadderDatabaseService {
         });
     } // end get gamelist
 
+    // returns the number of players in a current game
     public getNumOfPlayer(game) {
         return this._database.list('/ladder/' + game + '/players').valueChanges().map(data => {
             return data.length;

@@ -13,10 +13,10 @@ import Player from './../../../interfaces/player';
 
 export class PlayerManagementComponent implements OnInit {
 
-    public listOfPlayers;
-    public selectedPlayer;
-    public gameList;
-    public currentGame = {
+    public listOfPlayers; // will hold player list for selected game
+    public selectedPlayer; // player that was selected by user from list
+    public gameList; // list of all games in the ladder
+    public currentGame = {  // initial placeholder for current game
         title: '',
         ref: '',
         numOfPlayers: 0
@@ -42,6 +42,7 @@ export class PlayerManagementComponent implements OnInit {
     public updateStreakField: string;
 
     constructor(private _ladderDB: LadderDatabaseService) {
+        // instantiate the game list first so that game list and subsequent player list can be built dynamically
         this._ladderDB.getGameList().subscribe(data => {
             this.gameList = data;
         });
@@ -54,14 +55,20 @@ export class PlayerManagementComponent implements OnInit {
         // });
     }
 
+    // method for displaying info on the right half of the screen when the user click on a player from the player list
+    // simply retrieves the player object that has a matching id
     public displayPlayerInfo(id) {
        this.selectedPlayer = this.listOfPlayers.find(player => player.id === id);
-       console.log(this.selectedPlayer);
+       // console.log(this.selectedPlayer);
     }
 
+    // method for when the user clicks on a game from the list of game. takes in both the title of the game and the name of the game in
+    // the database as a .ref. switches the currentGame attributes, then repopulates the player list according to the game selected
     public switchGame(ref, title) {
         this.currentGame.ref = ref;
         this.currentGame.title = title;
+
+        // the total number of players in a ladder is used when adding a player
         this._ladderDB.getNumOfPlayer(ref).subscribe(result => {
             this.currentGame.numOfPlayers = result;
         });
@@ -70,6 +77,8 @@ export class PlayerManagementComponent implements OnInit {
         });
     }
 
+    // methods for allovwing and disallowing the user to have access to the add player div. this should eventually be refactored into its
+    // own child component 
     public openAddPlayer() {
         this.canAddPlayers = true;
     }
@@ -78,7 +87,12 @@ export class PlayerManagementComponent implements OnInit {
         this.canAddPlayers = false;
     }
 
+    // method for adding a player to the database
     public addPlayer() {
+
+        // create the object so that it matches the Player interface
+        // also note that this uses the total number of players to automatically set the new players rank
+        // at the bottom
         this.playerToBeAdded = {
             name: this.nameField,
             psnId: this.psnField,
@@ -89,15 +103,21 @@ export class PlayerManagementComponent implements OnInit {
             rank: this.currentGame.numOfPlayers + 1
         };
 
-        console.log('player to be added: ', this.playerToBeAdded);
+        // console.log('player to be added: ', this.playerToBeAdded);
+
+        // call the service function
         this._ladderDB.addPlayer(this.currentGame.ref, this.playerToBeAdded);
+        // then reset the fields and hide the add player so they cant spam the button and add a bajillion players
         this.canAddPlayers = false;
         this.nameField = '';
         this.psnField = '';
     }
 
+    // method for opening the edit player functionality
     public allowUpdatePlayer() {
         this.canEditPlayer = true;
+
+        // fill in the fields with the corresponding values from the player object. tbh there should be a cleaner way to do this
         this.updateNameField = this.selectedPlayer.name;
         this.updatePsnIdField = this.selectedPlayer.psnId;
         this.updateWinsField = this.selectedPlayer.wins;
@@ -105,13 +125,15 @@ export class PlayerManagementComponent implements OnInit {
         this.updateStreakField = this.selectedPlayer.streak;
         this.updateEloField = this.selectedPlayer.elo;
         this.updateRankField = this.selectedPlayer.rank;
-        // this._playerUpdateForm.value.updateNameField = 'LOLOL';
     }
 
+    // method to hide the edit player box. doesn't reset the fields since you can't see them and any reappearance of the fields
+    // would trigger an update anyway
     public cancelUpdatePlayer() {
         this.canEditPlayer = false;
     }
 
+    // method to update a players info.
     public updatePlayer(value, id) {
         console.log('Updating with the following info', value);
         const updatedInfo: Player = {
@@ -124,6 +146,7 @@ export class PlayerManagementComponent implements OnInit {
             rank: value.updateRankField
         };
         this._ladderDB.updatePlayer(updatedInfo, id, this.currentGame.ref);
+        // after the update call, hide the edit player field if its shown, then remove any selected player.
         this.cancelUpdatePlayer();
         this.selectedPlayer = null;
 
