@@ -23,6 +23,11 @@ export class LadderDatabaseService {
         return this._database.list('ladder/' + game + '/players/').push(player);
     }
 
+    public deletePlayer(game: string, id: string) {
+        return this._database.list('ladder/' + game + 'players').remove(id)
+        .then(function() { this.sortAndRerank(game); });
+    }
+
     public updatePlayer(player: Player, id: string, game: string) {
         const playerRef = this._database.list('ladder/' + game + '/players/');
         playerRef.update(id, player);
