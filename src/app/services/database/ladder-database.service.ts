@@ -30,6 +30,7 @@ export class LadderDatabaseService {
 
     public updatePlayer(player: Player, id: string, game: string) {
         const playerRef = this._database.list('ladder/' + game + '/players/');
+        console.log(`updating ladder ${game} and player id ${id} with the following object:`, player);
         playerRef.update(id, player);
     }
 
@@ -68,7 +69,8 @@ export class LadderDatabaseService {
                     // if the player rank is higher than expected, this is usually due to a player being deleted
                     // creating a gap in the rankings. notify in console and adjust
                     console.log(`Player ${playerList[i].name} is a higher rank than expected. Setting to ${i + 1}`);
-                    playerList[i].rank = i + i;
+                    playerList[i].rank = i + 1;
+                    // console.log(`current rank: ${playerList[i].rank}, target rank ${i + 1}`);
                     this.updatePlayer(playerList[i], playerList[i].id, game);
                 } // end if.. if we're this far then that means the players rank is what it should be and no action needs to be taken
             }
