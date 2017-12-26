@@ -30,7 +30,7 @@ export class LadderDatabaseService {
 
     public updatePlayer(player: Player, id: string, game: string) {
         const playerRef = this._database.list('ladder/' + game + '/players/');
-        console.log(`updating ladder ${game} and player id ${id} with the following object:`, player);
+        // console.log(`updating ladder ${game} and player id ${id} with the following object:`, player);
         playerRef.update(id, player);
     }
 
