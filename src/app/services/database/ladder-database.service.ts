@@ -53,6 +53,7 @@ export class LadderDatabaseService {
 
     // method to sort the list by ascending rank. used when someone is deleted
     public sortAndRerank(game: string) {
+        console.log(`sorting game ${game}...`);
         const unSortedList = this.getPlayers(game).subscribe(playerList => {
             playerList.sort(function(a, b) { return a.rank - b.rank; });
 
