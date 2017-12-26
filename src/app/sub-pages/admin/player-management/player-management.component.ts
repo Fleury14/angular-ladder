@@ -79,8 +79,6 @@ export class PlayerManagementComponent implements OnInit {
     }
 
     public addPlayer() {
-
-
         this.playerToBeAdded = {
             name: this.nameField,
             psnId: this.psnField,
@@ -129,6 +127,14 @@ export class PlayerManagementComponent implements OnInit {
         this.cancelUpdatePlayer();
         this.selectedPlayer = null;
 
+    }
+
+    // method to delete a player. note that we're not bringing in any values from the html, because you can only click the delete
+    // button in a player after selecting them first. therefore, all the data we need is in selectedPlayer
+    public deletePlayer() {
+        if (confirm(`Do you really want to delete ${this.selectedPlayer.name}?`)) {
+            this._ladderDB.deletePlayer(this.currentGame.ref, this.selectedPlayer.id);
+        }
     }
 
     // public initialize() {

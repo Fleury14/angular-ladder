@@ -31,7 +31,7 @@
                     <p class="text-center">Streak: {{ selectedPlayer.streak }}</p>
                     <div class="flex-container justify-around">
                         <button class="btn btn-success" (click)="allowUpdatePlayer()">Update Player</button>
-                        <button class="btn btn-danger">Delete Player</button>
+                        <button class="btn btn-danger" (click)="deletePlayer()">Delete Player</button>
                     </div>
                 </div> <!-- end ngif'd selected player div -->
             </div><!-- end right half -->
