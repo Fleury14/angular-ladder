@@ -153,17 +153,6 @@ export class NewsDatabaseService {
             firstThree[1] = news[1];
             firstThree[2] = news[2];
 
-            const newLine = /\n/gi;
-            firstThree.forEach(newsItem => {
-                if (newsItem.content) {
-                    newsItem.content.replace(newLine, 'LINEBREAK');
-                }
-            });
-            // firstThree.forEach(newsItem => {
-            //     const newLine = /\n/gi;
-            //     newsItem.content.replace(newLine, '<br>');
-            // });
-
             // then return that array. now the result should be the three most recent news items
             return firstThree;
         });

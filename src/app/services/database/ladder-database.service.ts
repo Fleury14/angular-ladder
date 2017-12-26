@@ -46,6 +46,29 @@ export class LadderDatabaseService {
         });
     } // end get players
 
+    // method to sort the list by ascending rank. used when someone is deleted
+    public sortAndRerank(game: string) {
+        const unSortedList = this.getPlayers(game).subscribe(playerList => {
+            playerList.sort(function(a, b) { return a.rank - b.rank; });
+
+            for(let i = 0; i < playerList.length; i++) {
+                if (playerList[i].rank < i + 1) {
+                    // if the player rank is lower than what the next expected number is, this is most likely due
+                    // to two players having the same rank. adjust rank as required:
+                    console.log(`Player ${playerList[i].name} is a lower rank than expected. Setting to ${i + 1}`);
+                    playerList[i].rank = i + 1;
+                    this.updatePlayer(playerList[i], playerList[i].id, game);
+                } else if (playerList[i].rank > i + 1) {
+                    // if the player rank is higher than expected, this is usually due to a player being deleted
+                    // creating a gap in the rankings. notify in console and adjust
+                    console.log(`Player ${playerList[i].name} is a higher rank than expected. Setting to ${i + 1}`);
+                    playerList[i].rank = i + i;
+                    this.updatePlayer(playerList[i], playerList[i].id, game);
+                } // end if.. if we're this far then that means the players rank is what it should be and no action needs to be taken
+            }
+        })
+    }
+
     public getGameList() {
         return this._database.list('/').valueChanges().map(data => {
             const gameList = [];
