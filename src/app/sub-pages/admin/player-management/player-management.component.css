@@ -17,3 +17,7 @@
 .game-select-item {
     color: #fff;
 }
+
+.current-game {
+    color: orange;
+}

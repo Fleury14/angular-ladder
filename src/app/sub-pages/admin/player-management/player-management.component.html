@@ -3,7 +3,7 @@
     <div class="container">
         <div class="row font-bangers game-select-row">
             <div class="col-sm-2">Select your game:</div>
-            <div class="col-sm-2 game-select-item" *ngFor="let game of gameList" (click)="switchGame(game.ref, game.title)">{{ game.title }}</div>
+            <div class="col-sm-2 game-select-item" *ngFor="let game of gameList" [ngClass]="{'current-game': currentGame.ref === game.ref}" (click)="switchGame(game.ref, game.title)">{{ game.title }}</div>
         </div>
         <div class="row"> <!-- begin player header row -->
             <div class="col-sm-12 text-center">
@@ -14,7 +14,7 @@
             <div class="col-sm-6"> <!-- Begin left half of player management -->
                 <h3 class="text-center font-bangers">List of Players</h3>
                 <h3 *ngIf="currentGame.ref === 'placeholder'">Please Select a game</h3>
-                <p *ngFor="let player of listOfPlayers" class="player-listing font-bangers"  (click)="displayPlayerInfo(player.id)">{{ player.name }}</p>
+                <p *ngFor="let player of listOfPlayers" class="player-listing font-bangers" [ngClass]="{'current-game': selectedPlayer?.name === player?.name}" (click)="displayPlayerInfo(player.id)">{{ player.name }}</p>
                 <div class="flex-container justify-center">
                     <button class="btn btn-success" [disabled]="currentGame.title === ''" (click)="openAddPlayer()">Add Player</button>
                 </div>
@@ -31,7 +31,7 @@
                     <p class="text-center">Streak: {{ selectedPlayer.streak }}</p>
                     <div class="flex-container justify-around">
                         <button class="btn btn-success" (click)="allowUpdatePlayer()">Update Player</button>
-                        <button class="btn btn-danger">Delete Player</button>
+                        <button class="btn btn-danger" (click)="deletePlayer()">Delete Player</button>
                     </div>
                 </div> <!-- end ngif'd selected player div -->
             </div><!-- end right half -->

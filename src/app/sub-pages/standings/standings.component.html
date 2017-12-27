@@ -1,67 +1,37 @@
 <p class="header-column">STANDINGS</p>
 <div class="container">
-    <div class="row">
+    <div class="row" *ngFor="let game of listOfGames">
         <div class="col-sm-12">
-            <h3 class="standing-header">Marvel vs Capcom Infinite (PS4)</h3>
-            <h4 class="font-bangers text-center">Opening Soon, apply now!</h4>
+            <h3 class="standing-header">{{ game.title }}</h3> 
             <table class="table table-striped standing-table">
-                 <thead>
-                     <tr>
-                         <th>Rank</th>
-                         <th>Name</th>
-                         <th>PSN ID</th>
-                         <th>Win-Loss</th>
-                         <th>ELO</th>
-                         <th>Streak</th>
-                     </tr>
-                 </thead>
-                 <tbody>
-                    <tr *ngFor="let item of masterLadder.getPlayers('mvci')">
-                        <th>{{item.rank}}</th>
-                        <td>{{item.name}}</td>
-                        <td>{{item.psnId}}</td>
-                        <td>{{item.wins}}-{{item.losses}}</td>
-                        <td>{{item.elo}}</td>
-                        <td>{{item.streak}}</td>    
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Name</th>
+                        <th>PSN ID</th>
+                        <th>Win-Loss</th>
+                        <th>ELO</th>
+                        <th>Streak</th>
                     </tr>
-                    
-                     
-                 </tbody>
-            </table>
-        </div>
-    </div> <!-- end marvel row -->
-    <div class="row">
-        <div class="col-sm-12">
-            <h3 class="standing-header">Tekken 7 (PS4)</h3>
-            <table class="table table-striped standing-table">
-                 <thead>
-                     <tr>
-                         <th>Rank</th>
-                         <th>Name</th>
-                         <th>PSN ID</th>
-                         <th>Win-Loss</th>
-                         <th>ELO</th>
-                         <th>Streak</th>
-                     </tr>
-                 </thead>
-                 <tbody id="table-body">
-                    <tr *ngFor="let item of masterLadder.getPlayers('tekken')">
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of listOfPlayers[game.ref]">
                         <th>{{item.rank}}</th>
                         <td>{{item.name}}</td>
                         <td>{{item.psnId}}</td>
                         <td>{{item.wins}}-{{item.losses}}</td>
                         <td>{{item.elo}}</td>
                         <td>{{item.streak}}</td>    
-                    </tr>         
-                    
-                 </tbody>
+                    </tr>    
+                </tbody>
             </table>
             <div class="standing-sort-button-row">
-                <button class="btn btn-danger" id="sort-rank" (click)="masterLadder.sortPlayers('tekken', 'rank', 'a')">Sort by ladder rank</button>
-                <button class="btn btn-danger" id="sort-elo" (click)="masterLadder.sortPlayers('tekken', 'elo', 'd')">Sort by ELO</button>
-                <button class="btn btn-danger" id="sort-wins" (click)="masterLadder.sortPlayers('tekken', 'wins', 'd')">Sort by Wins</button>
-                <button class="btn btn-danger" id="sort-losses" (click)="masterLadder.sortPlayers('tekken', 'losses', 'd')">Sort by Losses</button>
-            </div>
+                <button class="btn btn-danger" id="sort-rank" (click)="sortPlayerList(game.ref, 'rank', 'a')">Sort by ladder rank</button>
+                <button class="btn btn-danger" id="sort-elo" (click)="sortPlayerList(game.ref, 'elo', 'd')">Sort by ELO</button>
+                <button class="btn btn-danger" id="sort-wins" (click)="sortPlayerList(game.ref, 'wins', 'd')">Sort by Wins</button>
+                <button class="btn btn-danger" id="sort-losses" (click)="sortPlayerList(game.ref, 'losses', 'd')">Sort by Losses</button>
+            </div>              
         </div>
-    </div> <!-- end tekken row -->
+    </div>
+    
 </div> <!-- End container -->
