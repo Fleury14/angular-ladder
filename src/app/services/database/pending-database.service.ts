@@ -8,4 +8,14 @@ import { AngularFireList, AngularFireObject, FirebaseOperation } from 'angularfi
 
 @Injectable()
 
-export class PendingDatabaseService {}
+export class PendingDatabaseService {
+    
+    constructor( private _database: AngularFireDatabase ) {}
+
+    public checkForDupes() {}
+
+    public addPending(pending) {
+        this._database.list('/w-pending/join').push(pending);
+    }
+
+}
