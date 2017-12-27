@@ -1,1 +1,17 @@
-<h1>Join</h1>
+<div class="font-titi">
+    <h1 class="text-center font-bangers">Join a ladder</h1>
+    <p>Thanks for taking interest in one of the ladders to join. Just select your game, enter some information and you will be put on a pending list to be approved by an admin.</p>
+    <h2 class="text-center font-bangers">Select your game</h2>
+    <div class="join-game-list flex-container justify-around">
+        <div class="join-game-list-item font-bangers" [ngClass]="{'join-game-list-item-active': selectedGame === game.ref}" *ngFor="let game of gameList" (click)="selectGame(game.ref)">
+            {{ game.title }}
+        </div>
+    </div>
+    <label>Your ID:</label>
+    <input type="text"><br>
+    <label>Your PSN/CFN ID</label>
+    <input type="text"><br>
+    <label for="">Would you like to link your Google account to this ladder entry? (Recommended): </label>
+    <input type="checkbox"><br>
+    <input type="submit">
+</div>
