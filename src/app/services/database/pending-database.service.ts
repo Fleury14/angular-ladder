@@ -49,4 +49,8 @@ export class PendingDatabaseService {
         this._database.list('/w-pending/join').push(pending);
     }
 
+    public deletePending(id) {
+        this._database.list('/w-pending/join').remove(id);
+    }
+
 }

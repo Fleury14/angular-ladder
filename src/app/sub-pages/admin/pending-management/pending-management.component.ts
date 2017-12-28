@@ -28,4 +28,9 @@ export class PendingManagementComponent {
         });
     }
 
+    public denyPending(id) {
+        if (confirm('Are you sure you want to deny this app? This will delete it from the database.')) {
+            this._pending.deletePending(id);
+        }
+    }
 }
