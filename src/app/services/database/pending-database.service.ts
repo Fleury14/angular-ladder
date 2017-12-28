@@ -23,6 +23,7 @@ export class PendingDatabaseService {
         let dupeCheck = false;
 
         this._listOfPending.forEach(pending => {
+            // console.log(`Checking incoming ${psnId} vs iteration ${pending.psnId}`);
             if (pending.psnId === psnId && pending.game === game) {
                 dupeCheck = true;
             }

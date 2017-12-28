@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 import { LadderDatabaseService } from './../../services/database/ladder-database.service';
 import { LoginService } from './../../services/login.service';
+import { PendingDatabaseService } from './../../services/database/pending-database.service';
 
 import { FormsModule } from '@angular/forms';
 
@@ -22,8 +23,9 @@ export class JoinComponent {
     public joinGoogle: boolean;
 
     public userSubmitted = false;
+    public dupeWarning = false;
 
-    constructor( private _ladderDB: LadderDatabaseService, private _login: LoginService) {
+    constructor( private _ladderDB: LadderDatabaseService, private _login: LoginService, private _pending: PendingDatabaseService) {
         this._ladderDB.getGameList().subscribe(gameList =>
         this.gameList = gameList);
     }
@@ -48,12 +50,20 @@ export class JoinComponent {
             pendingToBeAdded.google = this._login.afAuth.auth.currentUser.uid;
         }
 
-        console.log(`Submitting the following pending:`, pendingToBeAdded);
+        console.log('Dupe Check', this._pending.checkForDupes(game, this.joinPsnId));
+        if (this._pending.checkForDupes(game, this.joinPsnId) === true) {
+            this.dupeWarning = true;
+            this.userSubmitted = false;
+        } else {
+            console.log(`Submitting the following pending:`, pendingToBeAdded);
+            // this._pending.addPending(pendingToBeAdded);
+            this.dupeWarning = false;
+            this.userSubmitted = true;
+            setTimeout(function() { this.userSubmitted = false; }, 3000);
+            this.joinName = '';
+            this.joinPsnId = '';
+            this.selectedGame = undefined;
+        } // end if
 
-        this.userSubmitted = true;
-        setTimeout(function() { this.userSubmitted = false; }, 3000);
-        this.joinName = '';
-        this.joinPsnId = '';
-        this.selectedGame = undefined;
-    }
+    } // end addPending
 }
