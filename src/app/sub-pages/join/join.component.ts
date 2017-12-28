@@ -3,6 +3,8 @@ import { Component } from '@angular/core';
 import { LadderDatabaseService } from './../../services/database/ladder-database.service';
 import { LoginService } from './../../services/login.service';
 
+import { FormsModule } from '@angular/forms';
+
 @Component({
     selector: 'app-join',
     templateUrl: './join.component.html',
