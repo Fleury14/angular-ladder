@@ -18,12 +18,12 @@ export class PendingDatabaseService {
         });
     }
 
-    public checkForDupes(psnId: string) {
+    public checkForDupes(game: string, psnId: string) {
 
         let dupeCheck = false;
 
         this._listOfPending.forEach(pending => {
-            if (pending.psnId === psnId) {
+            if (pending.psnId === psnId && pending.game === game) {
                 dupeCheck = true;
             }
         });
