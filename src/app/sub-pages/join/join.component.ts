@@ -21,6 +21,8 @@ export class JoinComponent {
     public joinPsnId: string;
     public joinGoogle: boolean;
 
+    public userSubmitted = false;
+
     constructor( private _ladderDB: LadderDatabaseService, private _login: LoginService) {
         this._ladderDB.getGameList().subscribe(gameList =>
         this.gameList = gameList);
@@ -47,5 +49,11 @@ export class JoinComponent {
         }
 
         console.log(`Submitting the following pending:`, pendingToBeAdded);
+
+        this.userSubmitted = true;
+        setTimeout(function() { this.userSubmitted = false; }, 3000);
+        this.joinName = '';
+        this.joinPsnId = '';
+        this.selectedGame = undefined;
     }
 }

@@ -13,5 +13,6 @@
     <input type="text" [(ngModel)]="joinPsnId"><br>
     <label for="">Would you like to link your Google account to this ladder entry? (Recommended): </label>
     <input type="checkbox" [(ngModel)]="joinGoogle"><br>
-    <input type="submit" (click)="addPending(game.ref)">
+    <input type="submit" [disabled]="selectedGame===undefined" (click)="addPending(selectedGame)" class="btn btn-danger">
+    <h4 *ngIf="userSubmitted === true">User has been submitted. Now currently pending approval by an admin. Thanks again for your interest!</h4>
 </div>
