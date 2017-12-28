@@ -60,7 +60,7 @@ export class JoinComponent {
             return;
         } else {
             console.log(`Submitting the following pending:`, pendingToBeAdded);
-            // this._pending.addPending(pendingToBeAdded);
+            this._pending.addPending(pendingToBeAdded);
             this.dupeWarning = false;
             this.userSubmitted = true;
             setTimeout(function() { this.userSubmitted = false; }, 3000);
