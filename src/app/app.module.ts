@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { MainRoutingModule, MainRoutingComponents } from './app.routing.module';
 import { AdminModule } from './sub-pages/admin/admin.module';
+import { FormsModule } from '@angular/forms';
 
 import { AngularFireModule } from 'angularfire2';
 import { environment } from '../environments/environment';
@@ -20,6 +21,7 @@ import { MatchHistoryService } from './services/match-history.service';
 import { ChallengeListService } from './services/challenge-list.service';
 import { NewsService } from './services/news-service';
 import { LoginService } from './services/login.service';
+import { PendingDatabaseService } from './services/database/pending-database.service';
 
 
 @NgModule({
@@ -27,10 +29,11 @@ import { LoginService } from './services/login.service';
     AppComponent, NavComponent, FooterComponent, MainRoutingComponents
   ],
   imports: [
-    BrowserModule, AdminModule, MainRoutingModule, HttpModule, AngularFireModule.initializeApp(environment.firebase), AngularFireAuthModule,
-    AngularFireDatabaseModule
+    BrowserModule, AdminModule, MainRoutingModule, HttpModule, AngularFireModule.initializeApp(environment.firebase), FormsModule,
+    AngularFireAuthModule, AngularFireDatabaseModule
   ],
-  providers: [ TwitchStatusService, LadderService, MatchHistoryService, ChallengeListService, NewsService, LoginService ],
+  providers: [ TwitchStatusService, LadderService, MatchHistoryService, ChallengeListService, NewsService, LoginService,
+    PendingDatabaseService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

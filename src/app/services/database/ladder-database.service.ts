@@ -90,7 +90,7 @@ export class LadderDatabaseService {
         return this._database.list('/').valueChanges().map(data => {
             const gameList = [];
             for (let game in data[0]) {
-                console.log('iteration:', game, data[0][game]);
+                // console.log('iteration:', game, data[0][game]);
                 const gameLoop = {
                     title: data[0][game].title,
                     ref: game
@@ -108,6 +108,7 @@ export class LadderDatabaseService {
             return data.length;
         });
     }
+
 
     // public instantiation() {
     //     this._tempPlayers.forEach(element => {

@@ -7,6 +7,7 @@ import { RouterGuard } from './../../services/router-guard.service';
 import { NewsManagementComponent } from './news-management/news-management.component';
 import { ChallengeManagementComponent } from './challenge-management/challenge-management.component';
 import { PlayerManagementComponent } from './player-management/player-management.component';
+import { PendingManagementComponent } from './pending-management/pending-management.component';
 
 const routes: Routes = [{
         path: 'admin',
@@ -24,6 +25,10 @@ const routes: Routes = [{
         {
             path: 'challenges',
             component: ChallengeManagementComponent
+        },
+        {
+            path: 'pending',
+            component: PendingManagementComponent
         }]
 
 }];
@@ -36,4 +41,5 @@ const routes: Routes = [{
 
 export class AdminRoutingModule {}
 
-export const RoutingComponents =  [NewsManagementComponent, PlayerManagementComponent, ChallengeManagementComponent];
+export const RoutingComponents =  [NewsManagementComponent, PlayerManagementComponent, ChallengeManagementComponent,
+    PendingManagementComponent];
