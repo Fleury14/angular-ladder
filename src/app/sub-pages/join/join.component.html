@@ -8,10 +8,10 @@
         </div>
     </div>
     <label>Your ID:</label>
-    <input type="text"><br>
+    <input type="text" [(ngModel)]="joinName"><br>
     <label>Your PSN/CFN ID</label>
-    <input type="text"><br>
+    <input type="text" [(ngModel)]="joinPsnId"><br>
     <label for="">Would you like to link your Google account to this ladder entry? (Recommended): </label>
-    <input type="checkbox"><br>
-    <input type="submit">
+    <input type="checkbox" [(ngModel)]="joinGoogle"><br>
+    <input type="submit" (click)="addPending(game.ref)">
 </div>
