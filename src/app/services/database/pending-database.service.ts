@@ -41,6 +41,10 @@ export class PendingDatabaseService {
         }
     }
 
+    public getListOfPending() {
+        return this._database.list('/w-pending/').valueChanges();
+    }
+
     public addPending(pending) {
         this._database.list('/w-pending/join').push(pending);
     }
