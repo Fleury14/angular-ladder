@@ -6,6 +6,7 @@ interface Player {
     elo: number;
     streak: string;
     rank: number;
+    google?: string;
 }
 
 export default Player;
