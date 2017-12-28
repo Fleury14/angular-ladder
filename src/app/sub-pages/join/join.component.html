@@ -16,4 +16,5 @@
     <input type="submit" [disabled]="selectedGame===undefined" (click)="addPending(selectedGame)" class="btn btn-danger">
     <h4 *ngIf="userSubmitted === true">User has been submitted. Now currently pending approval by an admin. Thanks again for your interest!</h4>
     <h4 *ngIf="dupeWarning === true">You are already in the database pending approval.</h4>
+    <h4 *ngIf="fullWarning === true">Database pending list is currently full. Cannot submit.</h4>
 </div>

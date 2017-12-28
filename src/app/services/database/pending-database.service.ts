@@ -11,6 +11,7 @@ import { AngularFireList, AngularFireObject, FirebaseOperation } from 'angularfi
 export class PendingDatabaseService {
 
     private _listOfPending;
+    private _MAXPENDING = 30; // maximum number of pending entries
 
     constructor( private _database: AngularFireDatabase ) {
         this._database.list('/w-pending/join').valueChanges().subscribe(pendingList => {
@@ -30,6 +31,14 @@ export class PendingDatabaseService {
         });
 
         return dupeCheck;
+    }
+
+    public pendingFull() {
+        if (this._listOfPending >= this._MAXPENDING) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public addPending(pending) {

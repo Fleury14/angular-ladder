@@ -24,10 +24,12 @@ export class JoinComponent {
 
     public userSubmitted = false;
     public dupeWarning = false;
+    public fullWarning = false;
 
     constructor( private _ladderDB: LadderDatabaseService, private _login: LoginService, private _pending: PendingDatabaseService) {
         this._ladderDB.getGameList().subscribe(gameList =>
         this.gameList = gameList);
+        this.fullWarning = this._pending.pendingFull();
     }
 
     public selectGame(game: string) {
@@ -54,6 +56,8 @@ export class JoinComponent {
         if (this._pending.checkForDupes(game, this.joinPsnId) === true) {
             this.dupeWarning = true;
             this.userSubmitted = false;
+        } else if (this.fullWarning === true) {
+            return;
         } else {
             console.log(`Submitting the following pending:`, pendingToBeAdded);
             // this._pending.addPending(pendingToBeAdded);
