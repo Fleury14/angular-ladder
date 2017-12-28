@@ -22,16 +22,19 @@ export class JoinComponent {
     public joinPsnId: string;
     public joinGoogle: boolean;
 
+    // warning flags
     public userSubmitted = false;
     public dupeWarning = false;
     public fullWarning = false;
 
+    // instantiate list of games. also do immedite check to see if the DB is over capacity
     constructor( private _ladderDB: LadderDatabaseService, private _login: LoginService, private _pending: PendingDatabaseService) {
         this._ladderDB.getGameList().subscribe(gameList =>
         this.gameList = gameList);
-        this.fullWarning = this._pending.pendingFull();
+        this.fullWarning = this._pending.pendingFull(); // db check is here
     }
 
+    // function for switching selected game from HTML
     public selectGame(game: string) {
         this.selectedGame = game;
     }
@@ -52,18 +55,25 @@ export class JoinComponent {
             pendingToBeAdded.google = this._login.afAuth.auth.currentUser.uid;
         }
 
-        console.log('Dupe Check', this._pending.checkForDupes(game, this.joinPsnId));
+        // console.log('Dupe Check', this._pending.checkForDupes(game, this.joinPsnId));
+        // check to see if theres a record in the pending DB that has a matching game AND psnid
         if (this._pending.checkForDupes(game, this.joinPsnId) === true) {
+            // if so, adjust warning flags and do not submit
             this.dupeWarning = true;
             this.userSubmitted = false;
         } else if (this.fullWarning === true) {
+            // double check to make sure we're not over capacity, if so, do not submit
             return;
         } else {
+            // passed conditions, submit OK
             console.log(`Submitting the following pending:`, pendingToBeAdded);
             this._pending.addPending(pendingToBeAdded);
+            // adjust warning flags
             this.dupeWarning = false;
             this.userSubmitted = true;
             setTimeout(function() { this.userSubmitted = false; }, 3000);
+
+            // reset field
             this.joinName = '';
             this.joinPsnId = '';
             this.selectedGame = undefined;
