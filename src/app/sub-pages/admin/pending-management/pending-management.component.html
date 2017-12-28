@@ -16,7 +16,7 @@
             <div class="col-sm-2">{{ pending.psnId }}</div>
             <div class="col-sm-2">{{ pending.google && 'Yes' || 'No' }}</div>
             <div class="col-sm-2">
-                <button class="btn btn-success">Accept</button>
+                <button class="btn btn-success" (click)="approvePending(pending.id)">Accept</button>
                 <button class="btn btn-danger" (click)="denyPending(pending.id)">Deny</button>
             </div>
         </div> <!-- end looped row -->
