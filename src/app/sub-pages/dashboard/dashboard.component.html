@@ -35,13 +35,17 @@
     </div> <!-- end container -->
     <div class="container" *ngIf="allowLink===true">
         <h3 class="text-center font-bangers">Link your account</h3>
+        <p class="text-center">Cick on a player to link that player to your google account.</p>
         <div class="row">
-            <div class="col-sm-3 dashboard-player-list" *ngFor="let player of listOfPlayers">
-                <h5>{{player.name}}</h5>
-                <p>{{player.psnId}}</p>
-                <p>Rank: {{player.rank}}</p>
-                <p>Can Link?: </p>
-            </div>
+            <a *ngFor="let player of listOfPlayers; let ind = index" (click)="linkPlayer(player.id, player.name)">
+                <div class="col-sm-3 dashboard-player-list" [ngClass]="{'dashboard-light-red-bg': hasGoogle(ind)===true, 'dashboard-light-green-bg': hasGoogle(ind)===false}">
+                    <h5>{{player.name}}</h5>
+                    <p>{{player.psnId}}</p>
+                    <p>Rank: {{player.rank}}</p>
+                    <p>Can Link?: {{ player.google && 'No' || 'Yes' }}</p>
+                </div>
+            </a>
+            
         </div> <!-- end player list row -->
         <div class="flex-container justify-center">
             <button class="btn btn-default" (click)="cancelLink()">Cancel Link</button>

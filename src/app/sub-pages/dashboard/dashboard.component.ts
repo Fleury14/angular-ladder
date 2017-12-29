@@ -75,4 +75,9 @@ export class DashboardComponent {
         this.allowLink = false;
     }
 
+    public hasGoogle(index: number) {
+        if (this.listOfPlayers[index].google) {return true;
+        } else {return false; }
+    }
+
 }
