@@ -15,10 +15,13 @@ export class DashboardComponent {
     public listOfGames; // will contain list of games
     public userStatus = {}; // will contain user status on each ladder
     private _user; // will contain logged in user info
-    public allowLink = false; // will determine if a player is linking an account
     public selectedGame; // will contain the game that the user wants to link an account to
     public listOfPlayers; // will contain the list of players for the game that the user selected to link an account to
+
+    // display flags
     public displaySubmitMessage = false; // pretty self explanatory
+    public allowLink = false; // will determine if a player is linking an account
+    public linkDupeWarning = false;
 
     constructor(public login: LoginService, private _ladderDB: LadderDatabaseService, private _pending: PendingDatabaseService) {
 
@@ -83,13 +86,21 @@ export class DashboardComponent {
     }
 
     public linkPlayer(id: string, name: string) {
-        if (confirm(`Are you sure you want to link ${name} to your google account?`)) {
-            const linkToBeAdded = {
-                playerId: id,
-                game: this.selectedGame,
-                google: this._user.uid
-            };
+
+        const linkToBeAdded = {
+            playerId: id,
+            game: this.selectedGame,
+            google: this._user.uid,
+            name: name
+        };
+        console.log('dupe check comp side:', this._pending.dupeLinkCheck(this.selectedGame, id));
+        if (this._pending.dupeLinkCheck(this.selectedGame, id) === true) {
+            this.linkDupeWarning = true;
+            return;
+        } else if (confirm(`Are you sure you want to link ${name} to your google account?`)) {
+
             this._pending.addPendingLink(linkToBeAdded);
+            this.linkDupeWarning = false;
             this.displaySubmitMessage = true;
         }
     }

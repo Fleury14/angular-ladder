@@ -51,6 +51,7 @@
             <button class="btn btn-default" (click)="cancelLink()">Cancel Link</button>
         </div>
         <p class="text-center" *ngIf="displaySubmitMessage === true">Thank you for submitting your link request. It is now pending approval by an admin.</p>
+        <h5 *ngIf="linkDupeWarning === true">Cannot link: This player already has a pending google link request. If you feel this is an error, contact an admin.</h5>
     </div> <!-- end link container -->
 </div>
 

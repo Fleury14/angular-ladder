@@ -80,8 +80,8 @@ export class PendingDatabaseService {
         // go through each item of the list and see if the psn id's and game both match
         // if so, set the flag to true
         this._listOfPendingLinks.forEach(link => {
-            // console.log(`Checking incoming ${psnId} vs iteration ${pending.psnId}`);
-            if (link.game === game && link.id === id) {
+            console.log(`Checking incoming ${id} vs iteration ${link.playerId}`);
+            if (link.game === game && link.playerId === id) {
                 dupeCheck = true;
             }
         });
