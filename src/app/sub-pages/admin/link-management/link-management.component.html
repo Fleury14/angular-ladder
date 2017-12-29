@@ -1,0 +1,20 @@
+<div class="font-titi">
+    <h1 class="text-center font-bangers">Pending Link Requests</h1>
+    <div class="container">
+        <div class="row pending-link-header">
+            <div class="col-sm-3">Game</div>
+            <div class="col-sm-3">Player on ladder</div>
+            <div class="col-sm-3">Google account to be linked</div>
+            <div class="col-sm-3"></div>
+        </div> <!-- end header row -->
+        <div class="row pending-link-item" *ngFor="let request of listOfPendingLinks">
+            <div class="col-sm-3">{{ request.game }}</div>
+            <div class="col-sm-3">{{ request.name }}</div>
+            <div class="col-sm-3">{{ request.email }}</div>
+            <div class="col-sm-3">
+                <button class="btn btn-success" (click)="approveRequest(request.playerId, request.game, request.google, request.id)">Approve</button>
+                <button class="btn btn-danger" (click)="deleteRequest(request.id)">Deny</button>
+            </div>
+        </div>
+    </div> <!-- end container -->
+</div>

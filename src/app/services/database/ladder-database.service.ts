@@ -109,6 +109,11 @@ export class LadderDatabaseService {
         });
     }
 
+    // method to update player entry with google account id
+    public updateGoogle(id: string, game: string, googleInc: string) {
+        const dbRef = this._database.list('/ladder/' + game + '/players');
+        dbRef.update(id, {google: googleInc});
+    }
 
     // public instantiation() {
     //     this._tempPlayers.forEach(element => {

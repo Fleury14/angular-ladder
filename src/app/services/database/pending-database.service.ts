@@ -12,11 +12,16 @@ export class PendingDatabaseService {
 
     private _listOfPending;
     private _MAXPENDING = 30; // maximum number of pending entries
+    private _listOfPendingLinks;
 
     // instantiate list of pending applications
     constructor( private _database: AngularFireDatabase ) {
         this._database.list('/w-pending/join').valueChanges().subscribe(pendingList => {
             this._listOfPending = pendingList;
+        });
+
+        this._database.list('/w-pending/link').valueChanges().subscribe(listOfLinks => {
+            this._listOfPendingLinks = listOfLinks;
         });
     }
 
@@ -64,4 +69,28 @@ export class PendingDatabaseService {
         this._database.list('/w-pending/join').remove(id);
     }
 
+    public addPendingLink(link) {
+        this._database.list('/w-pending/link').push(link);
+    }
+
+    public deletePendingLink(id) {
+        console.log('removing link request with id', id);
+        this._database.list('/w-pending/link').remove(id);
+    }
+
+    public dupeLinkCheck(game: string, id: string) {
+
+        let dupeCheck = false; // reset to false each call
+
+        // go through each item of the list and see if the psn id's and game both match
+        // if so, set the flag to true
+        this._listOfPendingLinks.forEach(link => {
+            console.log(`Checking incoming ${id} vs iteration ${link.playerId}`);
+            if (link.game === game && link.playerId === id) {
+                dupeCheck = true;
+            }
+        });
+
+        return dupeCheck;
+    }
 }

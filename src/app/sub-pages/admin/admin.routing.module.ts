@@ -8,6 +8,7 @@ import { NewsManagementComponent } from './news-management/news-management.compo
 import { ChallengeManagementComponent } from './challenge-management/challenge-management.component';
 import { PlayerManagementComponent } from './player-management/player-management.component';
 import { PendingManagementComponent } from './pending-management/pending-management.component';
+import { LinkManagementComponent } from './link-management/link-management.component';
 
 const routes: Routes = [{
         path: 'admin',
@@ -29,6 +30,10 @@ const routes: Routes = [{
         {
             path: 'pending',
             component: PendingManagementComponent
+        },
+        {
+            path: 'pending-link',
+            component: LinkManagementComponent
         }]
 
 }];
@@ -42,4 +47,4 @@ const routes: Routes = [{
 export class AdminRoutingModule {}
 
 export const RoutingComponents =  [NewsManagementComponent, PlayerManagementComponent, ChallengeManagementComponent,
-    PendingManagementComponent];
+    PendingManagementComponent, LinkManagementComponent];

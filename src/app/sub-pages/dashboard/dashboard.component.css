@@ -1,0 +1,19 @@
+.dashboard-game-entry {
+    border: 2px solid #000;
+    border-radius: 3%;
+    margin-top: 10px;
+    padding-bottom: 5px;
+}
+
+.dashboard-light-green-bg {
+    background-color: #bbffbb;
+}
+
+.dashboard-light-red-bg {
+    background-color: #ffbbbb;
+}
+
+.dashboard-player-list {
+    border: 2px solid #b00;
+    color: #000;
+}

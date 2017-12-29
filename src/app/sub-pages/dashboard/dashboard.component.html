@@ -1,0 +1,57 @@
+<div class="font-titi">
+    <h1 class="font-bangers text-center">User Dashboard</h1>
+    <h3 class="text-center" *ngIf="login.afAuth.authState | async; let user;">Welcome {{ user.displayName }}</h3>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 text-center font-bangers">
+                <h4>Your status</h4>
+            </div>
+        </div> <!-- end header row -->
+        <div class="row dashboard-game-entry" *ngFor="let game of listOfGames" [ngClass]="{'dashboard-light-green-bg': userStatus[game.ref].length > 0, 'dashboard-light-red-bg': userStatus[game.ref].length === 0}"> <!-- begin looped row -->
+            <h5 class="font-bangers text-center">{{ game.title }}</h5>
+            <div *ngIf="userStatus[game.ref].length === 0">
+                <div class="col-sm-6">
+                    <p>No record found. Perhaps you would like to join?</p>
+                </div>
+                <div class="col-sm-3">
+                    <button class="btn btn-danger btn-sm" (click)="beginLink(game.ref)">Link account to player on ladder</button>
+                </div>
+                <div class="col-sm-1">
+                    <button class="btn btn-danger btn-sm" routerLink="/join">Join ladder</button>
+                </div>
+            </div>
+            
+            <div *ngIf="userStatus[game.ref].length > 0">
+                <div class="col-sm-1">Rank: <strong>{{ userStatus[game.ref][0].rank }}</strong></div>
+                <div class="col-sm-1">ELO: {{ userStatus[game.ref][0].elo }}</div>
+                <div class="col-sm-2">Record: {{ userStatus[game.ref][0].wins }}-{{ userStatus[game.ref][0].losses}}</div>
+                <div class="col-sm-2">Name: {{ userStatus[game.ref][0].name }}</div>
+                <div class="col-sm-2">Gamertag: {{ userStatus[game.ref][0].psnId }}</div>
+                <div class="col-sm-1"></div>
+            </div>
+            <!-- <p *ngIf="userStatus[game.ref].length > 0">Rank: {{ userStatus[game.ref][0].rank }} ELO: {{ userStatus[game.ref][0].rank }} Record: {{ userStatus[game.ref][0].wins }}-{{ userStatus[game.ref][0].losses}}
+                Name: {{ userStatus[game.ref][0].name }} Gamertag: {{ userStatus[game.ref][0].psnId }}</p> -->
+        </div> <!-- end looped row -->
+    </div> <!-- end container -->
+    <div class="container" *ngIf="allowLink===true">
+        <h3 class="text-center font-bangers">Link your account</h3>
+        <p class="text-center">Cick on a player to link that player to your google account.</p>
+        <div class="row">
+            <a *ngFor="let player of listOfPlayers; let ind = index" (click)="linkPlayer(player.id, player.name)">
+                <div class="col-sm-3 dashboard-player-list" [ngClass]="{'dashboard-light-red-bg': hasGoogle(ind)===true, 'dashboard-light-green-bg': hasGoogle(ind)===false}">
+                    <h5>{{player.name}}</h5>
+                    <p>{{player.psnId}}</p>
+                    <p>Rank: {{player.rank}}</p>
+                    <p>Can Link?: {{ player.google && 'No' || 'Yes' }}</p>
+                </div>
+            </a>
+            
+        </div> <!-- end player list row -->
+        <div class="flex-container justify-center">
+            <button class="btn btn-default" (click)="cancelLink()">Cancel Link</button>
+        </div>
+        <p class="text-center" *ngIf="displaySubmitMessage === true">Thank you for submitting your link request. It is now pending approval by an admin.</p>
+        <h5 *ngIf="linkDupeWarning === true">Cannot link: This player already has a pending google link request. If you feel this is an error, contact an admin.</h5>
+    </div> <!-- end link container -->
+</div>
+

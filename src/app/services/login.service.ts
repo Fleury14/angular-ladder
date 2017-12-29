@@ -9,8 +9,11 @@ import * as firebase from 'firebase/app';
 
 export class LoginService {
 
+    private _userObs; // will contain login info
 
-    constructor (public afAuth: AngularFireAuth, private route: Router) {}
+    constructor (public afAuth: AngularFireAuth, private route: Router) {
+        this._userObs = this.afAuth.authState;
+    }
 
     public login() {
         this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
@@ -26,6 +29,11 @@ export class LoginService {
     public getLoggedInUser() {
         return this.afAuth.auth.currentUser;
     }
+
+        // this method is how other classes get the user logged in
+    public getLoggedInUserObs(): Observable<firebase.User> {
+            return this._userObs;
+        }
 
     public checkStuff() {
         console.log(this.afAuth.authState, this.afAuth.auth.currentUser, this.afAuth.idToken);
