@@ -32,11 +32,14 @@ export class LinkManagementComponent {
 
     public deleteRequest(id) {
         if (confirm('Are youo sure you want to delete this request?')) {
-            this._pending.deletePending(id);
+            this._pending.deletePendingLink(id);
         }
     }
 
-    public approveRequest(id) {
-        
+    public approveRequest(playerId, game, google, id) {
+        if (confirm('Confirm updating this account with the shown google info')) {
+            this._ladderDB.updateGoogle(playerId, game, google);
+            this._pending.deletePendingLink(id);
+        }
     }
 }

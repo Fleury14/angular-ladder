@@ -74,6 +74,7 @@ export class PendingDatabaseService {
     }
 
     public deletePendingLink(id) {
+        console.log('removing link request with id', id);
         this._database.list('/w-pending/link').remove(id);
     }
 
