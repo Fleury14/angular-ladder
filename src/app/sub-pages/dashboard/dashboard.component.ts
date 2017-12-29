@@ -91,7 +91,8 @@ export class DashboardComponent {
             playerId: id,
             game: this.selectedGame,
             google: this._user.uid,
-            name: name
+            name: name,
+            email: this._user.email
         };
         console.log('dupe check comp side:', this._pending.dupeLinkCheck(this.selectedGame, id));
         if (this._pending.dupeLinkCheck(this.selectedGame, id) === true) {
