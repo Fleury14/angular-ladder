@@ -12,12 +12,18 @@ import { LadderDatabaseService } from './../../services/database/ladder-database
 export class DashboardComponent {
 
     public listOfGames; // will contain list of games
+    public userStatus = {}; // will contain user status on each ladder
 
     constructor(public login: LoginService, private _ladderDB: LadderDatabaseService) {
 
         // instantiate list of games.
         this._ladderDB.getGameList().subscribe(gameList => {
             this.listOfGames = gameList;
+
+            this.listOfGames.forEach(game => {
+                this.userStatus[game.ref] = [];
+            });
+            console.log('User status:', this.userStatus);
         });
 
     }
