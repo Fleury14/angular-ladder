@@ -13,7 +13,9 @@ export class DashboardComponent {
 
     public listOfGames; // will contain list of games
     public userStatus = {}; // will contain user status on each ladder
-    private _user;
+    private _user; // will contain logged in user info
+    public allowLink = false; // will determine if a player is linking an account
+    public selectedGame; // will contain the game that the user wants to link an account to
 
     constructor(public login: LoginService, private _ladderDB: LadderDatabaseService) {
 
@@ -56,6 +58,16 @@ export class DashboardComponent {
             }); // end gamelist iteration
         }); // end gamelist subscribe
 
+    } // end constructor
+
+    public beginLink(game: string) {
+        this.selectedGame = game;
+        this.allowLink = true;
+    }
+
+    public cancelLink() {
+        this.selectedGame = null;
+        this.allowLink = false;
     }
 
 }

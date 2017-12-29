@@ -14,7 +14,7 @@
                     <p>No record found. Perhaps you would like to join?</p>
                 </div>
                 <div class="col-sm-3">
-                    <button class="btn btn-danger btn-sm">Link account to player on ladder</button>
+                    <button class="btn btn-danger btn-sm" (click)="beginLink(game.ref)">Link account to player on ladder</button>
                 </div>
                 <div class="col-sm-1">
                     <button class="btn btn-danger btn-sm" routerLink="/join">Join ladder</button>
@@ -33,5 +33,11 @@
                 Name: {{ userStatus[game.ref][0].name }} Gamertag: {{ userStatus[game.ref][0].psnId }}</p> -->
         </div> <!-- end looped row -->
     </div> <!-- end container -->
+    <div class="container" *ngIf="allowLink===true">
+        <h3 class="text-center font-bangers">Link your account</h3>
+        <div class="flex-container justify-center">
+            <button class="btn btn-default" (click)="cancelLink()">Cancel Link</button>
+        </div>
+    </div> <!-- end link container -->
 </div>
 
