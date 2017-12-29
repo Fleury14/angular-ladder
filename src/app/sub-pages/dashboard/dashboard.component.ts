@@ -34,22 +34,27 @@ export class DashboardComponent {
         this._ladderDB.getGameList().subscribe(gameList => {
             this.listOfGames = gameList;
 
+            // go through each game to search for players
             this.listOfGames.forEach(game => {
                 this.userStatus[game.ref] = [];
 
+                // grab a list of players and do a nested subscribe so we can iterate through the list.
+                // NOTE: i thought .map would work here, but alas, it does not
                 this._ladderDB.getPlayers(game.ref).subscribe(playerList => {
+
+                    // now iterate through each player in the playerList
                     playerList.forEach(player => {
-                        console.log(`checking player ${player.name} in ${game.ref}`);
+                        // console.log(`checking player ${player.name} in ${game.ref}`);
+                        // if the iterated players google account matches the current users google ID,
+                        // .push it to the userstatus property of the current game being iterated
                         if (player.google === this._user.uid) {
-                            console.log('match found:', player);
+                            // console.log('match found:', player);
                             this.userStatus[game.ref].push(player);
-                            console.log('new user status:', this.userStatus);
-                        }
-                    });
-                });
-            });
-            // console.log('User status:', this.userStatus);
-        });
+                        } // end if
+                    }); // end playerlist iteration
+                }); // end getPlayers subscribe
+            }); // end gamelist iteration
+        }); // end gamelist subscribe
 
     }
 
