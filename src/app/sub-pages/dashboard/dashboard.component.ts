@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 import { LoginService } from './../../services/login.service';
 import { LadderDatabaseService } from './../../services/database/ladder-database.service';
+import { PendingDatabaseService } from './../../services/database/pending-database.service';
 
 @Component({
     selector: 'app-dashboard',
@@ -17,8 +18,9 @@ export class DashboardComponent {
     public allowLink = false; // will determine if a player is linking an account
     public selectedGame; // will contain the game that the user wants to link an account to
     public listOfPlayers; // will contain the list of players for the game that the user selected to link an account to
+    public displaySubmitMessage = false; // pretty self explanatory
 
-    constructor(public login: LoginService, private _ladderDB: LadderDatabaseService) {
+    constructor(public login: LoginService, private _ladderDB: LadderDatabaseService, private _pending: PendingDatabaseService) {
 
         this.login.getLoggedInUserObs().map(user => {
             const newUser = {
@@ -81,7 +83,15 @@ export class DashboardComponent {
     }
 
     public linkPlayer(id: string, name: string) {
-        if (confirm(`Are you sure you want to link ${name} to your google account?`)) {}
+        if (confirm(`Are you sure you want to link ${name} to your google account?`)) {
+            const linkToBeAdded = {
+                playerId: id,
+                game: this.selectedGame,
+                google: this._user.uid
+            };
+            this._pending.addPendingLink(linkToBeAdded);
+            this.displaySubmitMessage = true;
+        }
     }
 
 }
