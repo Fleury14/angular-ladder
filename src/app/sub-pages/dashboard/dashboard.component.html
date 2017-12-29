@@ -7,7 +7,7 @@
                 <h4>Your status</h4>
             </div>
         </div> <!-- end header row -->
-        <div class="row dashboard-game-entry" *ngFor="let game of listOfGames"> <!-- begin looped row -->
+        <div class="row dashboard-game-entry" *ngFor="let game of listOfGames" [ngClass]="{'dashboard-light-green-bg': userStatus[game.ref].length > 0, 'dashboard-light-red-bg': userStatus[game.ref].length === 0}"> <!-- begin looped row -->
             <h5 class="font-bangers text-center">{{ game.title }}</h5>
             <p *ngIf="userStatus[game.ref].length === 0">No record found.</p>
             <div *ngIf="userStatus[game.ref].length > 0">
