@@ -36,14 +36,19 @@ export class DashboardComponent {
 
             this.listOfGames.forEach(game => {
                 this.userStatus[game.ref] = [];
-                
-                this._ladderDB.getPlayers(game.ref).map(playerList => {
+
+                this._ladderDB.getPlayers(game.ref).subscribe(playerList => {
                     playerList.forEach(player => {
-                        if (player.google) {}
+                        console.log(`checking player ${player.name} in ${game.ref}`);
+                        if (player.google === this._user.uid) {
+                            console.log('match found:', player);
+                            this.userStatus[game.ref].push(player);
+                            console.log('new user status:', this.userStatus);
+                        }
                     });
                 });
             });
-            console.log('User status:', this.userStatus, this._user);
+            // console.log('User status:', this.userStatus);
         });
 
     }

@@ -9,6 +9,17 @@
         </div> <!-- end header row -->
         <div class="row dashboard-game-entry" *ngFor="let game of listOfGames"> <!-- begin looped row -->
             <h5 class="font-bangers text-center">{{ game.title }}</h5>
+            <p *ngIf="userStatus[game.ref].length === 0">No record found.</p>
+            <div *ngIf="userStatus[game.ref].length > 0">
+                <div class="col-sm-1">Rank: <strong>{{ userStatus[game.ref][0].rank }}</strong></div>
+                <div class="col-sm-1">ELO: {{ userStatus[game.ref][0].elo }}</div>
+                <div class="col-sm-2">Record: {{ userStatus[game.ref][0].wins }}-{{ userStatus[game.ref][0].losses}}</div>
+                <div class="col-sm-2">Name: {{ userStatus[game.ref][0].name }}</div>
+                <div class="col-sm-2">Gamertag: {{ userStatus[game.ref][0].psnId }}</div>
+                <div class="col-sm-1"></div>
+            </div>
+            <!-- <p *ngIf="userStatus[game.ref].length > 0">Rank: {{ userStatus[game.ref][0].rank }} ELO: {{ userStatus[game.ref][0].rank }} Record: {{ userStatus[game.ref][0].wins }}-{{ userStatus[game.ref][0].losses}}
+                Name: {{ userStatus[game.ref][0].name }} Gamertag: {{ userStatus[game.ref][0].psnId }}</p> -->
         </div> <!-- end looped row -->
     </div> <!-- end container -->
 </div>
