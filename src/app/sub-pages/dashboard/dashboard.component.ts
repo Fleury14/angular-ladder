@@ -16,6 +16,7 @@ export class DashboardComponent {
     private _user; // will contain logged in user info
     public allowLink = false; // will determine if a player is linking an account
     public selectedGame; // will contain the game that the user wants to link an account to
+    public listOfPlayers; // will contain the list of players for the game that the user selected to link an account to
 
     constructor(public login: LoginService, private _ladderDB: LadderDatabaseService) {
 
@@ -63,6 +64,10 @@ export class DashboardComponent {
     public beginLink(game: string) {
         this.selectedGame = game;
         this.allowLink = true;
+
+        this._ladderDB.getPlayers(game).subscribe(playerList => {
+            this.listOfPlayers = playerList;
+        });
     }
 
     public cancelLink() {

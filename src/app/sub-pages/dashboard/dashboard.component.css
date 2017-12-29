@@ -12,3 +12,7 @@
 .dashboard-light-red-bg {
     background-color: #ffbbbb;
 }
+
+.dashboard-player-list {
+    border: 2px solid #b00;
+}

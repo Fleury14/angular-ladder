@@ -35,6 +35,14 @@
     </div> <!-- end container -->
     <div class="container" *ngIf="allowLink===true">
         <h3 class="text-center font-bangers">Link your account</h3>
+        <div class="row">
+            <div class="col-sm-3 dashboard-player-list" *ngFor="let player of listOfPlayers">
+                <h5>{{player.name}}</h5>
+                <p>{{player.psnId}}</p>
+                <p>Rank: {{player.rank}}</p>
+                <p>Can Link?: </p>
+            </div>
+        </div> <!-- end player list row -->
         <div class="flex-container justify-center">
             <button class="btn btn-default" (click)="cancelLink()">Cancel Link</button>
         </div>
