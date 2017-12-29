@@ -9,7 +9,18 @@
         </div> <!-- end header row -->
         <div class="row dashboard-game-entry" *ngFor="let game of listOfGames" [ngClass]="{'dashboard-light-green-bg': userStatus[game.ref].length > 0, 'dashboard-light-red-bg': userStatus[game.ref].length === 0}"> <!-- begin looped row -->
             <h5 class="font-bangers text-center">{{ game.title }}</h5>
-            <p *ngIf="userStatus[game.ref].length === 0">No record found.</p>
+            <div *ngIf="userStatus[game.ref].length === 0">
+                <div class="col-sm-6">
+                    <p>No record found. Perhaps you would like to join?</p>
+                </div>
+                <div class="col-sm-3">
+                    <button class="btn btn-danger btn-sm">Link account to player on ladder</button>
+                </div>
+                <div class="col-sm-1">
+                    <button class="btn btn-danger btn-sm" routerLink="/join">Join ladder</button>
+                </div>
+            </div>
+            
             <div *ngIf="userStatus[game.ref].length > 0">
                 <div class="col-sm-1">Rank: <strong>{{ userStatus[game.ref][0].rank }}</strong></div>
                 <div class="col-sm-1">ELO: {{ userStatus[game.ref][0].elo }}</div>
