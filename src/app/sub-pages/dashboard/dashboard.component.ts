@@ -11,7 +11,14 @@ import { LadderDatabaseService } from './../../services/database/ladder-database
 
 export class DashboardComponent {
 
+    public listOfGames; // will contain list of games
+
     constructor(public login: LoginService, private _ladderDB: LadderDatabaseService) {
+
+        // instantiate list of games.
+        this._ladderDB.getGameList().subscribe(gameList => {
+            this.listOfGames = gameList;
+        });
 
     }
 

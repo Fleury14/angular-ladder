@@ -1,5 +1,15 @@
 <div class="font-titi">
     <h1 class="font-bangers text-center">User Dashboard</h1>
     <h3 class="text-center" *ngIf="login.afAuth.authState | async; let user;">Welcome {{ user.displayName }}</h3>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 text-center font-bangers">
+                <h4>Your status</h4>
+            </div>
+        </div> <!-- end header row -->
+        <div class="row dashboard-game-entry" *ngFor="let game of listOfGames"> <!-- begin looped row -->
+            <h5 class="font-bangers text-center">{{ game.title }}</h5>
+        </div> <!-- end looped row -->
+    </div> <!-- end container -->
 </div>
 
