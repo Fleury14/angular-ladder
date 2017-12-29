@@ -12,6 +12,7 @@ import { StandingsComponent } from './sub-pages/standings/standings.component';
 import { MissingPageComponent } from './sub-pages/error/missing-page.component';
 import { AdminComponent } from './sub-pages/admin/admin.component';
 import { JoinComponent } from './sub-pages/join/join.component';
+import { DashboardComponent } from './sub-pages/dashboard/dashboard.component';
 
 import { RouterGuard } from './services/router-guard.service';
 
@@ -52,6 +53,10 @@ const routes: Routes = [{
     component: JoinComponent
   },
   {
+    path: 'dashboard',
+    component: DashboardComponent
+  },
+  {
     path: '',
     redirectTo: 'home',
     pathMatch: 'full'
@@ -71,5 +76,5 @@ const routes: Routes = [{
 export class MainRoutingModule {}
 
 export const MainRoutingComponents = [ HomeComponent, AboutComponent, ContactComponent, RulesComponent, ChallengeComponent,
-    MatchHistoryComponent, StandingsComponent, MissingPageComponent, AdminComponent, JoinComponent];
+    MatchHistoryComponent, StandingsComponent, MissingPageComponent, AdminComponent, JoinComponent, DashboardComponent];
 
