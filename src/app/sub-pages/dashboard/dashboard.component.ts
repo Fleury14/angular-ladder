@@ -17,7 +17,18 @@ export class DashboardComponent {
 
     constructor(public login: LoginService, private _ladderDB: LadderDatabaseService) {
 
-        this._user = this.login.getLoggedInUser();
+        this.login.getLoggedInUserObs().map(user => {
+            const newUser = {
+                email: user.email,
+                displayName: user.displayName,
+                photoUrl: user.photoURL,
+                uid: user.uid
+            };
+            return newUser;
+        })
+        .subscribe(user => {
+            this._user = user;
+        });
 
         // instantiate list of games.
         this._ladderDB.getGameList().subscribe(gameList => {
