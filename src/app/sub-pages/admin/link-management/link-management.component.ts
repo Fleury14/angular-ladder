@@ -30,4 +30,13 @@ export class LinkManagementComponent {
         });
     } // end constructor
 
+    public deleteRequest(id) {
+        if (confirm('Are youo sure you want to delete this request?')) {
+            this._pending.deletePending(id);
+        }
+    }
+
+    public approveRequest(id) {
+        
+    }
 }
