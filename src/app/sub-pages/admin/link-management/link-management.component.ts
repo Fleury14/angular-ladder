@@ -28,6 +28,6 @@ export class LinkManagementComponent {
             this.listOfPendingLinks = gameList;
             console.log(this.listOfPendingLinks);
         });
-    }
+    } // end constructor
 
 }
