@@ -1,1 +1,5 @@
-<h1 class="font-bangers text-center">User Dashboard</h1>
+<div class="font-titi">
+    <h1 class="font-bangers text-center">User Dashboard</h1>
+    <h3 class="text-center" *ngIf="login.afAuth.authState | async; let user;">Welcome {{ user.displayName }}</h3>
+</div>
+
