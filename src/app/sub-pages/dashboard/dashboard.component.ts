@@ -80,4 +80,8 @@ export class DashboardComponent {
         } else {return false; }
     }
 
+    public linkPlayer(id: string, name: string) {
+        if (confirm(`Are you sure you want to link ${name} to your google account?`)) {}
+    }
+
 }
