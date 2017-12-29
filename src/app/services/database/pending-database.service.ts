@@ -73,6 +73,10 @@ export class PendingDatabaseService {
         this._database.list('/w-pending/link').push(link);
     }
 
+    public deletePendingLink(id) {
+        this._database.list('/w-pending/link').remove(id);
+    }
+
     public dupeLinkCheck(game: string, id: string) {
 
         let dupeCheck = false; // reset to false each call
