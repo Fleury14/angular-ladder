@@ -14,7 +14,7 @@
         </div><!-- end row -->
         <div class="row" *ngIf="challengeMethod > 0">
             <h2 class="text-center font-bangers">Select your game</h2>
-            <div class="col-sm-4 challenge-game-selection" *ngFor="let game of listOfGames">
+            <div class="col-sm-4 challenge-game-selection" *ngFor="let game of listOfGames" (click)="selectGame(game.ref)">
                 <h4>{{ game.title }}</h4>
             </div>
         </div> <!-- end choose your game row ->
