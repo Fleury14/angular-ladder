@@ -13,7 +13,7 @@ export class PlaceChallengeComponent {
     public challengeMethod = 0; // will contain the user selection in how to challenge someone. 1 = linked 2 = anon
     public listOfGames; // will contain list of games
     public selectedGame: string; // will contain the game the user selects
-    public listofPlayers; // will contain a list of players for selected game
+    public listOfPlayers; // will contain a list of players for selected game
 
     // progression flags
     public canSelectPlayer = false;
@@ -37,7 +37,7 @@ export class PlaceChallengeComponent {
         // set selected game and instantiate player list
         this.selectedGame = game;
         this._ladderDB.getPlayers(game).subscribe(playerList => {
-            this.listofPlayers = playerList;
+            this.listOfPlayers = playerList;
         });
 
         // progress to next section
