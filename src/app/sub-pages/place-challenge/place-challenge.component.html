@@ -17,6 +17,7 @@
             <div class="col-sm-4 challenge-game-selection" *ngFor="let game of listOfGames" (click)="selectGame(game.ref)">
                 <h4>{{ game.title }}</h4>
             </div>
+            <p *ngIf="linkNoPlayerWarning===true">There is no player the ladder for that game that has a Google ID that matches the one you are currently logged into. Try again.</p>
         </div> <!-- end choose your game row -->
         <!-- BEGIN ANONYMOUS CHALLENGE SECTION -->
         <div class="row" *ngIf="challengeMethod === 2 && canSelectPlayer === true">
@@ -26,5 +27,8 @@
             </div>
         </div>
         <!-- END ANONYMOUS CHALLENGE SECTION -->
+        <div class="row" *ngIf="canSelectDefender === true">
+            <h2>Select player to challenge</h2>
+        </div> <!-- end select defender row -->
     </div><!-- end container -->
 </div> 

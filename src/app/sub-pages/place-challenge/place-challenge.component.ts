@@ -21,6 +21,7 @@ export class PlaceChallengeComponent {
     // progression flags
     public canSelectPlayer = false;
     public canSelectDefender = false;
+    public linkNoPlayerWarning = false;
 
     constructor(private _ladderDB: LadderDatabaseService, private _login: LoginService) {
         this._ladderDB.getGameList().subscribe(gameList => {
@@ -55,13 +56,23 @@ export class PlaceChallengeComponent {
         this.selectedGame = game;
         this._ladderDB.getPlayers(game).subscribe(playerList => {
             this.listOfPlayers = playerList;
-            if (this.challengeMethod === 1) {
+            if (this.challengeMethod === 1) { // if the user is using linked method...
+
+                // find the player that has a matching google id
                 this.selectedChallenger = this.listOfPlayers.find(player => {
                     if(player.google === this._user.uid) {return true; }
                 }); // end .find
 
-                console.log('found player:', this.selectedChallenger);
-                this.canSelectDefender = true;
+                if (this.selectedChallenger) {
+                    // only allow passage to next part if they picked a game that found a player
+                    this.linkNoPlayerWarning = false;
+                    this.canSelectDefender = true;
+                } else {
+                    // otherwise display the warning
+                    this.linkNoPlayerWarning = true;
+                }
+                // console.log('found player:', this.selectedChallenger);
+
             }
         });
 
