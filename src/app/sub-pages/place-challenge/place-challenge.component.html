@@ -20,7 +20,7 @@
         </div> <!-- end choose your game row -->
         <!-- BEGIN ANONYMOUS CHALLENGE SECTION -->
         <div class="row" *ngIf="challengeMethod === 2 && canSelectPlayer === true">
-            <div class="col-sm-3 challenge-select-player-anon" *ngFor="let player of listOfPlayers" [ngClass]="{'challenge-light-red-bg': player.google, 'challenge-light-green-bg': !player.google}">
+            <div class="col-sm-3 challenge-select-player-anon" *ngFor="let player of listOfPlayers" (click)="selectPlayer(player)" [ngClass]="{'challenge-light-red-bg': player.google, 'challenge-light-green-bg': !player.google}">
                 <h3 class="text-center">{{ player.name }}</h3>
                 <p class="text-center">Can Select: {{ player.google && 'No' || 'Yes'}}</p>
             </div>
