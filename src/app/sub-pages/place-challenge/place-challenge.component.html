@@ -3,14 +3,20 @@
     <p class="text-center">Select your method of challenging someone</p>
     <div class="container">
         <div class="row">
-            <div class="col-sm-6">
+            <div class="col-sm-6" (click)="useLinked()">
                 <h2>With one of my linked account</h2>
                 <p>Using this method means your challenge will be instantly approved and posted, since we know it's you. This is the recommended method of challenging someone.</p>
             </div><!-- end left half -->
-            <div class="col-sm-6">
+            <div class="col-sm-6" (click)="useAnon()">
                 <h2>Place Challenge Anonymously</h2>
                 <p>Use this if you don't have an account linked to your Google login. Since we don't know for sure if it's actually you, the challenge will have to be verified and approved before it can post.</p>
             </div><!-- end right half -->
         </div><!-- end row -->
+        <div class="row" *ngIf="challengeMethod > 0">
+            <h2 class="text-center font-bangers">Select your game</h2>
+            <div class="col-sm-4 challenge-game-selection" *ngFor="let game of listOfGames">
+                <h4>{{ game.title }}</h4>
+            </div>
+        </div> <!-- end choose your game row ->
     </div><!-- end container -->
 </div> 
