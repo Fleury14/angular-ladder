@@ -93,4 +93,12 @@ export class PendingDatabaseService {
 
         return dupeCheck;
     }
+
+    public addPendingChallenge(challenge) {
+        this._database.list('/w-pending/new-challenge').push(challenge);
+    }
+
+    public deletePendingChallenge(id) {
+        this._database.list('/w-pending/new-challenge').remove(id);
+    }
 }
