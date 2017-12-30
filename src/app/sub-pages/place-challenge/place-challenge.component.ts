@@ -22,6 +22,7 @@ export class PlaceChallengeComponent {
     public selectedDefender; // will contain the person being challenged
     private _user; // user login info
     private _listofPendingChallenges; // for anon: the list of pending challenges to avoid dupes
+    private _listOfDBChallenges; // list of challenges in the database
 
     // progression flags
     public canSelectGame = true;
@@ -29,6 +30,7 @@ export class PlaceChallengeComponent {
     public canSelectDefender = false;
     public linkNoPlayerWarning = false;
     public canConfirm = false;
+    public submittedChallenge = 0; // displays succesful submit message based on challenge method
 
     constructor(private _ladderDB: LadderDatabaseService, private _login: LoginService, private _pending: PendingDatabaseService,
     private _challengeDB: ChallengeDatabaseService) {
@@ -54,14 +56,20 @@ export class PlaceChallengeComponent {
             this._listOfPendingChallenges = challengeList;
             console.log('instantiated pending challenge list', this._listOfPendingChallenges);
         });
+
+        this._challengeDB.getListOfChallenges().subscribe(challengeList => {
+            this._listOfDBChallenges = challengeList;
+        });
     } // end constructor
 
     public useLinked() {
         this.challengeMethod = 1;
+        this.submittedChallenge = 0;
     }
 
     public useAnon() {
         this.challengeMethod = 2;
+        this.submittedChallenge = 0;
     }
 
     public selectGame(game: string) {
@@ -128,7 +136,7 @@ export class PlaceChallengeComponent {
     public selectDefender(defender) {
 
         // abort confirmation if selected defender is not valid
-        if (this.challengeValidation(this.selectedChallenger, defender) == false) {
+        if (this.challengeValidation(this.selectedChallenger, defender) === false) {
             return;
         } else {
             this.selectedDefender = defender;
@@ -138,11 +146,12 @@ export class PlaceChallengeComponent {
 
     public submitChallenge() {
         // challenge error codes: 0 - challenge valid, 1 - defender already has a challenge pending,
-        // 2 - attacker already has a challenge pending
+        // 2 - attacker already has a challenge pending, 3 - defender has one from DB, 4 - attacker has one from db
 
         // validation
         let challengeErrorCode = 0;
 
+        // begin validation from pending list
         if (this._listOfPendingChallenges.length === 0) {
             // if there are no challenges, then there can't be any dupes heh
             challengeErrorCode = 0;
@@ -151,7 +160,14 @@ export class PlaceChallengeComponent {
                 if (challenge.defenderId === this.selectedDefender.id) { challengeErrorCode = 1; }
                 if (challenge.challengerId === this.selectedChallenger.id) { challengeErrorCode = 2; }
             });
+        } // end validation check from pending
 
+        // begin validation check from challenge db
+        if (this._listOfDBChallenges.length !== 0) {
+            this._listOfDBChallenges.forEach(challenge => {
+                if (challenge.defenderId === this.selectedDefender.id) { challengeErrorCode = 3; }
+                if (challenge.challengerId === this.selectedChallenger.id) { challengeErrorCode = 4; }
+            });
         }
 
         switch (challengeErrorCode) {
@@ -173,21 +189,37 @@ export class PlaceChallengeComponent {
                 challengeToBeApproved.deadline = new Date(deadlineDate); // assign deadline to 10 days from now
                 this._challengeDB.addChallenge(challengeToBeApproved);
                 console.log('Challenge added to challenge DB');
+                this.submittedChallenge = 1;
+                this.startOver();
             }
             if (this.challengeMethod === 2) {
                 // ANONYMOUS CHALLENGE SECTION
                 this._pending.addPendingChallenge(challengeToBeApproved);
+                console.log('challenge added to pending list');
+                this.submittedChallenge = 2;
+                this.startOver();
             }
                 break;
 
             case 1:
                 console.log('defender already has a challenge');
-                alert(`The defender ${this.selectedDefender.name} already has a challenge pending`);
+                alert(`The defender ${this.selectedDefender.name} already has a challenge pending approval`);
                 break;
 
             case 2:
                 console.log('attacker alredy has a challenge');
-                alert(`The attacker ${this.selectedChallenger.name} already has a challenge pending`);
+                alert(`The attacker ${this.selectedChallenger.name} already has a challenge pending approval`);
+                break;
+            case 3:
+                console.log('defender has challenge in DB');
+                alert(`The defender ${this.selectedDefender.name} already has a challenge posted and waiting to complete`);
+                break;
+            case 4:
+                console.log('attacker has Challenge in DB');
+                alert(`The attacker ${this.selectedChallenger.name} already has a challenge posted and waiting to complete`);
+                break;
+            default:
+                console.log('Unknown error code passed. ');
                 break;
         }
 
@@ -201,6 +233,6 @@ export class PlaceChallengeComponent {
         this.canSelectDefender = false;
         this.linkNoPlayerWarning = false;
         this.canConfirm = false;
-        this.challengeMethod = 0; // will contain the user selection in how to challenge someone. 1 = linked 2 = anon
+        this.challengeMethod = 0;
     }
 }
