@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 import { LadderDatabaseService } from './../../services/database/ladder-database.service';
 import { LoginService } from './../../services/login.service';
+import { PendingDatabaseService } from './../../services/database/pending-database.service';
 
 @Component({
     selector: 'app-place-challenge',
@@ -15,6 +16,7 @@ export class PlaceChallengeComponent {
     public listOfGames; // will contain list of games
     public selectedGame: string; // will contain the game the user selects
     public listOfPlayers; // will contain a list of players for selected game
+    private _listOfPendingChallenges; // for anon, contains list of pending anon challenges
     public selectedChallenger; // for anon challenges, will hold the challenger info
     public selectedDefender; // will contain the person being challenged
     private _user; // user login info
@@ -27,7 +29,7 @@ export class PlaceChallengeComponent {
     public linkNoPlayerWarning = false;
     public canConfirm = false;
 
-    constructor(private _ladderDB: LadderDatabaseService, private _login: LoginService) {
+    constructor(private _ladderDB: LadderDatabaseService, private _login: LoginService, private _pending: PendingDatabaseService) {
         this._ladderDB.getGameList().subscribe(gameList => {
             // instantiate game list
             this.listOfGames = gameList;
@@ -44,6 +46,11 @@ export class PlaceChallengeComponent {
         })
         .subscribe(user => {
             this._user = user;
+        });
+
+        this._pending.getListOfPendingChallenges().subscribe(challengeList => {
+            this._listOfPendingChallenges = challengeList;
+            console.log('instantiated pending challenge list', this._listOfPendingChallenges);
         });
     } // end constructor
 
@@ -64,7 +71,7 @@ export class PlaceChallengeComponent {
 
                 // find the player that has a matching google id
                 this.selectedChallenger = this.listOfPlayers.find(player => {
-                    if(player.google === this._user.uid) {return true; }
+                    if (player.google === this._user.uid) {return true; }
                 }); // end .find
 
                 if (this.selectedChallenger) {
@@ -128,8 +135,51 @@ export class PlaceChallengeComponent {
     }
 
     public submitChallenge() {
+        // challenge error codes: 0 - challenge valid, 1 - defender already has a challenge pending,
+        // 2 - attacker already has a challenge pending
+
         if (this.challengeMethod === 2) {
             // ANONYMOUS CHALLENGE SECTION
+            // validation
+            let challengeErrorCode = 0;
+
+            if (this._listOfPendingChallenges.length === 0) {
+                // if there are no challenges, then there can't be any dupes heh
+                challengeErrorCode = 0;
+            } else {
+                this._listOfPendingChallenges.forEach(challenge => {
+                    if (challenge.defenderId === this.selectedDefender.id) { challengeErrorCode = 1; }
+                    if (challenge.challengerId === this.selectedChallenger.id) { challengeErrorCode = 2; }
+                });
+
+            }
+
+            switch (challengeErrorCode) {
+                case 0:
+                    const challengeToBeApproved = {
+                        game: this.selectedGame,
+                        challengerName: this.selectedChallenger.name,
+                        challengerId: this.selectedChallenger.id,
+                        challengerRank: this.selectedChallenger.rank,
+                        defenderName: this.selectedDefender.name,
+                        defenderId: this.selectedDefender.id,
+                        defenderRank: this.selectedDefender.rank,
+                        dateSubmitted: new Date()
+                    };
+                    this._pending.addPendingChallenge(challengeToBeApproved);
+                    break;
+
+                case 1:
+                    console.log('defender already has a challenge');
+                    alert(`The defender ${this.selectedDefender.name} already has a challenge pending`);
+                    break;
+
+                case 2:
+                    console.log('attacker alredy has a challenge');
+                    alert(`The attacker ${this.selectedChallenger.name} already has a challenge pending`);
+                    break;
+            }
+
 
         }
     }

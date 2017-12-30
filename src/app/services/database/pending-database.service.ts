@@ -94,6 +94,10 @@ export class PendingDatabaseService {
         return dupeCheck;
     }
 
+    public getListOfPendingChallenges() {
+        return this._database.list('/w-pending/new-challenge').valueChanges();
+    }
+
     public addPendingChallenge(challenge) {
         this._database.list('/w-pending/new-challenge').push(challenge);
     }
