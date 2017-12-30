@@ -21,6 +21,7 @@
         </div> <!-- end choose your game row -->
         <!-- BEGIN ANONYMOUS CHALLENGE SECTION -->
         <div class="row" *ngIf="challengeMethod === 2 && canSelectPlayer === true">
+            <h2 class="text-center font-bangers">Who are you?</h2>
             <div class="col-sm-3 challenge-select-player-anon" *ngFor="let player of listOfPlayers" (click)="selectPlayer(player)" [ngClass]="{'challenge-light-red-bg': player.google, 'challenge-light-green-bg': !player.google}">
                 <h3 class="text-center">{{ player.name }}</h3>
                 <p class="text-center">Can Select: {{ player.google && 'No' || 'Yes'}}</p>
@@ -29,11 +30,21 @@
         <!-- END ANONYMOUS CHALLENGE SECTION -->
         <div class="row" *ngIf="canSelectDefender === true">
             <h2>Select player to challenge</h2>
-            <div class="col-sm-4" *ngFor="let player of listOfPlayers" [ngClass]="{'challenge-light-green-bg': challengeValidation(selectedChallenger, player)===true, 'challenge-light-red-bg': challengeValidation(selectedChallenger, player)===false}">
+            <div class="col-sm-4" *ngFor="let player of listOfPlayers" (click)="selectDefender(player)" [ngClass]="{'challenge-light-green-bg': challengeValidation(selectedChallenger, player)===true, 'challenge-light-red-bg': challengeValidation(selectedChallenger, player)===false}">
                 <h4>{{ player.name }}</h4>
                 <p>Rank: {{ player.rank }}</p>
             </div>
         </div> <!-- end select defender row -->
+        <div class="row" *ngIf="canConfirm === true"> <!-- begin confirmation row -->
+            <div class="col-sm-12">
+                <h4 class="text-center">
+                    Confirm -- Attacker: ({{selectedChallenger.rank}}) {{selectedChallenger.name}} VS. Defender: ({{selectedDefender.rank}}) {{selectedDefender.name}}
+                </h4>
+            </div>
+            <div class="col-sm-12 flex-container justify-center">
+                <button class="btn btn-success" (click)="submitChallenge">Confirm and send</button>
+            </div>
+        </div><!-- end confirmation row -->
     </div><!-- end container -->
     <div class="flex-container justify-center">
         <button class="btn btn-danger" (click)="startOver()">Start Over</button>

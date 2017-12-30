@@ -16,13 +16,16 @@ export class PlaceChallengeComponent {
     public selectedGame: string; // will contain the game the user selects
     public listOfPlayers; // will contain a list of players for selected game
     public selectedChallenger; // for anon challenges, will hold the challenger info
+    public selectedDefender; // will contain the person being challenged
     private _user; // user login info
+    private _listofPendingChallenges; // for anon: the list of pending challenges to avoid dupes
 
     // progression flags
     public canSelectGame = true;
     public canSelectPlayer = false;
     public canSelectDefender = false;
     public linkNoPlayerWarning = false;
+    public canConfirm = false;
 
     constructor(private _ladderDB: LadderDatabaseService, private _login: LoginService) {
         this._ladderDB.getGameList().subscribe(gameList => {
@@ -106,15 +109,37 @@ export class PlaceChallengeComponent {
             if (defender.recentId === challenger.id) {result = false; }
         }
 
+        // see if theyre defending against anyone
+        if (defender.defendingAgainst) { result = false; }
+
         return result;
 
     } // end challenge validation
+
+    public selectDefender(defender) {
+
+        // abort confirmation if selected defender is not valid
+        if (this.challengeValidation(this.selectedChallenger, defender) == false) {
+            return;
+        } else {
+            this.selectedDefender = defender;
+            this.canConfirm = true;
+        }
+    }
+
+    public submitChallenge() {
+        if (this.challengeMethod === 2) {
+            // ANONYMOUS CHALLENGE SECTION
+
+        }
+    }
 
     public startOver() {
         this.canSelectGame = true;
         this.canSelectPlayer = false;
         this.canSelectDefender = false;
         this.linkNoPlayerWarning = false;
+        this.canConfirm = false;
         this.challengeMethod = 0; // will contain the user selection in how to challenge someone. 1 = linked 2 = anon
     }
 }
