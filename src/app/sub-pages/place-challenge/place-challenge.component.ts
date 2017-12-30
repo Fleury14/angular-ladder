@@ -138,50 +138,55 @@ export class PlaceChallengeComponent {
         // challenge error codes: 0 - challenge valid, 1 - defender already has a challenge pending,
         // 2 - attacker already has a challenge pending
 
-        if (this.challengeMethod === 2) {
-            // ANONYMOUS CHALLENGE SECTION
-            // validation
-            let challengeErrorCode = 0;
+        
+        // validation
+        let challengeErrorCode = 0;
 
-            if (this._listOfPendingChallenges.length === 0) {
-                // if there are no challenges, then there can't be any dupes heh
-                challengeErrorCode = 0;
-            } else {
-                this._listOfPendingChallenges.forEach(challenge => {
-                    if (challenge.defenderId === this.selectedDefender.id) { challengeErrorCode = 1; }
-                    if (challenge.challengerId === this.selectedChallenger.id) { challengeErrorCode = 2; }
-                });
-
-            }
-
-            switch (challengeErrorCode) {
-                case 0:
-                    const challengeToBeApproved = {
-                        game: this.selectedGame,
-                        challengerName: this.selectedChallenger.name,
-                        challengerId: this.selectedChallenger.id,
-                        challengerRank: this.selectedChallenger.rank,
-                        defenderName: this.selectedDefender.name,
-                        defenderId: this.selectedDefender.id,
-                        defenderRank: this.selectedDefender.rank,
-                        dateSubmitted: new Date()
-                    };
-                    this._pending.addPendingChallenge(challengeToBeApproved);
-                    break;
-
-                case 1:
-                    console.log('defender already has a challenge');
-                    alert(`The defender ${this.selectedDefender.name} already has a challenge pending`);
-                    break;
-
-                case 2:
-                    console.log('attacker alredy has a challenge');
-                    alert(`The attacker ${this.selectedChallenger.name} already has a challenge pending`);
-                    break;
-            }
-
+        if (this._listOfPendingChallenges.length === 0) {
+            // if there are no challenges, then there can't be any dupes heh
+            challengeErrorCode = 0;
+        } else {
+            this._listOfPendingChallenges.forEach(challenge => {
+                if (challenge.defenderId === this.selectedDefender.id) { challengeErrorCode = 1; }
+                if (challenge.challengerId === this.selectedChallenger.id) { challengeErrorCode = 2; }
+            });
 
         }
+
+        switch (challengeErrorCode) {
+            case 0:
+            const challengeToBeApproved = {
+                game: this.selectedGame,
+                challengerName: this.selectedChallenger.name,
+                challengerId: this.selectedChallenger.id,
+                challengerRank: this.selectedChallenger.rank,
+                defenderName: this.selectedDefender.name,
+                defenderId: this.selectedDefender.id,
+                defenderRank: this.selectedDefender.rank,
+                dateSubmitted: new Date()
+            };
+            if (this.challengeMethod === 1) {
+                // push to challenge db
+            }
+            if (this.challengeMethod === 2) {
+                // ANONYMOUS CHALLENGE SECTION
+                this._pending.addPendingChallenge(challengeToBeApproved);
+            }
+                break;
+
+            case 1:
+                console.log('defender already has a challenge');
+                alert(`The defender ${this.selectedDefender.name} already has a challenge pending`);
+                break;
+
+            case 2:
+                console.log('attacker alredy has a challenge');
+                alert(`The attacker ${this.selectedChallenger.name} already has a challenge pending`);
+                break;
+        }
+
+
+        
     }
 
     public startOver() {
