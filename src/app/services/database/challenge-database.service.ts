@@ -21,4 +21,16 @@ export class ChallengeDatabaseService {
     public deleteChallenge(id) {
         this._database.list('/x-challenges').remove(id);
     }
+
+    public getListOfChallenges() {
+        return this._database.list('/').valueChanges().map( database => {
+            const challengeList = [];
+            for (const challengeKey in database[3]) {
+                const challengeLoop = database[3][challengeKey];
+                challengeLoop.id = challengeKey;
+                challengeList.push(challengeLoop);
+            }
+            return challengeList;
+        });
+    }
 }
