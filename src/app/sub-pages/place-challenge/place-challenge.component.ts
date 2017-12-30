@@ -55,11 +55,15 @@ export class PlaceChallengeComponent {
         this.selectedGame = game;
         this._ladderDB.getPlayers(game).subscribe(playerList => {
             this.listOfPlayers = playerList;
-        });
+            if (this.challengeMethod === 1) {
+                this.selectedChallenger = this.listOfPlayers.find(player => {
+                    if(player.google === this._user.uid) {return true; }
+                }); // end .find
 
-        if (this.challengeMethod === 1) {
-            this.listOfPlayers.find();
-        }
+                console.log('found player:', this.selectedChallenger);
+                this.canSelectDefender = true;
+            }
+        });
 
         // progress to next section
         this.canSelectPlayer = true;
