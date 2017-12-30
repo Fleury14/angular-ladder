@@ -12,7 +12,7 @@
                 <p>Use this if you don't have an account linked to your Google login. Since we don't know for sure if it's actually you, the challenge will have to be verified and approved before it can post.</p>
             </div><!-- end right half -->
         </div><!-- end row -->
-        <div class="row" *ngIf="challengeMethod > 0">
+        <div class="row" *ngIf="challengeMethod > 0 && canSelectGame === true">
             <h2 class="text-center font-bangers">Select your game</h2>
             <div class="col-sm-4 challenge-game-selection" *ngFor="let game of listOfGames" (click)="selectGame(game.ref)">
                 <h4>{{ game.title }}</h4>
@@ -29,6 +29,13 @@
         <!-- END ANONYMOUS CHALLENGE SECTION -->
         <div class="row" *ngIf="canSelectDefender === true">
             <h2>Select player to challenge</h2>
+            <div class="col-sm-4" *ngFor="let player of listOfPlayers" [ngClass]="{'challenge-light-green-bg': challengeValidation(selectedChallenger, player)===true, 'challenge-light-red-bg': challengeValidation(selectedChallenger, player)===false}">
+                <h4>{{ player.name }}</h4>
+                <p>Rank: {{ player.rank }}</p>
+            </div>
         </div> <!-- end select defender row -->
     </div><!-- end container -->
+    <div class="flex-container justify-center">
+        <button class="btn btn-danger" (click)="startOver()">Start Over</button>
+    </div>
 </div> 
