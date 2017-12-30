@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { LadderDatabaseService } from './../../services/database/ladder-database.service';
 import { LoginService } from './../../services/login.service';
 import { PendingDatabaseService } from './../../services/database/pending-database.service';
+import { ChallengeDatabaseService } from './../../services/database/challenge-database.service';
 
 @Component({
     selector: 'app-place-challenge',
@@ -29,7 +30,8 @@ export class PlaceChallengeComponent {
     public linkNoPlayerWarning = false;
     public canConfirm = false;
 
-    constructor(private _ladderDB: LadderDatabaseService, private _login: LoginService, private _pending: PendingDatabaseService) {
+    constructor(private _ladderDB: LadderDatabaseService, private _login: LoginService, private _pending: PendingDatabaseService,
+    private _challengeDB: ChallengeDatabaseService) {
         this._ladderDB.getGameList().subscribe(gameList => {
             // instantiate game list
             this.listOfGames = gameList;
@@ -138,7 +140,6 @@ export class PlaceChallengeComponent {
         // challenge error codes: 0 - challenge valid, 1 - defender already has a challenge pending,
         // 2 - attacker already has a challenge pending
 
-        
         // validation
         let challengeErrorCode = 0;
 
@@ -163,10 +164,15 @@ export class PlaceChallengeComponent {
                 defenderName: this.selectedDefender.name,
                 defenderId: this.selectedDefender.id,
                 defenderRank: this.selectedDefender.rank,
-                dateSubmitted: new Date()
+                dateSubmitted: new Date(),
+                deadline: new Date()
             };
             if (this.challengeMethod === 1) {
                 // push to challenge db
+                const deadlineDate = Date.now() + 864000; // new date + no. seconds in 10 days
+                challengeToBeApproved.deadline = new Date(deadlineDate); // assign deadline to 10 days from now
+                this._challengeDB.addChallenge(challengeToBeApproved);
+                console.log('Challenge added to challenge DB');
             }
             if (this.challengeMethod === 2) {
                 // ANONYMOUS CHALLENGE SECTION

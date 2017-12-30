@@ -7,6 +7,7 @@ interface ChallengeDB {
     defenderRank: number;
     game: string;
     deadline: Date;
+    dateSubmitted?: Date;
 }
 
 export default ChallengeDB;
