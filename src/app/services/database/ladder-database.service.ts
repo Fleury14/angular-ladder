@@ -65,7 +65,7 @@ export class LadderDatabaseService {
         const unSortedList = this.getPlayers(game).subscribe(playerList => {
             playerList.sort(function(a, b) { return a.rank - b.rank; });
 
-            for(let i = 0; i < playerList.length; i++) {
+            for (let i = 0; i < playerList.length; i++) {
                 if (playerList[i].rank < i + 1) {
                     // if the player rank is lower than what the next expected number is, this is most likely due
                     // to two players having the same rank. adjust rank as required:
@@ -81,7 +81,7 @@ export class LadderDatabaseService {
                     this.updatePlayer(playerList[i], playerList[i].id, game);
                 } // end if.. if we're this far then that means the players rank is what it should be and no action needs to be taken
             }
-        })
+        });
     }
 
     // gets a list of games in the ladder. returns both a .ref and .title property so the future calls to the databse from this game

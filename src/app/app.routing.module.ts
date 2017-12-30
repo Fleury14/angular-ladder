@@ -13,8 +13,10 @@ import { MissingPageComponent } from './sub-pages/error/missing-page.component';
 import { AdminComponent } from './sub-pages/admin/admin.component';
 import { JoinComponent } from './sub-pages/join/join.component';
 import { DashboardComponent } from './sub-pages/dashboard/dashboard.component';
+import { PlaceChallengeComponent } from './sub-pages/place-challenge/place-challenge.component';
 
 import { RouterGuard } from './services/router-guard.service';
+
 
 const routes: Routes = [{
     path: 'home',
@@ -57,6 +59,10 @@ const routes: Routes = [{
     component: DashboardComponent
   },
   {
+    path: 'place-challenge',
+    component: PlaceChallengeComponent
+  },
+  {
     path: '',
     redirectTo: 'home',
     pathMatch: 'full'
@@ -76,5 +82,6 @@ const routes: Routes = [{
 export class MainRoutingModule {}
 
 export const MainRoutingComponents = [ HomeComponent, AboutComponent, ContactComponent, RulesComponent, ChallengeComponent,
-    MatchHistoryComponent, StandingsComponent, MissingPageComponent, AdminComponent, JoinComponent, DashboardComponent];
+    MatchHistoryComponent, StandingsComponent, MissingPageComponent, AdminComponent, JoinComponent, DashboardComponent,
+    PlaceChallengeComponent];
 
