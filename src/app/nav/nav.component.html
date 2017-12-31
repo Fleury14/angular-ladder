@@ -18,6 +18,6 @@
       <!-- <button class="btn btn-info btn-sm" [disabled]="!login.getLoggedInUser()" (click)="login.checkStuff()">Log auth info</button> -->
       <button *ngIf="adminCheck(login.afAuth.auth.currentUser?.uid) === true" routerLink="/admin">ADMIN</button>
       <button class="btn btn-warning btn-sm" [disabled]="!login.getLoggedInUser()" routerLink="/dashboard">User Dashboard</button>
-      <span class="badge home-challenge-badge">{{ challengeBadge }}</span>
+      <span class="badge home-challenge-badge" *ngIf="challengeBadge > 0">{{ challengeBadge }}</span>
     </div>
 </nav>
