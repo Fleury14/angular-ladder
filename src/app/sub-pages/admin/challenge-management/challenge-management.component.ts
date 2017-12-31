@@ -32,7 +32,7 @@ export class ChallengeManagementComponent {
 
     public approveChallenge(challenge, id) {
         if (confirm('Confirm adding selected challenge to official challenge list')) {
-            challenge['deadline'] = new Date(Date.now() + 864000000);
+            challenge['deadline'] = Date.now() + 864000000;
             this._pending.deletePendingChallenge(id);
             challenge.id = null;
             console.log('submitting challenge:', challenge);

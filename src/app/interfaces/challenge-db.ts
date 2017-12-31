@@ -6,7 +6,7 @@ interface ChallengeDB {
     defenderName: string;
     defenderRank: number;
     game: string;
-    deadline: Date;
+    deadline: number;
     dateSubmitted?: Date;
 }
 

@@ -181,12 +181,12 @@ export class PlaceChallengeComponent {
                 defenderId: this.selectedDefender.id,
                 defenderRank: this.selectedDefender.rank,
                 dateSubmitted: new Date(),
-                deadline: new Date()
+                deadline: Date.now()
             };
             if (this.challengeMethod === 1) {
                 // push to challenge db
                 const deadlineDate = Date.now() + 864000; // new date + no. seconds in 10 days
-                challengeToBeApproved.deadline = new Date(deadlineDate); // assign deadline to 10 days from now
+                challengeToBeApproved.deadline = deadlineDate; // assign deadline to 10 days from now
                 this._challengeDB.addChallenge(challengeToBeApproved);
                 console.log('Challenge added to challenge DB');
                 this.submittedChallenge = 1;

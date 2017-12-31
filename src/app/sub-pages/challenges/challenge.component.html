@@ -18,13 +18,13 @@
                      <tr *ngFor="let challenge of challengesPerGame(game.ref)" class="success">
                         <td><span class="label label-default">{{ challenge.challengerRank }}</span>&nbsp;{{ challenge.challengerName }}</td>
                         <td><span class="label label-default">{{ challenge.defenderRank }}</span>&nbsp;{{ challenge.defenderName }}</td>
-                        <td>{{ unixDateConversion(deadline) }}</td>
+                        <td>{{ unixDateConversion(challenge.deadline) | date: 'fullDate' }}</td>
                  </tbody>
             </table>
         </div>
     </div>
-    <div class="row">
+    <!-- <div class="row">
         <div class="col-sm-8 col-sm-offset-3 wufoo-container">
             <iframe class="wufoo-form" height="620" allowTransparency="true" frameborder="0" scrolling="no" style="width:100%;border:none"  src="https://fgcladder.wufoo.com/embed/z8efeqd002fkar/"><a href="https://fgcladder.wufoo.com/forms/z8efeqd002fkar/">Fill out my Wufoo form!</a></iframe><div id="wuf-adv" style="font-family:inherit;font-size: small;color:#a7a7a7;text-align:center;display:block;"></div></div>
-    </div>    
+    </div>     -->
 </div>
