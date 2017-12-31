@@ -142,6 +142,8 @@ export class DashboardComponent {
             this.selectedChallenge.id = null;
             this.selectedChallenge['challengerScore'] = this.challengerScore;
             this.selectedChallenge['defenderScore'] = this.defenderScore;
+            this._pending.addResult(this.selectedChallenge);
+            this.allowPost = false;
         }
     }
 
