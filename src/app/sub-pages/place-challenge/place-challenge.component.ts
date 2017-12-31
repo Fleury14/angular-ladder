@@ -194,7 +194,7 @@ export class PlaceChallengeComponent {
 
             if (this.challengeMethod === 1) {
                 // push to challenge db
-                const deadlineDate = Date.now() + 864000; // new date + no. seconds in 10 days
+                const deadlineDate = Date.now() + 864000000; // new date + no. seconds in 10 days
                 challengeToBeApproved.deadline = deadlineDate; // assign deadline to 10 days from now
                 this._challengeDB.addChallenge(challengeToBeApproved);
                 console.log('submitting:', challengeToBeApproved, 'attacker:', this.selectedChallenger, 'defender', this.selectedDefender);
