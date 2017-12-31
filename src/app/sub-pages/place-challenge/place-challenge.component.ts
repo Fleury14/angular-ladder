@@ -181,13 +181,23 @@ export class PlaceChallengeComponent {
                 defenderId: this.selectedDefender.id,
                 defenderRank: this.selectedDefender.rank,
                 dateSubmitted: new Date(),
-                deadline: Date.now()
+                deadline: Date.now(),
             };
+
+            if (this.selectedChallenger.google) {
+                challengeToBeApproved['challengerGoogle'] = this.selectedChallenger.google;
+            }
+
+            if (this.selectedDefender.google) {
+                challengeToBeApproved['defenderGoogle'] = this.selectedDefender.google;
+            }
+
             if (this.challengeMethod === 1) {
                 // push to challenge db
-                const deadlineDate = Date.now() + 864000; // new date + no. seconds in 10 days
+                const deadlineDate = Date.now() + 864000000; // new date + no. seconds in 10 days
                 challengeToBeApproved.deadline = deadlineDate; // assign deadline to 10 days from now
                 this._challengeDB.addChallenge(challengeToBeApproved);
+                console.log('submitting:', challengeToBeApproved, 'attacker:', this.selectedChallenger, 'defender', this.selectedDefender);
                 console.log('Challenge added to challenge DB');
                 this.submittedChallenge = 1;
                 this.startOver();

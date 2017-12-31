@@ -33,9 +33,30 @@
                 Name: {{ userStatus[game.ref][0].name }} Gamertag: {{ userStatus[game.ref][0].psnId }}</p> -->
         </div> <!-- end looped row -->
     </div> <!-- end container -->
+    <div class="container"> <!-- begin challenge status container -->
+        <div class="row">
+            <h2 class="text-center font-bangers">Your challenges</h2>
+            <div class="col-sm-6"> <!-- begin left side: attacking -->
+                <h2 class="text-center">Attacking</h2>
+                <p class="text-center" *ngIf="listOfChallenges.att.length === 0">You are not challenging anyone at this time</p>
+                <div *ngFor="let challenge of listOfChallenges.att" class="dashboard-challenge-item">
+                    <h3>vs. Rank {{ challenge.defenderRank }}: {{ challenge.defenderName }}</h3>
+                    <p><strong>Game:</strong> {{ challenge.game }} <strong>Deadline:</strong> {{ unixConvert(challenge.deadline) | date: 'fullDate' }}</p>
+                </div>
+            </div> <!-- end left side -->
+            <div class="col-sm-6"> <!-- begin right half: defending -->
+                <h2 class="text-center">Defending</h2>
+                <p class="text-center" *ngIf="listOfChallenges.def.length === 0">You do not have anyone challenging you at this time.</p>
+                <div *ngFor="let challenge of listOfChallenges.def" class="dashboard-challenge-item">
+                    <h3>vs. Rank {{ challenge.challengerRank }}: {{ challenge.challengerName }}</h3>
+                    <p><strong>Game:</strong> {{ challenge.game }} <strong>Deadline:</strong> {{ unixConvert(challenge.deadline) | date: 'fullDate' }}</p>
+                </div>
+            </div> <!-- end right half -->
+        </div>
+    </div> <!-- end challenge status container -->
     <div class="container" *ngIf="allowLink===true">
         <h3 class="text-center font-bangers">Link your account</h3>
-        <p class="text-center">Cick on a player to link that player to your google account.</p>
+        <p class="text-center">Click on a player to link that player to your google account.</p>
         <div class="row">
             <a *ngFor="let player of listOfPlayers; let ind = index" (click)="linkPlayer(player.id, player.name)">
                 <div class="col-sm-3 dashboard-player-list" [ngClass]="{'dashboard-light-red-bg': hasGoogle(ind)===true, 'dashboard-light-green-bg': hasGoogle(ind)===false}">

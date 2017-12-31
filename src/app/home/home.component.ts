@@ -7,7 +7,6 @@ import MatchRecordList from './../classes/match-history-list';
 
 import { TwitchStatusService } from './../services/twitch-status.service';
 import { MatchHistoryService } from './../services/match-history.service';
-import { ChallengeListService } from './../services/challenge-list.service';
 import { NewsService } from './../services/news-service';
 import { NewsDatabaseService } from './../services/database/news-databse.service';
 import { ChallengeDatabaseService } from './../services/database/challenge-database.service';
@@ -40,15 +39,10 @@ export class HomeComponent implements AfterViewInit {
     constructor(
         public twitchStatus: TwitchStatusService,
         private matchList: MatchHistoryService,
-        private homeList: ChallengeListService,
         private news: NewsService,
         private _newsData: NewsDatabaseService,
         private _challengeDB: ChallengeDatabaseService
-    ) { // build note: this servce may need to be public
-        this.sidebarChallengeList = [];
-        for (let i = 0; i < this.homeList.getLength(); i++) {
-            this.sidebarChallengeList.push(this.homeList.getChallenge(i));
-        } // end for
+    ) {
 
         // List of Stream to be shown on front page
         this.listOfStreams = this.twitchStatus.getStreamList();
@@ -59,6 +53,7 @@ export class HomeComponent implements AfterViewInit {
             // console.log('from database service:', data);
         });
 
+        // instantiate challenge list
         this._challengeDB.getListOfChallenges().subscribe(challengeList => {
             this.listOfChallenges = challengeList;
         });
@@ -68,6 +63,7 @@ export class HomeComponent implements AfterViewInit {
         });
     }
 
+    // method to convert unix
     public unixDateConv(unix: number) {
         return new Date(unix);
     }

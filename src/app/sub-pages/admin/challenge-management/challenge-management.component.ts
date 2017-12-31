@@ -48,4 +48,8 @@ export class ChallengeManagementComponent {
         }
     }
 
+    public unixConvert(unix: number): Date {
+        return new Date(unix);
+    }
+
 }

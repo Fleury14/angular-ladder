@@ -15,20 +15,16 @@ import { LadderDatabaseService } from '../../services/database/ladder-database.s
 })
 
 export class ChallengeComponent {
-    // public myList = new ChallengeList;
-    // public currentList = [];
+
     public listOfChallenges: any[];
     public newListOfGames;
 
     constructor( private _challengeDB: ChallengeDatabaseService, private _ladderDB: LadderDatabaseService ) {
-        // for (let i = 0; i < this.myList.getLength(); i++) {
-        //     this.currentList.push(this.myList.getChallenge(i));
-            // console.log(this.myList.getChallenge(i));
-        // }
+
 
         this._challengeDB.getListOfChallenges().subscribe(challengeList => {
             this.listOfChallenges = challengeList;
-            console.log('list of challenges', this.listOfChallenges);
+            // console.log('list of challenges', this.listOfChallenges);
         });
 
         this._ladderDB.getGameListNew().subscribe(gameList => {

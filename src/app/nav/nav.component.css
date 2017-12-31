@@ -102,3 +102,9 @@ nav {
 .login-row button, .login-row span {
     margin-right: 20px;
 }
+
+.home-challenge-badge {
+    height: 18px;
+    background-color: #600;
+    transform: translateX(-25px);
+}
