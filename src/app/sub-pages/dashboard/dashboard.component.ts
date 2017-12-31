@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { LoginService } from './../../services/login.service';
 import { LadderDatabaseService } from './../../services/database/ladder-database.service';
 import { PendingDatabaseService } from './../../services/database/pending-database.service';
+import { ChallengeDatabaseService } from './../../services/database/challenge-database.service';
 
 @Component({
     selector: 'app-dashboard',
@@ -17,13 +18,18 @@ export class DashboardComponent {
     private _user; // will contain logged in user info
     public selectedGame; // will contain the game that the user wants to link an account to
     public listOfPlayers; // will contain the list of players for the game that the user selected to link an account to
+    public listOfChallenges = { // will contain list of active challenges
+        att: [],
+        def: []
+    };
 
     // display flags
     public displaySubmitMessage = false; // pretty self explanatory
     public allowLink = false; // will determine if a player is linking an account
     public linkDupeWarning = false;
 
-    constructor(public login: LoginService, private _ladderDB: LadderDatabaseService, private _pending: PendingDatabaseService) {
+    constructor(public login: LoginService, private _ladderDB: LadderDatabaseService, private _pending: PendingDatabaseService,
+    private _challengeDB: ChallengeDatabaseService) {
 
         this.login.getLoggedInUserObs().map(user => {
             const newUser = {
@@ -63,6 +69,19 @@ export class DashboardComponent {
                 }); // end getPlayers subscribe
             }); // end gamelist iteration
         }); // end gamelist subscribe
+
+        // instantiate list of challenges then put them in teh correct array
+        this._challengeDB.getListOfChallenges().subscribe(challengeList => {
+            challengeList.forEach(challenge => {
+                if (challenge['challengerGoogle'] === this._user.uid) {
+                    this.listOfChallenges.att.push(challenge);
+                }
+                if (challenge['defenderGoogle'] === this._user.uid) {
+                    this.listOfChallenges.def.push(challenge);
+                }
+            });
+            console.log('challenge array yarrr', this.listOfChallenges);
+        });
 
     } // end constructor
 
@@ -106,4 +125,7 @@ export class DashboardComponent {
         }
     }
 
+    public unixConvert(unix: number): Date {
+        return new Date(unix);
+    }
 }
