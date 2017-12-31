@@ -42,7 +42,7 @@
                 <p>Rank {{ challenge.defenderRank }}</p>
             </div>
             <div class="col-sm-1">
-                <p>{{ challenge.deadline }}</p>
+                <p>{{ unixConvert(challenge.deadline) | date: 'fullDate' }}</p>
             </div>
             <div class="col-sm-1 challenge-pending-min-height challenge-pending-item-buttons">
                 <button class="btn btn-danger" (click)="deleteActiveChallenge(challenge.id)">Delete</button>
