@@ -68,6 +68,10 @@ export class HomeComponent implements AfterViewInit {
         });
     }
 
+    public unixDateConv(unix: number) {
+        return new Date(unix);
+    }
+
     public parseNewLine(content: string) {
         const newLine = /\n/gi;
         if (content) {
