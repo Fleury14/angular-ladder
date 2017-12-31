@@ -77,6 +77,9 @@
                 </div>
             </div>
         </div> <!-- end challenge posting row -->
+        <div class="row" *ngIf="submittedResult === true">
+            <h4 class="text-center">Your result has been uploaded and is pending approval.</h4>
+        </div>
     </div> <!-- end challenge status container -->
     <div class="container" *ngIf="allowLink===true">
         <h3 class="text-center font-bangers">Link your account</h3>

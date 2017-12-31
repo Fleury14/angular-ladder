@@ -33,6 +33,7 @@ export class DashboardComponent {
     public allowLink = false; // will determine if a player is linking an account
     public linkDupeWarning = false;
     public allowPost = false; // flag to toggle viewing the posting of challenge results
+    public submittedResult = false; // flag to display submitted message
 
     constructor(public login: LoginService, private _ladderDB: LadderDatabaseService, private _pending: PendingDatabaseService,
     private _challengeDB: ChallengeDatabaseService) {
@@ -134,16 +135,23 @@ export class DashboardComponent {
     public postResults(challenge) {
         this.selectedChallenge = challenge;
         this.allowPost = true;
+        this.submittedResult = false;
     }
 
     public submitScores() {
+
         if (confirm(`Confirm Score: ${this.selectedChallenge.challengerName}-${this.challengerScore}, ${this.selectedChallenge.defenderName}-${this.defenderScore}`)) {
             this.selectedChallenge['challengeDBId'] = this.selectedChallenge.id;
             this.selectedChallenge.id = null;
             this.selectedChallenge['challengerScore'] = this.challengerScore;
             this.selectedChallenge['defenderScore'] = this.defenderScore;
-            this._pending.addResult(this.selectedChallenge);
-            this.allowPost = false;
+            if (this._pending.dupeResultCheck(this.selectedChallenge.challengeDBId) === true) {
+                alert(`There's already a result pending approval for this challenge. Contact an admin if you feel this is an error.`);
+            } else {
+                this._pending.addResult(this.selectedChallenge);
+                this.allowPost = false;
+                this.submittedResult = true;
+            }
         }
     }
 
