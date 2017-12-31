@@ -114,4 +114,25 @@ export class PendingDatabaseService {
     public deletePendingChallenge(id) {
         this._database.list('/w-pending/new-challenge').remove(id);
     }
+
+    public addResult(result) {
+        this._database.list('/w-pending/result').push(result);
+    }
+
+    public deleteResult(id: string) {
+        this._database.list('w-pending/result').remove(id);
+    }
+
+    public getListOfResults() {
+        return this._database.list('/w-pending/result').valueChanges().map(pendingList => {
+            const listOfKeys = [];
+            this._database.list('/w-pending/result').snapshotChanges().subscribe(snapshotList => {
+                snapshotList.forEach(function(snapshot) {
+                    listOfKeys.push(snapshot.key);
+                });
+                pendingList.forEach(function(pendingItem, index) {pendingList[index]['id'] = listOfKeys[index]; });
+            });
+            return pendingList;
+        });
+    }
 }

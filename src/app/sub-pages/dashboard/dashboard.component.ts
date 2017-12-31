@@ -138,6 +138,8 @@ export class DashboardComponent {
 
     public submitScores() {
         if (confirm(`Confirm Score: ${this.selectedChallenge.challengerName}-${this.challengerScore}, ${this.selectedChallenge.defenderName}-${this.defenderScore}`)) {
+            this.selectedChallenge['challengeDBId'] = this.selectedChallenge.id;
+            this.selectedChallenge.id = null;
             this.selectedChallenge['challengerScore'] = this.challengerScore;
             this.selectedChallenge['defenderScore'] = this.defenderScore;
         }
