@@ -20,7 +20,7 @@
             </div>
             <div class="col-sm-2 challenge-pending-min-height challenge-pending-item-buttons">
                 <button class="btn btn-success">Approve</button>
-                <button class="btn btn-danger">Deny</button>
+                <button class="btn btn-danger" (click)="denyChallenge(pending.id)">Deny</button>
             </div>
         </div> <!-- end looped row -->
     </div> <!-- end container -->

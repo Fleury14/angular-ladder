@@ -16,7 +16,12 @@ export class ChallengeManagementComponent {
     constructor (private _pending: PendingDatabaseService, private _challengeDB: ChallengeDatabaseService) {
         this._pending.getListOfPendingChallenges().subscribe(pendingList => {
             this.listOfPendingChallenges = pendingList;
+            console.log('list of pendings:', this.listOfPendingChallenges);
         });
+    }
+
+    public denyChallenge(id) {
+        this._pending.deletePendingChallenge(id);
     }
 
 }

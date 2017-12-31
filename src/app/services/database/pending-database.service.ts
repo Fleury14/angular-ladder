@@ -95,7 +95,16 @@ export class PendingDatabaseService {
     }
 
     public getListOfPendingChallenges() {
-        return this._database.list('/w-pending/new-challenge').valueChanges();
+        return this._database.list('/w-pending/new-challenge').valueChanges().map(pendingList => {
+            const listOfKeys = [];
+            this._database.list('/w-pending/new-challenge').snapshotChanges().subscribe(snapshotList => {
+                snapshotList.forEach(function(snapshot) {
+                    listOfKeys.push(snapshot.key);
+                });
+                pendingList.forEach(function(pendingItem, index) {pendingList[index]['id'] = listOfKeys[index]; });
+            });
+            return pendingList;
+        });
     }
 
     public addPendingChallenge(challenge) {
