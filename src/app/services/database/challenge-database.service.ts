@@ -23,13 +23,15 @@ export class ChallengeDatabaseService {
     }
 
     public getListOfChallenges() {
-        return this._database.list('/').valueChanges().map( database => {
-            const challengeList = [];
-            for (const challengeKey in database[3]) {
-                const challengeLoop = database[3][challengeKey];
-                challengeLoop.id = challengeKey;
-                challengeList.push(challengeLoop);
-            }
+        return this._database.list('/x-challenges').valueChanges().map( challengeList => {
+
+            const listOfKeys = [];
+            this._database.list('/x-challenges/').snapshotChanges().subscribe(snapshotList => {
+                snapshotList.forEach(function(snapshot) {
+                    listOfKeys.push(snapshot.key);
+                });
+                challengeList.forEach(function(pendingItem, index) {challengeList[index]['id'] = listOfKeys[index]; });
+            });
             return challengeList;
         });
     }
