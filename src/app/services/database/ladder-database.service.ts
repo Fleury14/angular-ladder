@@ -102,6 +102,23 @@ export class LadderDatabaseService {
         });
     } // end get gamelist
 
+    public getGameListNew() {
+        return this._database.list('/ladder/').valueChanges().map(data => {
+            const refList = [];
+            this._database.list('/ladder').snapshotChanges().subscribe(snapshotList => {
+                snapshotList.forEach(function(snapshot) {
+                    refList.push(snapshot.key);
+                });
+                data.forEach(function(item, index) {
+                    data[index]['ref'] = refList[index];
+                    delete data[index]['players'];
+                });
+            });
+
+            return data;
+        });
+    }
+
     // returns the number of players in a current game
     public getNumOfPlayer(game) {
         return this._database.list('/ladder/' + game + '/players').valueChanges().map(data => {
