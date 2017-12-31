@@ -23,10 +23,16 @@ export class DashboardComponent {
         def: []
     };
 
+    // result posting fields
+    public selectedChallenge; // will contain the challenge that the user wants to post a result on
+    public challengerScore: number;
+    public defenderScore: number;
+
     // display flags
     public displaySubmitMessage = false; // pretty self explanatory
     public allowLink = false; // will determine if a player is linking an account
     public linkDupeWarning = false;
+    public allowPost = false; // flag to toggle viewing the posting of challenge results
 
     constructor(public login: LoginService, private _ladderDB: LadderDatabaseService, private _pending: PendingDatabaseService,
     private _challengeDB: ChallengeDatabaseService) {
@@ -122,6 +128,18 @@ export class DashboardComponent {
             this._pending.addPendingLink(linkToBeAdded);
             this.linkDupeWarning = false;
             this.displaySubmitMessage = true;
+        }
+    }
+
+    public postResults(challenge) {
+        this.selectedChallenge = challenge;
+        this.allowPost = true;
+    }
+
+    public submitScores() {
+        if (confirm(`Confirm Score: ${this.selectedChallenge.challengerName}-${this.challengerScore}, ${this.selectedChallenge.defenderName}-${this.defenderScore}`)) {
+            this.selectedChallenge['challengerScore'] = this.challengerScore;
+            this.selectedChallenge['defenderScore'] = this.defenderScore;
         }
     }
 
