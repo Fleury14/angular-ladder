@@ -63,7 +63,7 @@ export class HomeComponent implements AfterViewInit {
         });
     }
 
-    // method to convert unix time
+    // method to convert unix
     public unixDateConv(unix: number) {
         return new Date(unix);
     }

@@ -39,10 +39,10 @@
             <div *ngFor="let item of databaseFirstThree | async" class="row">
                 <div class="col-sm-12">
                     <div class="panel panel-danger">
-                        <div class="panel-heading panel-heading-custom">{{item.date}}</div>
+                        <div class="panel-heading panel-heading-custom">{{item?.date}}</div>
                         <div class="panel-body">
-                            <p class="panel-news-body" [innerHTML]="parseNewLine(item.content)"></p>
-                            <p class="news-sig">{{item.author}}</p>
+                            <p class="panel-news-body" [innerHTML]="parseNewLine(item?.content)"></p>
+                            <p class="news-sig">{{item?.author}}</p>
                         </div>
                     </div>
                 </div>
@@ -52,10 +52,10 @@
                 <div *ngFor="let item of databaseTheRest | async" class="row">
                     <div class="col-sm-12">
                         <div class="panel panel-danger">
-                            <div class="panel-heading panel-heading-custom">{{item.date}}</div>
+                            <div class="panel-heading panel-heading-custom">{{item?.date}}</div>
                             <div class="panel-body">
-                                <p class="panel-news-body">{{item.content}}</p>
-                                <p class="news-sig">{{item.author}}</p>
+                                <p class="panel-news-body">{{item?.content}}</p>
+                                <p class="news-sig">{{item?.author}}</p>
                             </div>
                         </div>
                     </div>
@@ -72,7 +72,7 @@
                         <div class="sidebar-panel-head deep-red-bg">
                             <p>CHALLENGES</p>
                         </div>
-                        <p *ngIf="listOfChallenges.length < 1">No Active Challenges</p>
+                        <p *ngIf="listOfChallenges?.length < 1">No Active Challenges</p>
                         <div *ngFor="let challenge of listOfChallenges" class="sidebar-panel-body text-center">
                             <p>{{challenge.deadline | date: 'MM/dd'}}: {{challenge.challengerName}} vs. {{challenge.defenderName}} ({{challenge.game}})</p>
                             
