@@ -10,6 +10,7 @@ import { MatchHistoryService } from './../services/match-history.service';
 import { ChallengeListService } from './../services/challenge-list.service';
 import { NewsService } from './../services/news-service';
 import { NewsDatabaseService } from './../services/database/news-databse.service';
+import { ChallengeDatabaseService } from './../services/database/challenge-database.service';
 
 @Component({
     selector: 'app-home',
@@ -34,13 +35,15 @@ export class HomeComponent implements AfterViewInit {
     // and use the function in the class to get the 3 most recent ones and put them in this array
     public listOfStreams: string[];
     public streamInfo;
+    public listOfChallenges; // will contain list of challenges
 
     constructor(
         public twitchStatus: TwitchStatusService,
         private matchList: MatchHistoryService,
         private homeList: ChallengeListService,
         private news: NewsService,
-        private _newsData: NewsDatabaseService
+        private _newsData: NewsDatabaseService,
+        private _challengeDB: ChallengeDatabaseService
     ) { // build note: this servce may need to be public
         this.sidebarChallengeList = [];
         for (let i = 0; i < this.homeList.getLength(); i++) {
@@ -56,9 +59,17 @@ export class HomeComponent implements AfterViewInit {
             // console.log('from database service:', data);
         });
 
+        this._challengeDB.getListOfChallenges().subscribe(challengeList => {
+            this.listOfChallenges = challengeList;
+        });
+
         this.databaseTheRest.subscribe( data => {
             // console.log('older news from database service', data);
         });
+    }
+
+    public unixDateConv(unix: number) {
+        return new Date(unix);
     }
 
     public parseNewLine(content: string) {

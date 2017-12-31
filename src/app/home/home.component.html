@@ -72,9 +72,9 @@
                         <div class="sidebar-panel-head deep-red-bg">
                             <p>CHALLENGES</p>
                         </div>
-                        <p *ngIf="sidebarChallengeList.length < 1">No Active Challenges</p>
-                        <div *ngFor="let challenge of sidebarChallengeList" class="sidebar-panel-body text-center">
-                            <p>{{challenge.deadline}}: {{challenge.challengerName}} vs. {{challenge.challengeeName}}</p>
+                        <p *ngIf="listOfChallenges.length < 1">No Active Challenges</p>
+                        <div *ngFor="let challenge of listOfChallenges" class="sidebar-panel-body text-center">
+                            <p>{{challenge.deadline | date: 'MM/dd'}}: {{challenge.challengerName}} vs. {{challenge.defenderName}} ({{challenge.game}})</p>
                             
                         </div>
                     </div> <!-- End Challenges sidebar container -->

@@ -93,4 +93,25 @@ export class PendingDatabaseService {
 
         return dupeCheck;
     }
+
+    public getListOfPendingChallenges() {
+        return this._database.list('/w-pending/new-challenge').valueChanges().map(pendingList => {
+            const listOfKeys = [];
+            this._database.list('/w-pending/new-challenge').snapshotChanges().subscribe(snapshotList => {
+                snapshotList.forEach(function(snapshot) {
+                    listOfKeys.push(snapshot.key);
+                });
+                pendingList.forEach(function(pendingItem, index) {pendingList[index]['id'] = listOfKeys[index]; });
+            });
+            return pendingList;
+        });
+    }
+
+    public addPendingChallenge(challenge) {
+        this._database.list('/w-pending/new-challenge').push(challenge);
+    }
+
+    public deletePendingChallenge(id) {
+        this._database.list('/w-pending/new-challenge').remove(id);
+    }
 }

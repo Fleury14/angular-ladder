@@ -1,11 +1,11 @@
 <p class="header-column">CHALLENGES</p>
 <div class="container font-titi">
-    <div class="row">
+    <div class="row" *ngFor="let game of newListOfGames">
         <div class="col-sm-12">
+            <h3 class="font-bangers">{{ game.title }}</h3>
             <table class="table table-striped standing-table">
                  <thead>
                      <tr>
-                         <th>Game</th>
                          <th>Challenger</th>
                          <th>Challengee</th>
                          <th>Deadline</th>
@@ -14,18 +14,17 @@
                  </thead>
                  <tbody>
                      
-                     <tr><td><p *ngIf="myList.getLength()===0">No outstanding challenges at this time</p></td></tr>
-                     <tr *ngFor="let item of currentList" class="success">
-                        <td>{{ item.game }}</td>
-                        <td><span class="label label-default">{{ item.challengerRank }}</span>&nbsp;{{ item.challengerName }}</td>
-                        <td><span class="label label-default">{{ item.challengeeRank }}</span>&nbsp;{{ item.challengeeName }}</td>
-                        <td>{{ item.deadline }}</td>
+                     <tr><td><p *ngIf="challengesPerGame(game.ref).length===0">No outstanding challenges at this time</p></td></tr>
+                     <tr *ngFor="let challenge of challengesPerGame(game.ref)" class="success">
+                        <td><span class="label label-default">{{ challenge.challengerRank }}</span>&nbsp;{{ challenge.challengerName }}</td>
+                        <td><span class="label label-default">{{ challenge.defenderRank }}</span>&nbsp;{{ challenge.defenderName }}</td>
+                        <td>{{ unixDateConversion(challenge.deadline) | date: 'fullDate' }}</td>
                  </tbody>
             </table>
         </div>
     </div>
-    <div class="row">
+    <!-- <div class="row">
         <div class="col-sm-8 col-sm-offset-3 wufoo-container">
             <iframe class="wufoo-form" height="620" allowTransparency="true" frameborder="0" scrolling="no" style="width:100%;border:none"  src="https://fgcladder.wufoo.com/embed/z8efeqd002fkar/"><a href="https://fgcladder.wufoo.com/forms/z8efeqd002fkar/">Fill out my Wufoo form!</a></iframe><div id="wuf-adv" style="font-family:inherit;font-size: small;color:#a7a7a7;text-align:center;display:block;"></div></div>
-    </div>    
+    </div>     -->
 </div>
