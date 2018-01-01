@@ -147,6 +147,7 @@ export class PlaceChallengeComponent {
     public submitChallenge() {
         // challenge error codes: 0 - challenge valid, 1 - defender already has a challenge pending,
         // 2 - attacker already has a challenge pending, 3 - defender has one from DB, 4 - attacker has one from db
+        // 5 - challenger is trying to challenge the same player twice in a row, 6 - challenger is rank 2 and challenging the champ too soon
 
         // validation
         let challengeErrorCode = 0;
@@ -168,6 +169,16 @@ export class PlaceChallengeComponent {
                 if (challenge.defenderId === this.selectedDefender.id) { challengeErrorCode = 3; }
                 if (challenge.challengerId === this.selectedChallenger.id) { challengeErrorCode = 4; }
             });
+        }
+
+        // make sure the challenger isn't challenging the same opponent twice in a row.. unless they are rank 2
+        if (this.selectedChallenger.recentOpponent === this.selectedDefender.id && this.selectedChallenger.rank !== 2) {
+            challengeErrorCode = 5;
+        }
+
+        // make sure opponent isnt rank 2 and challenging the opponent too early
+        if (this.selectedChallenger.rank === 2 && this.selectedChallenger.champWait < Date.now()) {
+            challengeErrorCode = 6;
         }
 
         switch (challengeErrorCode) {
@@ -227,6 +238,12 @@ export class PlaceChallengeComponent {
             case 4:
                 console.log('attacker has Challenge in DB');
                 alert(`The attacker ${this.selectedChallenger.name} already has a challenge posted and waiting to complete`);
+                break;
+            case 5:
+                alert('Challenger is trying to challenge the same opponent twice in a row');
+                break;
+            case 6:
+                alert('Challenger is challenging the champ too soon after a failed attempt');
                 break;
             default:
                 console.log('Unknown error code passed. ');

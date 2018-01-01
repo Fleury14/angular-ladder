@@ -132,7 +132,29 @@ export class LadderDatabaseService {
         dbRef.update(id, {google: googleInc});
     }
 
-    public challengerWinPost() {}
+    // method to update player adjustmentgs from a challenger win
+    public challengerWinPost(challArr: any[], def, result) {
+        // create a database reference for the game in question
+        const dbRef = this._database.list('/ladder/' + result.game + '/players');
+
+        // update defender stats. losses, rank, elo
+        dbRef.update(def.id, {
+            losses: def.losses,
+            elo: def.elo,
+            rank: def.rank
+        });
+
+        // update everyone in the list of affected players array
+        // rank, wins, elo. because we carried over the entire player from the db,
+        // reuploadaing the win and elo count from players not actually in the match shouldnt change anything
+        challArr.forEach(chall => {
+            dbRef.update(chall.id, {
+                wins: chall.wins,
+                elo: chall.elo,
+                rank: chall.rank
+            });
+        });
+    }
 
     // method to update player adjustments from a defender win
     public defenderWinPost(chall, def, result) {

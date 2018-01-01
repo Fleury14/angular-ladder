@@ -119,8 +119,10 @@ export class ChallengeManagementComponent {
 
         // make sure defender isnt included in both affectedPlayers and currentDefender
         // if current defender is actually in the afectedPlayers list, he should always be first so a simple shift() should work
+        // we should also adjust the defenders rank if thats the case
         if (this._currentDefender.id === this.listOfAffectedPlayers[0].id) {
             this.listOfAffectedPlayers.shift();
+            this._currentDefender.rank++;
         }
 
         console.log('post win defender adjustments', this.listOfAffectedPlayers, this._currentDefender);
