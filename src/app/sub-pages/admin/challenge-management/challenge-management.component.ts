@@ -19,6 +19,12 @@ export class ChallengeManagementComponent {
     public listOfAffectedPlayers; // will container players on a ladder whos rank will change
     private _currentDefender; // will contain the player which is defending a challenge for purpose of result posting
     private _postButtonClicked = false; // flag to make sure post button was clicked. more explanation on result posting function
+    public editScore = false; // is the user editing score?
+    public selectedChallenge;
+
+    // ngmodel fields
+    public challengerScoreInput: string;
+    public defenderScoreInput: string;
 
     constructor (private _pending: PendingDatabaseService, private _challengeDB: ChallengeDatabaseService,
         private _ladderDB: LadderDatabaseService, private _matchDB: MatchHistoryDatabaseService) {
@@ -70,6 +76,22 @@ export class ChallengeManagementComponent {
         }
     }
 
+    public addScore(challenge) {
+        this.editScore = true;
+        this.selectedChallenge = challenge;
+    }
+
+    public submitScore() {
+        if (confirm('Are you sure you want to submit this score? This will not erase the challenge from the DB.')) {
+            this.selectedChallenge['challengerScore'] = this.challengerScoreInput;
+            this.selectedChallenge['defenderScore'] = this.defenderScoreInput;
+            this.selectedChallenge['challengeDBId'] = this.selectedChallenge.id;
+            this.selectedChallenge.id = null;
+            this._pending.addResult(this.selectedChallenge);
+            this.editScore = false;
+        }
+
+    }
 
     // method to approve result. note that because we are using a subscription to valuechanges, this will run EACH TIME
     // an edit is made on a player. in order to prevent that, we want to make sure that it runs only once, and only when
@@ -134,6 +156,7 @@ export class ChallengeManagementComponent {
         // we should also adjust the defenders rank if thats the case
         if (this._currentDefender.id === this.listOfAffectedPlayers[0].id) {
             this.listOfAffectedPlayers.shift();
+            this._currentDefender.rank++;
         }
 
         console.log('post win defender adjustments', this.listOfAffectedPlayers, this._currentDefender);
