@@ -69,32 +69,34 @@ export class ChallengeManagementComponent {
     }
 
     public approveResult(result) {
-        this.listOfAffectedPlayers = []; // list of all players whos rank will be lowered
-        this._currentDefender = null; // the current defender.
-        // NOTE: The reason the current defender is seperate is because its possible that the defender has a higher than 3 rank difference
-        // if they won their own challenge. as a result, any adjustments to rank to the defender only will be done in this object.
-        // when it comes time to update, we will make sure that the same person does not get pushed twice
-        this._ladderDB.getPlayers(result.game).subscribe(playerList => {
-            this._currentDefender = playerList.find(function(e, i, a) {
-                if (e.id === result.defenderId) { return true; }
+        if (confirm('Are you sure you want to approve this result? This will update results, remove the pending result and the challenge from the DB.')) {
+            this.listOfAffectedPlayers = []; // list of all players whos rank will be lowered
+            this._currentDefender = null; // the current defender.
+            // NOTE: The reason the current defender is seperate is because its possible that the defender has a higher than 3 rank difference
+            // if they won their own challenge. as a result, any adjustments to rank to the defender only will be done in this object.
+            // when it comes time to update, we will make sure that the same person does not get pushed twice
+            this._ladderDB.getPlayers(result.game).subscribe(playerList => {
+                this._currentDefender = playerList.find(function(e, i, a) {
+                    if (e.id === result.defenderId) { return true; }
+                });
+                for (let rank = result.defenderRank - 1; rank < result.challengerRank; rank++ ) {
+                    this.listOfAffectedPlayers.push(playerList[rank]);
+                }
+                console.log('affected players:', this.listOfAffectedPlayers);
+                console.log('current defender', this._currentDefender);
+                const lastIndex = this.listOfAffectedPlayers.length - 1;
+                this.listOfAffectedPlayers[lastIndex].recentOpponent = result.defenderId;
+                if (result.challengerScore > result.defenderScore) {
+                    this._winAdjust(result, lastIndex);
+                }
+                if (result.challengerScore < result.defenderScore) {
+                    this._lossAdjust(result, lastIndex);
+                }
+                if (result.challengerScore === result.defenderScore) {
+                    console.log('ERROR: I dont know what to do with a tie :(');
+                }
             });
-            for (let rank = result.defenderRank - 1; rank < result.challengerRank; rank++ ) {
-                this.listOfAffectedPlayers.push(playerList[rank]);
-            }
-            console.log('affected players:', this.listOfAffectedPlayers);
-            console.log('current defender', this._currentDefender);
-            const lastIndex = this.listOfAffectedPlayers.length - 1;
-            this.listOfAffectedPlayers[lastIndex].recentOpponent = result.defenderId;
-            if (result.challengerScore > result.defenderScore) {
-                this._winAdjust(result, lastIndex);
-            }
-            if (result.challengerScore < result.defenderScore) {
-                this._lossAdjust(result, lastIndex);
-            }
-            if (result.challengerScore === result.defenderScore) {
-                console.log('ERROR: I dont know what to do with a tie :(');
-            }
-        });
+        }
     }
 
     // method to make player adjustments based off a challenger win
@@ -151,10 +153,12 @@ export class ChallengeManagementComponent {
             this.listOfAffectedPlayers.champWait = Date.now() + 259200000;
         }
 
-        console.log('post defender win adjustments', this._currentDefender, this.listOfAffectedPlayers[chall]);
-        // update defender
-
-        // update challenger
+        // console.log('post defender win adjustments', this._currentDefender, this.listOfAffectedPlayers[chall]);
+        // update results
+        this._ladderDB.defenderWinPost(this.listOfAffectedPlayers[chall], this._currentDefender, result);
+        // remove result and challenge from database
+        this._challengeDB.deleteChallenge(result.challengeDBId);
+        this._pending.deleteResult(result.id);
     }
 
     // ELO functions from github: moroshko
