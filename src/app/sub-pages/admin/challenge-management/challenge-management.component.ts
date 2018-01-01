@@ -86,10 +86,10 @@ export class ChallengeManagementComponent {
             const lastIndex = this.listOfAffectedPlayers.length - 1;
             this.listOfAffectedPlayers[lastIndex].recentOpponent = result.defenderId;
             if (result.challengerScore > result.defenderScore) {
-                this._winAdjust(result);
+                this._winAdjust(result, lastIndex);
             }
             if (result.challengerScore < result.defenderScore) {
-                this._lossAdjust(result);
+                this._lossAdjust(result, lastIndex);
             }
             if (result.challengerScore === result.defenderScore) {
                 console.log('ERROR: I dont know what to do with a tie :(');
@@ -98,9 +98,7 @@ export class ChallengeManagementComponent {
     }
 
     // method to make player adjustments based off a challenger win
-    private _winAdjust(result) {
-        // the last player in the list of affected players should always be the challenger.
-        const chall = this.listOfAffectedPlayers.length() - 1;
+    private _winAdjust(result, chall) {
 
         // increment all affected players rank by 1
         this.listOfAffectedPlayers.forEach(player => { player.rank++; });
@@ -123,6 +121,7 @@ export class ChallengeManagementComponent {
             this.listOfAffectedPlayers.shift();
         }
 
+        console.log('post win defender adjustments', this.listOfAffectedPlayers, this._currentDefender);
         // finally, push adjustments to db
         this.listOfAffectedPlayers.forEach(player => {
             // update affected players
@@ -132,15 +131,14 @@ export class ChallengeManagementComponent {
 }
 
     // method to make player adjustments based off a defender win
-    private _lossAdjust(result) {
+    private _lossAdjust(result, chall) {
         // the last player in the list of affected players should always be the challenger.
         // in the event of a defender win, that's all we're interested in since no ranks will be moved
-        const chall = this.listOfAffectedPlayers.length() - 1;
+        // const chall = this.listOfAffectedPlayers.length() - 1;
 
         // add wins and losses
         this._currentDefender.wins++;
         this.listOfAffectedPlayers[chall].losses++;
-
         // adjust elo
         const challELO = this.listOfAffectedPlayers[chall].elo;
         const defELO = this._currentDefender.elo;
@@ -153,6 +151,7 @@ export class ChallengeManagementComponent {
             this.listOfAffectedPlayers.champWait = Date.now() + 259200000;
         }
 
+        console.log('post defender win adjustments', this._currentDefender, this.listOfAffectedPlayers[chall]);
         // update defender
 
         // update challenger
