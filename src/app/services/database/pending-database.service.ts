@@ -74,15 +74,18 @@ export class PendingDatabaseService {
         this._database.list('/w-pending/join').remove(id);
     }
 
+    // method to add a pending link request
     public addPendingLink(link) {
         this._database.list('/w-pending/link').push(link);
     }
 
+    // method to delete a pending link request
     public deletePendingLink(id) {
         console.log('removing link request with id', id);
         this._database.list('/w-pending/link').remove(id);
     }
 
+    // method to make sure a duplicate link request isnt being sent. returns t/f
     public dupeLinkCheck(game: string, id: string) {
 
         let dupeCheck = false; // reset to false each call
@@ -99,6 +102,8 @@ export class PendingDatabaseService {
         return dupeCheck;
     }
 
+    // method to get a list of all pending challenges from the DB. uses snapshotChanges to grab keys.
+    // this also alleviates the need for a numerical index when storing records, which also solves a lot of bugs
     public getListOfPendingChallenges() {
         return this._database.list('/w-pending/new-challenge').valueChanges().map(pendingList => {
             const listOfKeys = [];
@@ -112,22 +117,27 @@ export class PendingDatabaseService {
         });
     }
 
+    // method to add an anonymouse challenge for approval
     public addPendingChallenge(challenge) {
         this._database.list('/w-pending/new-challenge').push(challenge);
     }
 
+    // method to delete an anonymouse challenge from DB
     public deletePendingChallenge(id) {
         this._database.list('/w-pending/new-challenge').remove(id);
     }
 
+    // method to add a challenge result for approval
     public addResult(result) {
         this._database.list('/w-pending/result').push(result);
     }
 
+    // method to delete a challenge result for approval
     public deleteResult(id: string) {
         this._database.list('w-pending/result').remove(id);
     }
 
+    // method to get a list of all pending result postings
     public getListOfResults() {
         return this._database.list('/w-pending/result').valueChanges().map(pendingList => {
             const listOfKeys = [];
@@ -141,6 +151,7 @@ export class PendingDatabaseService {
         });
     }
 
+    // method to make sure a duplicate result isnt being posted for the same challenge
     public dupeResultCheck(id: string) {
         let dupeCheck = false; // reset to false each call
         // go through each item of the list and see if the psn id's and game both match
