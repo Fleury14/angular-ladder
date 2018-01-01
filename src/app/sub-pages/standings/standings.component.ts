@@ -23,11 +23,13 @@ export class StandingsComponent {
     constructor(public masterLadder: LadderService, private _ladderDB: LadderDatabaseService) {
         this.listOfPlayers = {};
 
+        // instantiate list of player then sort by rank ascending
         this._ladderDB.getGameList().subscribe(gameList => {
             this.listOfGames = gameList;
             this.listOfGames.forEach(game => {
                 this._ladderDB.getPlayers(game.ref).subscribe(playerList => {
                     this.listOfPlayers[game.ref] = playerList;
+                    this.listOfPlayers[game.ref].sort(function(a, b) { return a.rank - b.rank; });
                 });
             });
         });

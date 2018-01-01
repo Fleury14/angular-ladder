@@ -25,3 +25,10 @@
     align-items: center;
     justify-content: space-around;
 }
+
+.challenge-pending-result-side-row {
+    min-height: 86px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

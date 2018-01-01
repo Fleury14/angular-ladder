@@ -42,6 +42,9 @@
                 <div *ngFor="let challenge of listOfChallenges.att" class="dashboard-challenge-item">
                     <h3>vs. Rank {{ challenge.defenderRank }}: {{ challenge.defenderName }}</h3>
                     <p><strong>Game:</strong> {{ challenge.game }} <strong>Deadline:</strong> {{ unixConvert(challenge.deadline) | date: 'fullDate' }}</p>
+                    <div class="flex-container justify-center">
+                        <button class="btn btn-info" (click)="postResults(challenge)">Post Results</button>
+                    </div>
                 </div>
             </div> <!-- end left side -->
             <div class="col-sm-6"> <!-- begin right half: defending -->
@@ -52,6 +55,30 @@
                     <p><strong>Game:</strong> {{ challenge.game }} <strong>Deadline:</strong> {{ unixConvert(challenge.deadline) | date: 'fullDate' }}</p>
                 </div>
             </div> <!-- end right half -->
+        </div>
+        <div class="row" *ngIf="allowPost===true"> <!-- begin challenge posting row -->
+            <div class="col-sm-6"> <!-- begin challenger half -->
+                <h3 class="text-center">{{ selectedChallenge.challengerName }}</h3>
+                <div class="flex-container justify-center">
+                    <label class="dashboard-post-score-label">Score: </label>
+                    <input type="number" [(ngModel)]="challengerScore">
+                </div>
+            </div> <!-- end challenger half -->
+            <div class="col-sm-6"> <!-- begin defender half -->
+                <h3 class="text-center">{{ selectedChallenge.defenderName }}</h3>
+                <div class="flex-container justify-center">
+                    <label class="dashboard-post-score-label">Score: </label>
+                    <input type="number" [(ngModel)]="defenderScore">
+                </div>
+            </div> <!-- end defender half -->
+            <div class="col-sm-12">
+                <div class="flex-container justify-center">
+                    <button class="btn btn-info" (click)="submitScores()">Submit Scores for Approval</button>
+                </div>
+            </div>
+        </div> <!-- end challenge posting row -->
+        <div class="row" *ngIf="submittedResult === true">
+            <h4 class="text-center">Your result has been uploaded and is pending approval.</h4>
         </div>
     </div> <!-- end challenge status container -->
     <div class="container" *ngIf="allowLink===true">

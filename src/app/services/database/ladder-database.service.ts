@@ -132,6 +132,49 @@ export class LadderDatabaseService {
         dbRef.update(id, {google: googleInc});
     }
 
+    // method to update player adjustmentgs from a challenger win
+    public challengerWinPost(challArr: any[], def, result) {
+        // create a database reference for the game in question
+        const dbRef = this._database.list('/ladder/' + result.game + '/players');
+
+        // update defender stats. losses, rank, elo
+        dbRef.update(def.id, {
+            losses: def.losses,
+            elo: def.elo,
+            rank: def.rank
+        });
+
+        // update everyone in the list of affected players array
+        // rank, wins, elo. because we carried over the entire player from the db,
+        // reuploadaing the win and elo count from players not actually in the match shouldnt change anything
+        challArr.forEach(chall => {
+            dbRef.update(chall.id, {
+                wins: chall.wins,
+                elo: chall.elo,
+                rank: chall.rank
+            });
+        });
+    }
+
+    // method to update player adjustments from a defender win
+    public defenderWinPost(chall, def, result) {
+        // create a database reference
+        const dbRef = this._database.list('/ladder/' + result.game + '/players');
+
+        // update defender stats. only wins and elo should be adjusted
+        dbRef.update(def.id, {
+            wins: def.wins,
+            elo: def.elo
+        });
+
+        // update challenger. losses, elo, and recent player should be adjusted
+        dbRef.update(chall.id, {
+            losses: chall.losses,
+            elo: chall.elo,
+            recentOpponent: chall.recentOpponent
+        });
+    }
+
     // public instantiation() {
     //     this._tempPlayers.forEach(element => {
     //         this.addPlayer('tekken', element);

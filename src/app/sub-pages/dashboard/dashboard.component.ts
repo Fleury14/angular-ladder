@@ -23,14 +23,23 @@ export class DashboardComponent {
         def: []
     };
 
+    // result posting fields
+    public selectedChallenge; // will contain the challenge that the user wants to post a result on
+    public challengerScore: number;
+    public defenderScore: number;
+
     // display flags
     public displaySubmitMessage = false; // pretty self explanatory
     public allowLink = false; // will determine if a player is linking an account
     public linkDupeWarning = false;
+    public allowPost = false; // flag to toggle viewing the posting of challenge results
+    public submittedResult = false; // flag to display submitted message
 
+    // instantiate necessary lists...
     constructor(public login: LoginService, private _ladderDB: LadderDatabaseService, private _pending: PendingDatabaseService,
     private _challengeDB: ChallengeDatabaseService) {
 
+        // ..login info
         this.login.getLoggedInUserObs().map(user => {
             const newUser = {
                 email: user.email,
@@ -85,27 +94,33 @@ export class DashboardComponent {
 
     } // end constructor
 
+    // method to initiate linking a google account to a spot on the ladder. takes in the game ref from the appropriatte entry
     public beginLink(game: string) {
         this.selectedGame = game;
         this.allowLink = true;
-
+        // instantiate list of players for selected game
         this._ladderDB.getPlayers(game).subscribe(playerList => {
             this.listOfPlayers = playerList;
         });
     }
 
+    // method to cancel linking account
     public cancelLink() {
         this.selectedGame = null;
         this.allowLink = false;
     }
 
+    // method of making sure a player has a google account. this is used to make sure someone doesnt overwrite a listing that already
+    // has a google account
     public hasGoogle(index: number) {
         if (this.listOfPlayers[index].google) {return true;
         } else {return false; }
     }
 
+    // method to actually link the player to a google account
     public linkPlayer(id: string, name: string) {
 
+        // create player object
         const linkToBeAdded = {
             playerId: id,
             game: this.selectedGame,
@@ -113,15 +128,48 @@ export class DashboardComponent {
             name: name,
             email: this._user.email
         };
-        console.log('dupe check comp side:', this._pending.dupeLinkCheck(this.selectedGame, id));
+        // console.log('dupe check comp side:', this._pending.dupeLinkCheck(this.selectedGame, id));
+        // make sure that theres not already a pending request to link this listing
         if (this._pending.dupeLinkCheck(this.selectedGame, id) === true) {
+            // show dupe warning if thats the case
             this.linkDupeWarning = true;
             return;
         } else if (confirm(`Are you sure you want to link ${name} to your google account?`)) {
-
+            // call method to link accounr, reset flags
             this._pending.addPendingLink(linkToBeAdded);
             this.linkDupeWarning = false;
             this.displaySubmitMessage = true;
+        }
+    }
+
+    // method to allow user to begin entering results
+    public postResults(challenge) {
+        // designate appropraite challenge and set flags
+        this.selectedChallenge = challenge;
+        this.allowPost = true;
+        this.submittedResult = false;
+    }
+
+    // method to submit score for approval
+    public submitScores() {
+
+        if (confirm(`Confirm Score: ${this.selectedChallenge.challengerName}-${this.challengerScore}, ${this.selectedChallenge.defenderName}-${this.defenderScore}`)) {
+            // assign values from fields into challenge object
+            // retain the ID from the challenge database so we can delete the challenge upon approving the score
+            this.selectedChallenge['challengeDBId'] = this.selectedChallenge.id;
+            // then reset the id so it can be filled with the id given in the pending results list
+            this.selectedChallenge.id = null;
+            this.selectedChallenge['challengerScore'] = this.challengerScore;
+            this.selectedChallenge['defenderScore'] = this.defenderScore;
+            // make sure there isn't already a score submission for this challenge
+            if (this._pending.dupeResultCheck(this.selectedChallenge.challengeDBId) === true) {
+                alert(`There's already a result pending approval for this challenge. Contact an admin if you feel this is an error.`);
+            } else {
+                // call method in service to add result to the database
+                this._pending.addResult(this.selectedChallenge);
+                this.allowPost = false;
+                this.submittedResult = true;
+            }
         }
     }
 
