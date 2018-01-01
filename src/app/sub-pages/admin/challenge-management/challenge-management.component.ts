@@ -17,6 +17,7 @@ export class ChallengeManagementComponent {
     public listOfResults; // will contain list of results
     public listOfAffectedPlayers; // will container players on a ladder whos rank will change
     private _currentDefender; // will contain the player which is defending a challenge for purpose of result posting
+    private _postButtonClicked = false; // flag to make sure post button was clicked. more explanation on result posting function
 
     constructor (private _pending: PendingDatabaseService, private _challengeDB: ChallengeDatabaseService,
         private _ladderDB: LadderDatabaseService) {
@@ -68,35 +69,45 @@ export class ChallengeManagementComponent {
         }
     }
 
+
+    // method to approve result. note that because we are using a subscription to valuechanges, this will run EACH TIME
+    // an edit is made on a player. in order to prevent that, we want to make sure that it runs only once, and only when
+    // the button on the page is clicked. because the only code thats executes is inside the subscription {}, we use a 
+    // boolean flag outside of it as a conditional
     public approveResult(result) {
         if (confirm('Are you sure you want to approve this result? This will update results, remove the pending result and the challenge from the DB.')) {
+            this._postButtonClicked = true; // the aforementioned flag
             this.listOfAffectedPlayers = []; // list of all players whos rank will be lowered
             this._currentDefender = null; // the current defender.
             // NOTE: The reason the current defender is seperate is because its possible that the defender has a higher than 3 rank difference
             // if they won their own challenge. as a result, any adjustments to rank to the defender only will be done in this object.
             // when it comes time to update, we will make sure that the same person does not get pushed twice
             this._ladderDB.getPlayers(result.game).subscribe(playerList => {
-                this._currentDefender = playerList.find(function(e, i, a) {
-                    if (e.id === result.defenderId) { return true; }
-                });
-                for (let rank = result.defenderRank - 1; rank < result.challengerRank; rank++ ) {
-                    this.listOfAffectedPlayers.push(playerList[rank]);
-                }
-                console.log('affected players:', this.listOfAffectedPlayers);
-                console.log('current defender', this._currentDefender);
-                const lastIndex = this.listOfAffectedPlayers.length - 1;
-                this.listOfAffectedPlayers[lastIndex].recentOpponent = result.defenderId;
-                if (result.challengerScore > result.defenderScore) {
-                    this._winAdjust(result, lastIndex);
-                }
-                if (result.challengerScore < result.defenderScore) {
-                    this._lossAdjust(result, lastIndex);
-                }
-                if (result.challengerScore === result.defenderScore) {
-                    console.log('ERROR: I dont know what to do with a tie :(');
-                }
-            });
-        }
+
+                // make sure we're coming from the challenge management page with this flag check
+                if (this._postButtonClicked === true) {
+                    this._currentDefender = playerList.find(function(e, i, a) {
+                        if (e.id === result.defenderId) { return true; }
+                    });
+                    for (let rank = result.defenderRank - 1; rank < result.challengerRank; rank++ ) {
+                        this.listOfAffectedPlayers.push(playerList[rank]);
+                    }
+                    console.log('affected players:', this.listOfAffectedPlayers);
+                    console.log('current defender', this._currentDefender);
+                    const lastIndex = this.listOfAffectedPlayers.length - 1;
+                    this.listOfAffectedPlayers[lastIndex].recentOpponent = result.defenderId;
+                    if (result.challengerScore > result.defenderScore) {
+                        this._winAdjust(result, lastIndex);
+                    }
+                    if (result.challengerScore < result.defenderScore) {
+                        this._lossAdjust(result, lastIndex);
+                    }
+                    if (result.challengerScore === result.defenderScore) {
+                        console.log('ERROR: I dont know what to do with a tie :(');
+                    }
+                } // end flag check
+            }); // end subscribe
+        } // end confirm() if
     }
 
     // method to make player adjustments based off a challenger win
@@ -130,10 +141,11 @@ export class ChallengeManagementComponent {
             // update affected players
         });
 
-        // update defender and delete challenge and result from database
+        // update defender and delete challenge and result from database. also reset the clicked button flag
         this._ladderDB.challengerWinPost(this.listOfAffectedPlayers, this._currentDefender, result);
         this._challengeDB.deleteChallenge(result.challengeDBId);
         this._pending.deleteResult(result.id);
+        this._postButtonClicked = false;
 }
 
     // method to make player adjustments based off a defender win
@@ -163,6 +175,7 @@ export class ChallengeManagementComponent {
         // remove result and challenge from database
         this._challengeDB.deleteChallenge(result.challengeDBId);
         this._pending.deleteResult(result.id);
+        this._postButtonClicked = false;
     }
 
     // ELO functions from github: moroshko
