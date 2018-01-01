@@ -57,6 +57,13 @@ export class ChallengeManagementComponent {
         }
     }
 
+    // method to delete a result
+    public deleteResult(id) {
+        if (confirm('Are you sure you want to delete this result?')) {
+            this._pending.deleteResult(id);
+        }
+    }
+
     public unixConvert(unix: number): Date {
         return new Date(unix);
     }
