@@ -122,7 +122,6 @@ export class ChallengeManagementComponent {
         // we should also adjust the defenders rank if thats the case
         if (this._currentDefender.id === this.listOfAffectedPlayers[0].id) {
             this.listOfAffectedPlayers.shift();
-            this._currentDefender.rank++;
         }
 
         console.log('post win defender adjustments', this.listOfAffectedPlayers, this._currentDefender);
@@ -131,7 +130,10 @@ export class ChallengeManagementComponent {
             // update affected players
         });
 
-        // update defender
+        // update defender and delete challenge and result from database
+        this._ladderDB.challengerWinPost(this.listOfAffectedPlayers, this._currentDefender, result);
+        this._challengeDB.deleteChallenge(result.challengeDBId);
+        this._pending.deleteResult(result.id);
 }
 
     // method to make player adjustments based off a defender win

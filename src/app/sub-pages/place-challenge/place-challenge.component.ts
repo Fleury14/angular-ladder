@@ -251,7 +251,7 @@ export class PlaceChallengeComponent {
         }
 
 
-        
+
     }
 
     public startOver() {
