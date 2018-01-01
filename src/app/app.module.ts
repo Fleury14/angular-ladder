@@ -23,6 +23,7 @@ import { NewsService } from './services/news-service';
 import { LoginService } from './services/login.service';
 import { PendingDatabaseService } from './services/database/pending-database.service';
 import { ChallengeDatabaseService } from './services/database/challenge-database.service';
+import { MatchHistoryDatabaseService } from './services/database/match-history-database.service';
 
 
 @NgModule({
@@ -34,7 +35,7 @@ import { ChallengeDatabaseService } from './services/database/challenge-database
     AngularFireAuthModule, AngularFireDatabaseModule
   ],
   providers: [ TwitchStatusService, LadderService, MatchHistoryService, ChallengeListService, NewsService, LoginService,
-    PendingDatabaseService, ChallengeDatabaseService ],
+    PendingDatabaseService, ChallengeDatabaseService, MatchHistoryDatabaseService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

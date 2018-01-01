@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { PendingDatabaseService } from './../../../services/database/pending-database.service';
 import { ChallengeDatabaseService } from './../../../services/database/challenge-database.service';
 import { LadderDatabaseService } from './../../../services/database/ladder-database.service';
+import { MatchHistoryDatabaseService } from './../../../services/database/match-history-database.service';
 
 @Component({
     selector: 'app-admin-news',
@@ -20,7 +21,7 @@ export class ChallengeManagementComponent {
     private _postButtonClicked = false; // flag to make sure post button was clicked. more explanation on result posting function
 
     constructor (private _pending: PendingDatabaseService, private _challengeDB: ChallengeDatabaseService,
-        private _ladderDB: LadderDatabaseService) {
+        private _ladderDB: LadderDatabaseService, private _matchDB: MatchHistoryDatabaseService) {
         this._pending.getListOfPendingChallenges().subscribe(pendingList => {
             this.listOfPendingChallenges = pendingList;
             // onsole.log('list of pendings:', this.listOfPendingChallenges);
@@ -143,6 +144,9 @@ export class ChallengeManagementComponent {
 
         // update defender and delete challenge and result from database. also reset the clicked button flag
         this._ladderDB.challengerWinPost(this.listOfAffectedPlayers, this._currentDefender, result);
+        // set current date in unix and push to match history
+        result.dateCompleted = Date.now();
+        this._matchDB.addMatch(result);
         this._challengeDB.deleteChallenge(result.challengeDBId);
         this._pending.deleteResult(result.id);
         this._postButtonClicked = false;
@@ -172,6 +176,9 @@ export class ChallengeManagementComponent {
         // console.log('post defender win adjustments', this._currentDefender, this.listOfAffectedPlayers[chall]);
         // update results
         this._ladderDB.defenderWinPost(this.listOfAffectedPlayers[chall], this._currentDefender, result);
+        // set current date in unix and push to match history
+        result.dateCompleted = Date.now();
+        this._matchDB.addMatch(result);
         // remove result and challenge from database
         this._challengeDB.deleteChallenge(result.challengeDBId);
         this._pending.deleteResult(result.id);
