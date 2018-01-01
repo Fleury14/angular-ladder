@@ -13,6 +13,7 @@ export class ChallengeManagementComponent {
 
     public listOfPendingChallenges; // will contain a list of anon chasllenges that are pending
     public listOfActiveChallenges; // will conatin a list of active challenges
+    public listOfResults; // will contain list of results
 
     constructor (private _pending: PendingDatabaseService, private _challengeDB: ChallengeDatabaseService) {
         this._pending.getListOfPendingChallenges().subscribe(pendingList => {
@@ -23,6 +24,10 @@ export class ChallengeManagementComponent {
         this._challengeDB.getListOfChallenges().subscribe(challengeList => {
             this.listOfActiveChallenges = challengeList;
             // console.log('list of actives:', this.listOfActiveChallenges);
+        });
+
+        this._pending.getListOfResults().subscribe(resultList => {
+            this.listOfResults = resultList;
         });
     }
 
