@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 import { PendingDatabaseService } from './../../../services/database/pending-database.service';
 import { ChallengeDatabaseService } from './../../../services/database/challenge-database.service';
+import { LadderDatabaseService } from './../../../services/database/ladder-database.service';
 
 @Component({
     selector: 'app-admin-news',
@@ -14,8 +15,11 @@ export class ChallengeManagementComponent {
     public listOfPendingChallenges; // will contain a list of anon chasllenges that are pending
     public listOfActiveChallenges; // will conatin a list of active challenges
     public listOfResults; // will contain list of results
+    public listOfAffectedPlayers; // will container players on a ladder whos rank will change
+    private _currentDefender; // will contain the player which is defending a challenge for purpose of result posting
 
-    constructor (private _pending: PendingDatabaseService, private _challengeDB: ChallengeDatabaseService) {
+    constructor (private _pending: PendingDatabaseService, private _challengeDB: ChallengeDatabaseService,
+        private _ladderDB: LadderDatabaseService) {
         this._pending.getListOfPendingChallenges().subscribe(pendingList => {
             this.listOfPendingChallenges = pendingList;
             // onsole.log('list of pendings:', this.listOfPendingChallenges);
@@ -63,6 +67,40 @@ export class ChallengeManagementComponent {
             this._pending.deleteResult(id);
         }
     }
+
+    public approveResult(result) {
+        this.listOfAffectedPlayers = [];
+        this._currentDefender = null;
+        this._ladderDB.getPlayers(result.game).subscribe(playerList => {
+            this._currentDefender = playerList.find(function(e, i, a) {
+                if (e.id === result.defenderId) { return true; }
+            });
+            for (let rank = result.defenderRank - 1; rank < result.challengerRank; rank++ ) {
+                this.listOfAffectedPlayers.push(playerList[rank]);
+            }
+            console.log('affected players:', this.listOfAffectedPlayers);
+            console.log('current defender', this._currentDefender);
+            const lastIndex = this.listOfAffectedPlayers.length - 1;
+            this.listOfAffectedPlayers[lastIndex].recentOpponent = result.defenderId;
+            if (result.challengerScore > result.defenderScore) {
+                this._winAdjust(result);
+            }
+            if (result.challengerScore < result.defenderScore) {
+                this._lossAdjust(result);
+            }
+            if (result.challengerScore === result.defenderScore) {
+                console.log('ERROR: I dont know what to do with a tie :(');
+            }
+        });
+    }
+
+    // method to make player adjustments based off a challenger win
+    private _winAdjust(result) {
+        const lastIndex = this.listOfAffectedPlayers.length();
+    }
+
+    // method to make player adjustments based off a defender win
+    private _lossAdjust(result) {}
 
     public unixConvert(unix: number): Date {
         return new Date(unix);

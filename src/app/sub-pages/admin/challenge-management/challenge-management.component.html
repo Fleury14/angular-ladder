@@ -68,7 +68,7 @@
             </div>
             <div class="col-sm-2 challenge-pending-result-side-row">
                 <div class="flex-container justify-around">
-                    <button class="btn btn-success">Approve</button>
+                    <button class="btn btn-success" (click)="approveResult(result)">Approve</button>
                     <button class="btn btn-danger" (click)="deleteResult(result.id)">Deny</button>
                 </div>
             </div>
