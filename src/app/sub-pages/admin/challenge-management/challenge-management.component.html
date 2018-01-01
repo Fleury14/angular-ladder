@@ -46,6 +46,32 @@
             </div>
             <div class="col-sm-1 challenge-pending-min-height challenge-pending-item-buttons">
                 <button class="btn btn-danger" (click)="deleteActiveChallenge(challenge.id)">Delete</button>
+            </div>
         </div> <!-- end looped active challenge row -->
+        <div class="row"> <!-- begin result title row -->
+            <div class="col-sm-12">
+                <h3 class="text-center font-bangers">List of results needing approval</h3>
+            </div>
+        </div> <!-- end result title row -->
+        <div class="row text-center"> <!-- behin result header row -->
+            <div class="col-sm-2">
+                <p class="font-banger">Game</p>
+            </div>
+            <div class="col-sm-8">Challenge</div>
+            <div class="col-sm-2"></div>
+        </div> <!-- end result header row -->
+        <div class="row" *ngFor="let result of listOfResults">
+            <div class="col-sm-2 challenge-pending-result-side-row">{{ result.game }}</div>
+            <div class="col-sm-8">
+                <h3 class="text-center">({{result.challengerRank}}) {{result.challengerName}} <strong>{{result.challengerScore}} - {{result.defenderScore}}</strong> {{result.defenderName}} ({{result.defenderRank}})</h3>
+                <p class="text-center">Deadline: {{ unixConvert(result.deadline) }}</p>
+            </div>
+            <div class="col-sm-2 challenge-pending-result-side-row">
+                <div class="flex-container justify-around">
+                    <button class="btn btn-success">Approve</button>
+                    <button class="btn btn-danger">Deny</button>
+                </div>
+            </div>
+        </div>
     </div> <!-- end container -->
 </div>
