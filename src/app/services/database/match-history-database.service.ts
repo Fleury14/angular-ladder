@@ -29,6 +29,8 @@ export class MatchHistoryDatabaseService {
                 });
                 matchList.forEach(function(pendingItem, index) {matchList[index]['id'] = listOfKeys[index]; });
             });
+            // sort matched in descending order by datecompleted
+            matchList.sort(function(a, b) { return b['dateCompleted'] - a['dateCompleted']; });
             return matchList;
         });
     }
