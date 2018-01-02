@@ -17,7 +17,7 @@
 }
 
 .navbar-default .navbar-nav>li>a:hover {
-    background-color: #fdd1d8;
+    background-color: #e2a2ac;
 }
 
 .navbar-right li {
@@ -35,99 +35,18 @@
 }
 
 .button-row-item {
-    margin-right: 20px;
-}
-/* nav {
-    transition: all .4s;
-}
-
-.navbar-container-top {
-    
-    
+    margin-left: 20px;
+    height: 75px;
+    width: 75px;
+    border-radius: 50%;
     background-color: #a63446;
-}
-
-.active {
-    background-color: pink;
+    box-shadow: 4px 4px 4px #600;
     color: #fff;
 }
 
-.navbar-list {
-    margin: 0px;
-    width: 100%;
-    height: 100%;
+.button-row-item:active {
+    transform: translate(4px, 4px);
 }
-
-.navbar-item {
-    list-style: none;
-    
-    
-    font-family: "Bangers", cursive;
-    color: #FFF;
-    font-size: 18px;
-    
-}
-
-.navbar-item a {
-    color: #FFF;
-    text-decoration: none;
-    transition: all 0.3s;
-}
-
-.navbar-item a:hover {
-    color: #d3d6d1;
-    text-decoration: underline;
-}
-
-.nav-container-bottom {
-    background-color: #d3d6d1;
-}
-
-.navbar-item-bottom {
-    list-style: none;
-    color: #0c6291;
-    font-size: 18px;
-    font-variant: small-caps;
-    font-family: "Crete Round", serif;
-}
-
-.navbar-item-bottom a {
-    color: #0c6291;
-    text-decoration: none;
-    transition: all 0.3s;
-}
-
-.navbar-item-bottom a:hover {
-    color: #fff;
-    text-decoration: underline;
-}
-
-
-.descriptor {
-    font-weight: bolder;
-    font-size: 20px;
-}
-
-.bnavbar {
-    font-family: "Bangers", cursive;
-    font-size: 18px;
-}
-
-.bnavbar > li > a {
-    color: #a63446;
-    transition: 0.3s all;
-    
-}
-
-.bnavbar > li > a:hover {
-    background-color: #e2a2ac;
-    color: #000;
-}
-
-.bnavbar > li.active > a {
-    background-color: #a63446;
-    color: #fff;
-} */
 
 /* End Nav Bar Styles */
 
@@ -140,8 +59,12 @@
     margin-right: 20px;
 }
 
+.admin-button {
+    background-color: #190e4f;
+}
+
 .home-challenge-badge {
     height: 18px;
-    background-color: #600;
-    transform: translateX(-25px);
+    background-color: #c00;
+    transform: translate(-11px,-30px);
 }

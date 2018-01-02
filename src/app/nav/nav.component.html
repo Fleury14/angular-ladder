@@ -30,32 +30,10 @@
     </div><!-- /.container-fluid -->
   </nav>
   <div class="nav-home-login-row font-titi">
-      <button class="button-row-item btn btn-success btn-sm" [disabled]="login.getLoggedInUser()" (click)="login.login()">Login</button>
-      <button class="button-row-item btn btn-danger btn-sm" [disabled]="!login.getLoggedInUser()" (click)="login.logout()">Logout</button>
-      <button class="button-row-item btn btn-info btn-sm" *ngIf="adminCheck(login.afAuth.auth.currentUser?.uid) === true" routerLink="/admin">ADMIN</button>
-      <button class="button-row-item btn btn-warning btn-sm" [disabled]="!login.getLoggedInUser()" routerLink="/dashboard">User Dashboard</button>
-      <span class="button-row-item badge home-challenge-badge" *ngIf="challengeBadge > 0">{{ challengeBadge }}</span>
-  </div>
-
-<!-- <nav>
-    
-    <ul class="nav nav-tabs nav-justified bnavbar">
-      <li role="presentation" routerLinkActive="active"><a routerLink="/home">Home</a></li>
-      <li role="presentation" routerLinkActive="active"><a routerLink="/contact">Contact</a></li>
-      <li role="presentation" routerLinkActive="active"><a routerLink="/about">About</a></li>
-      <li role="presentation" routerLinkActive="active"><a routerLink="/rules">Rules</a></li>
-      <li role="presentation" routerLinkActive="active"><a routerLink="/standings">Standings</a></li>
-      <li role="presentation" routerLinkActive="active"><a routerLink="/challenges">Challenges</a></li>
-      <li role="presentation" routerLinkActive="active"><a routerLink="/match-history">Match History</a></li>
-      <li role="presentation" routerLinkActive="active"><a routerLink="/join">Join Ladder</a></li>
-      <li role="presentation" routerLinkActive="active"><a routerLink="/place-challenge">Place Challenge</a></li>
-    </ul>
-    <div class="flex-container login-row">
-      <button class="btn btn-success btn-sm" [disabled]="login.getLoggedInUser()" (click)="login.login()">Login</button>
-      <button class="btn btn-danger btn-sm" [disabled]="!login.getLoggedInUser()" (click)="login.logout()">Logout</button>
-      <span class="font-titi flex-container align-center" *ngIf="login.afAuth.authState | async; let user;">Logged in as {{ user.displayName }}</span>
-      <button *ngIf="adminCheck(login.afAuth.auth.currentUser?.uid) === true" routerLink="/admin">ADMIN</button>
-      <button class="btn btn-warning btn-sm" [disabled]="!login.getLoggedInUser()" routerLink="/dashboard">User Dashboard</button>
+      <button class="button-row-item btn btn-sm" [disabled]="login.getLoggedInUser()" (click)="login.login()">Login</button>
+      <button class="button-row-item btn btn-sm" [disabled]="!login.getLoggedInUser()" (click)="login.logout()">Logout</button>
+      <button class="button-row-item btn btn-sm" [disabled]="!login.getLoggedInUser()" routerLink="/dashboard">Dashboard</button>
       <span class="badge home-challenge-badge" *ngIf="challengeBadge > 0">{{ challengeBadge }}</span>
-    </div>
-</nav> -->
+      <button class="button-row-item btn btn-sm admin-button " *ngIf="adminCheck(login.afAuth.auth.currentUser?.uid) === true" routerLink="/admin">ADMIN</button>
+      
+  </div>
