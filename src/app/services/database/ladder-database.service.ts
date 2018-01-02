@@ -55,6 +55,9 @@ export class LadderDatabaseService {
                 playerList.push(playerLoop);
             }
             // console.log('list of players from service with id:', playerList);
+            playerList.sort(function(a, b) {
+                return a.rank - b.rank;
+            });
             return playerList;
         });
     } // end get players

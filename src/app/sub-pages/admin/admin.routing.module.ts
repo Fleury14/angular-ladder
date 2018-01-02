@@ -9,6 +9,7 @@ import { ChallengeManagementComponent } from './challenge-management/challenge-m
 import { PlayerManagementComponent } from './player-management/player-management.component';
 import { PendingManagementComponent } from './pending-management/pending-management.component';
 import { LinkManagementComponent } from './link-management/link-management.component';
+import { MatchHistoryManagementComponent } from './match-history-management/match-history-management';
 
 const routes: Routes = [{
         path: 'admin',
@@ -34,6 +35,10 @@ const routes: Routes = [{
         {
             path: 'pending-link',
             component: LinkManagementComponent
+        },
+        {
+            path: 'match-history',
+            component: MatchHistoryManagementComponent
         }]
 
 }];
@@ -47,4 +52,4 @@ const routes: Routes = [{
 export class AdminRoutingModule {}
 
 export const RoutingComponents =  [NewsManagementComponent, PlayerManagementComponent, ChallengeManagementComponent,
-    PendingManagementComponent, LinkManagementComponent];
+    PendingManagementComponent, LinkManagementComponent, MatchHistoryManagementComponent];

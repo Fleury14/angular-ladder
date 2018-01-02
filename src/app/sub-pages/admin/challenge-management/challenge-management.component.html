@@ -45,9 +45,23 @@
                 <p>{{ unixConvert(challenge.deadline) | date: 'fullDate' }}</p>
             </div>
             <div class="col-sm-1 challenge-pending-min-height challenge-pending-item-buttons">
+                <button class="btn btn-success" (click)="addScore(challenge)">Edit Score</button>
                 <button class="btn btn-danger" (click)="deleteActiveChallenge(challenge.id)">Delete</button>
             </div>
         </div> <!-- end looped active challenge row -->
+        <div class="row" *ngIf="editScore === true"> <!-- begin score edit div -->
+            <div class="col-sm-3 col-sm-offset-3">
+                <label>Challenger Score: </label>
+                <input type="number" [(ngModel)]="challengerScoreInput">
+            </div>
+            <div class="col-sm-3">
+                <label>Defender Score: </label>
+                <input type="number" [(ngModel)]="defenderScoreInput">
+            </div>
+            <div class="col-sm-12 flex-container justify-center">
+                <button class="btn btn-info" (click)="submitScore()">Submit Score</button>
+            </div>
+        </div> <!-- end score edit div -->
         <div class="row"> <!-- begin result title row -->
             <div class="col-sm-12">
                 <h3 class="text-center font-bangers">List of results needing approval</h3>

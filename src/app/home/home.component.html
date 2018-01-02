@@ -87,7 +87,8 @@
                             <p>Recent Matches</p>
                         </div>
                         <div class="sidebar-panel-body text-center">
-                            <p *ngFor="let match of recentMatches">{{match.date}}: {{match.winnerName}} def. {{match.loserName}} {{match.wins}}-{{match.losses}}</p>
+                            <!-- <p *ngFor="let match of recentMatches">{{match.date}}: {{match.winnerName}} def. {{match.loserName}} {{match.wins}}-{{match.losses}}</p> -->
+                            <p *ngFor="let match of listOfMatches">{{ match.dateCompleted | date: 'MM/dd'}}: {{ match.challengerName }} {{ match.challengerScore }} - {{ match.defenderScore }} {{ match.defenderName }} ({{ match.game }})</p>
                         </div>
                     </div> <!-- End Recent sidebar container -->
                 </div>

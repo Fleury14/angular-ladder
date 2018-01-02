@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { PendingDatabaseService } from './../../../services/database/pending-database.service';
 import { ChallengeDatabaseService } from './../../../services/database/challenge-database.service';
 import { LadderDatabaseService } from './../../../services/database/ladder-database.service';
+import { MatchHistoryDatabaseService } from './../../../services/database/match-history-database.service';
 
 @Component({
     selector: 'app-admin-news',
@@ -18,9 +19,15 @@ export class ChallengeManagementComponent {
     public listOfAffectedPlayers; // will container players on a ladder whos rank will change
     private _currentDefender; // will contain the player which is defending a challenge for purpose of result posting
     private _postButtonClicked = false; // flag to make sure post button was clicked. more explanation on result posting function
+    public editScore = false; // is the user editing score?
+    public selectedChallenge;
+
+    // ngmodel fields
+    public challengerScoreInput: string;
+    public defenderScoreInput: string;
 
     constructor (private _pending: PendingDatabaseService, private _challengeDB: ChallengeDatabaseService,
-        private _ladderDB: LadderDatabaseService) {
+        private _ladderDB: LadderDatabaseService, private _matchDB: MatchHistoryDatabaseService) {
         this._pending.getListOfPendingChallenges().subscribe(pendingList => {
             this.listOfPendingChallenges = pendingList;
             // onsole.log('list of pendings:', this.listOfPendingChallenges);
@@ -69,6 +76,22 @@ export class ChallengeManagementComponent {
         }
     }
 
+    public addScore(challenge) {
+        this.editScore = true;
+        this.selectedChallenge = challenge;
+    }
+
+    public submitScore() {
+        if (confirm('Are you sure you want to submit this score? This will not erase the challenge from the DB.')) {
+            this.selectedChallenge['challengerScore'] = this.challengerScoreInput;
+            this.selectedChallenge['defenderScore'] = this.defenderScoreInput;
+            this.selectedChallenge['challengeDBId'] = this.selectedChallenge.id;
+            this.selectedChallenge.id = null;
+            this._pending.addResult(this.selectedChallenge);
+            this.editScore = false;
+        }
+
+    }
 
     // method to approve result. note that because we are using a subscription to valuechanges, this will run EACH TIME
     // an edit is made on a player. in order to prevent that, we want to make sure that it runs only once, and only when
@@ -86,6 +109,8 @@ export class ChallengeManagementComponent {
 
                 // make sure we're coming from the challenge management page with this flag check
                 if (this._postButtonClicked === true) {
+                    // sort list by rank lol
+
                     this._currentDefender = playerList.find(function(e, i, a) {
                         if (e.id === result.defenderId) { return true; }
                     });
@@ -114,7 +139,10 @@ export class ChallengeManagementComponent {
     private _winAdjust(result, chall) {
 
         // increment all affected players rank by 1
-        this.listOfAffectedPlayers.forEach(player => { player.rank++; });
+        this.listOfAffectedPlayers.forEach(player => {
+            console.log('hunch: incrementing affected players rank');
+            player.rank++;
+        });
         // then readjust challengers rank based on the challenge data
         this.listOfAffectedPlayers[chall].rank = result.defenderRank;
 
@@ -132,17 +160,21 @@ export class ChallengeManagementComponent {
         // if current defender is actually in the afectedPlayers list, he should always be first so a simple shift() should work
         // we should also adjust the defenders rank if thats the case
         if (this._currentDefender.id === this.listOfAffectedPlayers[0].id) {
+            // console.log('shifting selected players. oldlist', this.listOfAffectedPlayers);
             this.listOfAffectedPlayers.shift();
+            // console.log('new list', this.listOfAffectedPlayers);
+            // this._currentDefender.rank++;
         }
 
         console.log('post win defender adjustments', this.listOfAffectedPlayers, this._currentDefender);
         // finally, push adjustments to db
-        this.listOfAffectedPlayers.forEach(player => {
-            // update affected players
-        });
 
         // update defender and delete challenge and result from database. also reset the clicked button flag
         this._ladderDB.challengerWinPost(this.listOfAffectedPlayers, this._currentDefender, result);
+        // set current date in unix and push to match history
+        result.dateCompleted = Date.now();
+
+        this._matchDB.addMatch(result);
         this._challengeDB.deleteChallenge(result.challengeDBId);
         this._pending.deleteResult(result.id);
         this._postButtonClicked = false;
@@ -172,6 +204,9 @@ export class ChallengeManagementComponent {
         // console.log('post defender win adjustments', this._currentDefender, this.listOfAffectedPlayers[chall]);
         // update results
         this._ladderDB.defenderWinPost(this.listOfAffectedPlayers[chall], this._currentDefender, result);
+        // set current date in unix and push to match history
+        result.dateCompleted = Date.now();
+        this._matchDB.addMatch(result);
         // remove result and challenge from database
         this._challengeDB.deleteChallenge(result.challengeDBId);
         this._pending.deleteResult(result.id);
