@@ -8,4 +8,19 @@ import { MatchHistoryDatabaseService } from './../../../services/database/match-
     styleUrls: [ './match-history-management.css']
 })
 
-export class MatchHistoryManagementComponent {}
+export class MatchHistoryManagementComponent {
+
+    public listOfMatches;
+
+    constructor(private _matchDB: MatchHistoryDatabaseService) {
+        this._matchDB.getListOfMatches().subscribe(matchList => {
+            this.listOfMatches = matchList;
+        });
+    }
+
+    public deleteMatch(id) {
+        if (confirm('Are you sure you want to delete this match from the database?')) {
+            this._matchDB.deleteMatch(id);
+        }
+    }
+}
