@@ -10,6 +10,7 @@ import { MatchHistoryService } from './../services/match-history.service';
 import { NewsService } from './../services/news-service';
 import { NewsDatabaseService } from './../services/database/news-databse.service';
 import { ChallengeDatabaseService } from './../services/database/challenge-database.service';
+import { MatchHistoryDatabaseService } from './../services/database/match-history-database.service';
 
 @Component({
     selector: 'app-home',
@@ -35,13 +36,17 @@ export class HomeComponent implements AfterViewInit {
     public listOfStreams: string[];
     public streamInfo;
     public listOfChallenges; // will contain list of challenges
+    public listOfMatches; // will contain matchlist
+
+    public _MATCHTIME = 1209600000; // how far back we want to display matches on the front page.. in milliseconds...
 
     constructor(
         public twitchStatus: TwitchStatusService,
         private matchList: MatchHistoryService,
         private news: NewsService,
         private _newsData: NewsDatabaseService,
-        private _challengeDB: ChallengeDatabaseService
+        private _challengeDB: ChallengeDatabaseService,
+        private _matchDB: MatchHistoryDatabaseService
     ) {
 
         // List of Stream to be shown on front page
@@ -60,6 +65,20 @@ export class HomeComponent implements AfterViewInit {
 
         this.databaseTheRest.subscribe( data => {
             // console.log('older news from database service', data);
+        });
+
+        // get list of matches and remove matches that are over 2 weeks old
+        // make sure to go through the list backwards to avoid skips in the index
+        // NOTE: the list NEEDS to be sort my date in ascending order
+        this._matchDB.getListOfMatches().map(matches => {
+            for (let i = matches.length - 1; i >= 0; i--) {
+                if (Date.now() - matches[i]['dateCompleted'] > this._MATCHTIME) {
+                    matches.splice(i, 1);
+                }
+            }
+            return matches;
+        }).subscribe(matches => {
+            console.log('recent match list:', matches);
         });
     }
 
