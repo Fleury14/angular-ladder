@@ -1,11 +1,22 @@
+.challenge-select-method {
+    cursor: pointer;
+}
+
 .challenge-game-selection {
-    border: 1px solid #660000;
+    border: 1px solid #fff;
+    color: #fff;
 }
 
 .challenge-light-red-bg {
-    background-color: #ffdddd; 
+    background-color: #ffdddd;
+    cursor: not-allowed; 
 }
 
 .challenge-light-green-bg {
     background-color: #ddffdd;
+    cursor: pointer;
+}
+
+.challenge-start-over-button {
+    margin-top: 15px;
 }

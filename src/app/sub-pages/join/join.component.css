@@ -1,3 +1,7 @@
+.join-select-game-header {
+    text-shadow: 1px 1px 1px #a63346;
+}
+
 .join-game-list-item {
     font-size: 20px;
     padding-right: 10px;
@@ -9,4 +13,31 @@
     color: #fff;
     background-color: #bb0000;
     border: 2px solid #000;
+}
+
+.join-form-container {
+    width: 50%;
+    margin: 0 auto;
+    border: 3px solid #000;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    background-color: #a6334652
+}
+
+.join-checkbox {
+    margin-left: 15px;
+}
+
+.join-submit-button {
+    width: 50%;
+    background-color: #a63346;
+    color: #fff;
+    margin: 0 auto;
+}
+
+@media only screen and (max-width: 768px) {
+    .join-form-container {
+        width: 98%;
+    }
 }

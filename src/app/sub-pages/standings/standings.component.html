@@ -1,6 +1,6 @@
 <p class="header-column">STANDINGS</p>
 <div class="container">
-    <div class="row" *ngFor="let game of listOfGames">
+    <div class="row standing-game-row" *ngFor="let game of listOfGames">
         <div class="col-sm-12">
             <h3 class="standing-header">{{ game.title }}</h3> 
             <table class="table table-striped standing-table">
@@ -26,12 +26,13 @@
                 </tbody>
             </table>
             <div class="standing-sort-button-row">
-                <button class="btn btn-danger" id="sort-rank" (click)="sortPlayerList(game.ref, 'rank', 'a')">Sort by ladder rank</button>
-                <button class="btn btn-danger" id="sort-elo" (click)="sortPlayerList(game.ref, 'elo', 'd')">Sort by ELO</button>
-                <button class="btn btn-danger" id="sort-wins" (click)="sortPlayerList(game.ref, 'wins', 'd')">Sort by Wins</button>
-                <button class="btn btn-danger" id="sort-losses" (click)="sortPlayerList(game.ref, 'losses', 'd')">Sort by Losses</button>
+                <button class="btn standing-button font-titi" id="sort-rank" (click)="sortPlayerList(game.ref, 'rank', 'a')">Sort by ladder rank</button>
+                <button class="btn standing-button font-titi" id="sort-elo" (click)="sortPlayerList(game.ref, 'elo', 'd')">Sort by ELO</button>
+                <button class="btn standing-button font-titi" id="sort-wins" (click)="sortPlayerList(game.ref, 'wins', 'd')">Sort by Wins</button>
+                <button class="btn standing-button font-titi" id="sort-losses" (click)="sortPlayerList(game.ref, 'losses', 'd')">Sort by Losses</button>
             </div>              
         </div>
-    </div>
+        
+    </div> <!-- end game-looped row -->
     
 </div> <!-- End container -->

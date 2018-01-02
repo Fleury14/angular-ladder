@@ -1,20 +1,20 @@
 <div class="font-titi">
-    <h1 class="text-center font-bangers">Place a challenge</h1>
+    <p class="header-column">Place a challenge<p>
     <p class="text-center">Select your method of challenging someone</p>
     <div class="container">
         <div class="row">
-            <div class="col-sm-6" (click)="useLinked()">
-                <h2>With one of my linked account</h2>
+            <div class="col-sm-6 challenge-select-method" (click)="useLinked()">
+                <h2>Use a ladder spot I linked</h2>
                 <p>Using this method means your challenge will be instantly approved and posted, since we know it's you. This is the recommended method of challenging someone.</p>
             </div><!-- end left half -->
-            <div class="col-sm-6" (click)="useAnon()">
+            <div class="col-sm-6 challenge-select-method" (click)="useAnon()">
                 <h2>Place Challenge Anonymously</h2>
                 <p>Use this if you don't have an account linked to your Google login. Since we don't know for sure if it's actually you, the challenge will have to be verified and approved before it can post.</p>
             </div><!-- end right half -->
         </div><!-- end row -->
         <div class="row" *ngIf="challengeMethod > 0 && canSelectGame === true">
             <h2 class="text-center font-bangers">Select your game</h2>
-            <div class="col-sm-4 challenge-game-selection" *ngFor="let game of listOfGames" (click)="selectGame(game.ref)">
+            <div class="col-sm-4 challenge-game-selection space-cadet-bg" *ngFor="let game of listOfGames" (click)="selectGame(game.ref)">
                 <h4>{{ game.title }}</h4>
             </div>
             <p *ngIf="linkNoPlayerWarning===true">There is no player the ladder for that game that has a Google ID that matches the one you are currently logged into. Try again.</p>
@@ -29,10 +29,10 @@
         </div>
         <!-- END ANONYMOUS CHALLENGE SECTION -->
         <div class="row" *ngIf="canSelectDefender === true">
-            <h2>Select player to challenge</h2>
+            <h2 class="text-center font-bangers">Select player to challenge</h2>
             <div class="col-sm-4" *ngFor="let player of listOfPlayers" (click)="selectDefender(player)" [ngClass]="{'challenge-light-green-bg': challengeValidation(selectedChallenger, player)===true, 'challenge-light-red-bg': challengeValidation(selectedChallenger, player)===false}">
-                <h4>{{ player.name }}</h4>
-                <p>Rank: {{ player.rank }}</p>
+                <h3 class="text-center">{{ player.name }}</h3>
+                <p class="text-center">Rank: {{ player.rank }}</p>
             </div>
         </div> <!-- end select defender row -->
         <div class="row" *ngIf="canConfirm === true"> <!-- begin confirmation row -->
@@ -64,6 +64,6 @@
         </div> <!-- end submitted row -->
     </div><!-- end container -->
     <div class="flex-container justify-center">
-        <button class="btn btn-danger" (click)="startOver()">Start Over</button>
+        <button class="btn btn-danger challenge-start-over-button" (click)="startOver()">Start Over</button>
     </div>
 </div> 

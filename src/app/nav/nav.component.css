@@ -1,95 +1,51 @@
 /*Begin Navbar Styles */
 
-nav {
-    transition: all .4s;
+.navbar-default {
+    background-color: #fff;
+    border-color: #a63446;
 }
 
-.navbar-container-top {
-    
-    
+.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-nav>.active>a:hover {
     background-color: #a63446;
-}
-
-.active {
-    background-color: pink;
     color: #fff;
 }
 
-.navbar-list {
-    margin: 0px;
-    width: 100%;
-    height: 100%;
-}
-
-.navbar-item {
-    list-style: none;
-    
-    
-    font-family: "Bangers", cursive;
-    color: #FFF;
-    font-size: 18px;
-    
-}
-
-.navbar-item a {
-    color: #FFF;
-    text-decoration: none;
-    transition: all 0.3s;
-}
-
-.navbar-item a:hover {
-    color: #d3d6d1;
-    text-decoration: underline;
-}
-
-.nav-container-bottom {
-    background-color: #d3d6d1;
-}
-
-.navbar-item-bottom {
-    list-style: none;
-    color: #0c6291;
-    font-size: 18px;
-    font-variant: small-caps;
-    font-family: "Crete Round", serif;
-}
-
-.navbar-item-bottom a {
-    color: #0c6291;
-    text-decoration: none;
-    transition: all 0.3s;
-}
-
-.navbar-item-bottom a:hover {
-    color: #fff;
-    text-decoration: underline;
-}
-
-
-.descriptor {
-    font-weight: bolder;
-    font-size: 20px;
-}
-
-.bnavbar {
-    font-family: "Bangers", cursive;
-    font-size: 18px;
-}
-
-.bnavbar > li > a {
+.navbar-default .navbar-nav>li>a {
     color: #a63446;
     transition: 0.3s all;
-    
+    font-size: 16px;
 }
 
-.bnavbar > li > a:hover {
+.navbar-default .navbar-nav>li>a:hover {
     background-color: #e2a2ac;
-    color: #000;
 }
 
-.bnavbar > li.active > a {
+.navbar-right li {
+    display: flex;
+    align-items: center;
+    height: 50px;
+}
+
+.nav-home-login-row {
+    height: 50px;
+    border-radius: 2.5%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.button-row-item {
+    margin-left: 20px;
+    height: 75px;
+    width: 75px;
+    border-radius: 50%;
     background-color: #a63446;
+    box-shadow: 4px 4px 4px #600;
     color: #fff;
+}
+
+.button-row-item:active {
+    transform: translate(4px, 4px);
 }
 
 /* End Nav Bar Styles */
@@ -103,8 +59,12 @@ nav {
     margin-right: 20px;
 }
 
+.admin-button {
+    background-color: #190e4f;
+}
+
 .home-challenge-badge {
     height: 18px;
-    background-color: #600;
-    transform: translateX(-25px);
+    background-color: #c00;
+    transform: translate(-11px,-30px);
 }
