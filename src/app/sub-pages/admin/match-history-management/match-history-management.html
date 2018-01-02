@@ -1,3 +1,15 @@
-<div>
+<div class="font-titi">
     <h1 class="text-center font-bangers">Match History Management</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4" *ngFor="let match of listOfMatches">
+                <div class="text-center match-history-item">
+                    <p>Game: {{match.game}}</p>
+                    <h4>({{match.challengerRank}}) {{match.challengerName}} {{match.challengerScore}} - {{match.defenderScore}} {{match.defenderName}} ({{match.defenderRank}})</h4>
+                    <p>{{match.dateCompleted | date: 'fullDate'}}</p>
+                    <button class="btn btn-danger" (click)="deleteMatch(match.id)">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
