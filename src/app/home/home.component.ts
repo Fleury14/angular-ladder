@@ -74,11 +74,13 @@ export class HomeComponent implements AfterViewInit {
             for (let i = matches.length - 1; i >= 0; i--) {
                 if (Date.now() - matches[i]['dateCompleted'] > this._MATCHTIME) {
                     matches.splice(i, 1);
+                } else {
+                    matches[i]['dateCompleted'] = this.unixDateConv(matches[i]['dateCompleted']);
                 }
             }
             return matches;
         }).subscribe(matches => {
-            console.log('recent match list:', matches);
+            this.listOfMatches = matches;
         });
     }
 
