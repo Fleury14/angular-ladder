@@ -12,3 +12,18 @@
     justify-content: space-around;
     
 }
+
+.standing-game-row {
+    border-bottom: 2px solid #190e4f;
+    padding-bottom: 15px;
+}
+
+.standing-button {
+    color: #fff;
+    background-color: #a63346;
+    box-shadow: 1px 1px 1px #a63446;
+}
+
+.standing-button:hover {
+    opacity: 0.65;
+}
