@@ -109,6 +109,8 @@ export class ChallengeManagementComponent {
 
                 // make sure we're coming from the challenge management page with this flag check
                 if (this._postButtonClicked === true) {
+                    // sort list by rank lol
+
                     this._currentDefender = playerList.find(function(e, i, a) {
                         if (e.id === result.defenderId) { return true; }
                     });
@@ -137,7 +139,10 @@ export class ChallengeManagementComponent {
     private _winAdjust(result, chall) {
 
         // increment all affected players rank by 1
-        this.listOfAffectedPlayers.forEach(player => { player.rank++; });
+        this.listOfAffectedPlayers.forEach(player => {
+            console.log('hunch: incrementing affected players rank');
+            player.rank++;
+        });
         // then readjust challengers rank based on the challenge data
         this.listOfAffectedPlayers[chall].rank = result.defenderRank;
 
@@ -155,20 +160,20 @@ export class ChallengeManagementComponent {
         // if current defender is actually in the afectedPlayers list, he should always be first so a simple shift() should work
         // we should also adjust the defenders rank if thats the case
         if (this._currentDefender.id === this.listOfAffectedPlayers[0].id) {
+            // console.log('shifting selected players. oldlist', this.listOfAffectedPlayers);
             this.listOfAffectedPlayers.shift();
-            this._currentDefender.rank++;
+            // console.log('new list', this.listOfAffectedPlayers);
+            // this._currentDefender.rank++;
         }
 
         console.log('post win defender adjustments', this.listOfAffectedPlayers, this._currentDefender);
         // finally, push adjustments to db
-        this.listOfAffectedPlayers.forEach(player => {
-            // update affected players
-        });
 
         // update defender and delete challenge and result from database. also reset the clicked button flag
         this._ladderDB.challengerWinPost(this.listOfAffectedPlayers, this._currentDefender, result);
         // set current date in unix and push to match history
         result.dateCompleted = Date.now();
+
         this._matchDB.addMatch(result);
         this._challengeDB.deleteChallenge(result.challengeDBId);
         this._pending.deleteResult(result.id);
