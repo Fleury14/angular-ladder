@@ -7,10 +7,10 @@
               <div *ngFor="let match of listOfMatches" class="match-history-row">
                   <div class="match-history-game flex-container justify-center align-center font-bangers">{{ match.game }}</div>
                   <div class="match-history-date font-bangers text-center">{{ match.dateCompleted | date: 'fullDate' }}</div>
-                  <button type="button" class="list-group-item">
-                      <span class="label label-default">Rank {{ match.challengerRank }}</span><strong> {{ match.challengerName }}</strong>
+                  <button type="button" class="list-group-item match-history-button-align">
+                      <span class="label label-default space-cadet-bg">Rank {{ match.challengerRank }}</span><strong> {{ match.challengerName }}</strong>
                       <span class="font-bangers match-history-score">{{ match.challengerScore }} : {{ match.defenderScore }}</span>
-                      <strong> {{ match.defenderName }}</strong> <span class="label label-default">Rank {{ match.defenderRank }}</span>
+                      <strong> {{ match.defenderName }}</strong> <span class="label label-default space-cadet-bg">Rank {{ match.defenderRank }}</span>
                     </button></div>
               
             </div>
