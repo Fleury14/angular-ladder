@@ -1,6 +1,43 @@
 /*Begin Navbar Styles */
 
-nav {
+.navbar-default {
+    background-color: #fff;
+    border-color: #a63446;
+}
+
+.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-nav>.active>a:hover {
+    background-color: #a63446;
+    color: #fff;
+}
+
+.navbar-default .navbar-nav>li>a {
+    color: #a63446;
+    transition: 0.3s all;
+    font-size: 16px;
+}
+
+.navbar-default .navbar-nav>li>a:hover {
+    background-color: #fdd1d8;
+}
+
+.navbar-right li {
+    display: flex;
+    align-items: center;
+    height: 50px;
+}
+
+.nav-home-login-row {
+    height: 50px;
+    border-radius: 2.5%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.button-row-item {
+    margin-right: 20px;
+}
+/* nav {
     transition: all .4s;
 }
 
@@ -90,7 +127,7 @@ nav {
 .bnavbar > li.active > a {
     background-color: #a63446;
     color: #fff;
-}
+} */
 
 /* End Nav Bar Styles */
 
