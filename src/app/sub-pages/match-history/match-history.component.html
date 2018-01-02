@@ -3,14 +3,14 @@
     <div class="row">
         <div class="col-sm-12">
             <div class="list-group match-results">
-              <p *ngIf="recordDisplay.length < 1">ERROR: No Match records available to display :(</p>
-              <div *ngFor="let match of recordDisplay" class="match-history-row">
+              <p *ngIf="listOfMatches?.length < 1">ERROR: No Match records available to display :(</p>
+              <div *ngFor="let match of listOfMatches" class="match-history-row">
                   <div class="match-history-game flex-container justify-center align-center font-bangers">{{ match.game }}</div>
-                  <div class="match-history-date font-bangers text-center">{{ match.date }}</div>
+                  <div class="match-history-date font-bangers text-center">{{ match.dateCompleted | date: 'fullDate' }}</div>
                   <button type="button" class="list-group-item">
-                      <span class="label label-default">Rank {{ match.winnerRank }}</span><strong> {{ match.winnerName }}</strong> ({{ match.winnerChar }})
-                      <span class="font-bangers match-history-score">{{ match.wins }} : {{ match.losses }}</span>
-                      <strong> {{ match.loserName }}</strong> ({{ match.loserChar }}) <span class="label label-default">Rank {{ match.loserRank }}</span>
+                      <span class="label label-default">Rank {{ match.challengerRank }}</span><strong> {{ match.challengerName }}</strong>
+                      <span class="font-bangers match-history-score">{{ match.challengerScore }} : {{ match.defenderScore }}</span>
+                      <strong> {{ match.defenderName }}</strong> <span class="label label-default">Rank {{ match.defenderRank }}</span>
                     </button></div>
               
             </div>
