@@ -46,6 +46,7 @@
 
 .button-row-item:active {
     transform: translate(4px, 4px);
+    box-shadow: none;
 }
 
 /* End Nav Bar Styles */
