@@ -1,5 +1,5 @@
 <div>
-    <div class="container">
+    <div class="container-fluid">
         <div class="row font-bangers game-select-row space-cadet-bg">
             <div class="col-sm-2">Select your game:</div>
             <div class="col-sm-2 game-select-item" *ngFor="let game of gameList" [ngClass]="{'current-game': currentGame.ref === game.ref}" (click)="switchGame(game.ref, game.title)">{{ game.title }}</div>
