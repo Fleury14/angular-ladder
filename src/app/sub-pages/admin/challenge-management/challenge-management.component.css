@@ -16,7 +16,6 @@
 }
 
 .challenge-pending-item-row {
-    border: 1px solid #660000;
     border-radius: 3%;
 }
 
@@ -24,6 +23,10 @@
     display: flex;
     align-items: center;
     justify-content: space-around;
+}
+
+.challenge-pending-bottom-border {
+    border-bottom: 2px solid #000;
 }
 
 .challenge-pending-result-side-row {

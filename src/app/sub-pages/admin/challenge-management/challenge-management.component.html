@@ -2,7 +2,10 @@
     <h1 class="font-bangers text-center">Challenge Management</h1>
     <h3 class="font-bangers text-center">Pending Approval</h3>
     <div class="container">
-        <div class="row text-center">
+        <div class="row" *ngIf="listOfPendingChallenges.length === 0">
+            <div class="col-sm-12 text-center">There are no anonymous challenges pending approval at this time.</div>
+        </div>
+        <div class="row text-center" *ngIf="listOfPendingChallenges.length > 0">
             <div class="col-sm-1">Game</div>
             <div class="col-sm-4">Challenger</div>
             <div class="col-sm-4">Defender</div>
@@ -24,27 +27,30 @@
             </div>
         </div> <!-- end looped row -->
         <h3 class="text-center font-bangers">List of active challenges</h3>
-        <div class="row text-center">
+        <div class="row" *ngIf="listOfActiveChallenges.length === 0">
+            <div class="col-sm-12 text-center">There are no active challenges at this time</div>
+        </div>
+        <div class="row text-center challenge-pending-bottom-border" *ngIf="listOfActiveChallenges.length > 0">
             <div class="col-sm-1">Game</div>
-            <div class="col-sm-4">Challenger</div>
-            <div class="col-sm-4">Defender</div>
-            <div class="col-sm-1">Deadline</div>
-            <div class="col-sm-1"></div>
+            <div class="col-sm-3">Challenger</div>
+            <div class="col-sm-3">Defender</div>
+            <div class="col-sm-2">Deadline</div>
+            <div class="col-sm-2"></div>
         </div>
         <div class="row challenge-pending-item-row" *ngFor="let challenge of listOfActiveChallenges">
             <div class="col-sm-1 challenge-pending-item-game challenge-pending-min-height">{{ challenge.game }}</div>
-            <div class="col-sm-4 challenge-pending-item-player">
+            <div class="col-sm-3 challenge-pending-item-player">
                 <h4>{{ challenge.challengerName }}</h4>
                 <p>Rank {{ challenge.challengerRank }}</p>
             </div>
-            <div class="col-sm-4 challenge-pending-item-player">
+            <div class="col-sm-3 challenge-pending-item-player">
                 <h4>{{ challenge.defenderName }}</h4>
                 <p>Rank {{ challenge.defenderRank }}</p>
             </div>
-            <div class="col-sm-1">
-                <p>{{ unixConvert(challenge.deadline) | date: 'fullDate' }}</p>
+            <div class="col-sm-2 challenge-pending-item-game challenge-pending-min-height">
+                <p>{{ unixConvert(challenge.deadline) | date: 'MM/dd' }}</p>
             </div>
-            <div class="col-sm-1 challenge-pending-min-height challenge-pending-item-buttons">
+            <div class="col-sm-2 challenge-pending-min-height challenge-pending-item-buttons">
                 <button class="btn btn-success" (click)="addScore(challenge)">Edit Score</button>
                 <button class="btn btn-danger" (click)="deleteActiveChallenge(challenge.id)">Delete</button>
             </div>
@@ -67,7 +73,12 @@
                 <h3 class="text-center font-bangers">List of results needing approval</h3>
             </div>
         </div> <!-- end result title row -->
-        <div class="row text-center"> <!-- behin result header row -->
+        <div class="row" *ngIf="listOfResults.length === 0">
+            <div class="col-sm-12 text-center">
+                <p>There are no results pending approval at this time.</p>
+            </div>
+        </div>
+        <div class="row text-center challenge-pending-bottom-border" *ngIf="listOfResults.length > 0"> <!-- begin result header row -->
             <div class="col-sm-2">
                 <p class="font-banger">Game</p>
             </div>
