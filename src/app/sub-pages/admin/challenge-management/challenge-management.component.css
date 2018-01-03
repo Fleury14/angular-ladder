@@ -29,6 +29,10 @@
     border-bottom: 2px solid #000;
 }
 
+.challenge-pending-grey-background {
+    background-color: #eeeeff;
+}
+
 .challenge-pending-result-side-row {
     min-height: 86px;
     display: flex;
