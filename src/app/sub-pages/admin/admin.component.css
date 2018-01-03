@@ -55,19 +55,29 @@
     border: 1px solid black;
     position: absolute;
     padding: 12.5px;
+    transition: 0.3s all;
 }
 
-.admin-burger::after{
-    width: 100%;
-    content: '';
+.admin-burger:hover {
+    background-color: #a63346;
 }
 
 .admin-burger-bun {
     background-color: #a63346;
     height: 5px;
+    transition: 0.3s all;
+}
+
+.admin-burger:hover .admin-burger-bun {
+    background-color: #fff;
 }
 
 .admin-burger-meat {
     background-color: #fff;
     height: 5px;
+    transition: 0.3s all;
+}
+
+.admin-burger:hover .admin-burger-meat {
+    background-color: #a63346;
 }
