@@ -11,6 +11,8 @@
     padding-top: 10px;
     padding-bottom: 10px;
     font-size: 18px;
+    width: 80%;
+    margin: 0 auto;
 }
 
 .game-select-item {
