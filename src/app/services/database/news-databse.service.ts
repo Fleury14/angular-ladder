@@ -158,30 +158,25 @@ export class NewsDatabaseService {
         });
     } // end getfirstthree
 
+    // method for getting all the news minus the first three
     public getTheRest() {
-
-        // beginning of map same as getting all the news, until...
-        return this.rootObs.map(news => {
-            const anotherNewsList = [];
-
-            for (let newsKey in news[0]) {
-                const evenMore = news[0][newsKey];
-                evenMore.id = newsKey;
-                anotherNewsList.push(evenMore);
-            }
-
-            news = anotherNewsList;
-
-            // ... this! first sort the array in descending order according to the unix date
-            news.sort(function(a, b) {return b.dateUnix - a.dateUnix; } );
-
-            // remove the three most recent items
-            news.splice(0, 3);
-
-            // then return that array. now the result should be the three most recent news items
-            return news;
+        return this._database.list('news').valueChanges().map(newsList => {
+            // use snapshot tech to get list of keys..
+            const listOfKeys = [];
+            this._database.list('/x-challenges/').snapshotChanges().subscribe(snapshotList => {
+                snapshotList.forEach(function(snapshot) {
+                    listOfKeys.push(snapshot.key);
+                });
+                newsList.forEach(function(pendingItem, index) {newsList[index]['id'] = listOfKeys[index]; });
+            });
+            // sort the list by date descending
+            newsList.sort(function(a, b) {return b['dateUnix'] - a['dateUnix']; });
+            // splice the first three
+            newsList.splice(0, 3);
+            return newsList;
         });
-    } // end gettherest
+    }
+
 
     // method to get one particular news item when only given the id
     public getNewsById(id: string) {

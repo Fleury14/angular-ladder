@@ -22,7 +22,7 @@ export class HomeComponent implements AfterViewInit {
 
     // observables that will contain news from database
     public databaseFirstThree = this._newsData.getFirstThree();
-    public databaseTheRest = this._newsData.getTheRest();
+    public databaseTheRest;
 
     // older news list. NOTE: i'm keeping the older stuff around as a backup in case the database goes poo poo
     // and i need something as a pseudo-backup
@@ -63,8 +63,8 @@ export class HomeComponent implements AfterViewInit {
             this.listOfChallenges = challengeList;
         });
 
-        this.databaseTheRest.subscribe( data => {
-            // console.log('older news from database service', data);
+        this._newsData.getTheRest().subscribe( data => {
+            this.databaseTheRest = data;
         });
 
         // get list of matches and remove matches that are over 2 weeks old
