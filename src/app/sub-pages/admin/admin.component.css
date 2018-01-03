@@ -81,3 +81,27 @@
 .admin-burger:hover .admin-burger-meat {
     background-color: #a63346;
 }
+
+@media only screen and (max-width: 768px) {
+    .admin-body {
+        margin-top: 330px;
+        margin-left: 0;
+    }
+    
+    .admin-burger {
+        display: none;
+    }
+
+    .admin-body {
+        min-height: 0;
+    }
+
+    .admin-menu {
+        width: 300px;
+    }
+
+    .admin-menu-hidden {
+        width: 300px;
+        color: #ddd;
+    }
+}
