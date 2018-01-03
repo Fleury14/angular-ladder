@@ -1,13 +1,12 @@
 .player-listing {
-    background-color: #bb0000;
     color: #fff;
-    margin-bottom: 5px;
+    width: 75%;
+    margin: 5px auto;
     font-size: 18px;
     text-align: center;
 }
 
 .game-select-row {
-    background-color: #bb0000;
     color: yellow;
     padding-top: 10px;
     padding-bottom: 10px;
