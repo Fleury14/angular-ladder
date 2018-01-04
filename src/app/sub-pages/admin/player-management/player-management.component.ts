@@ -114,7 +114,7 @@ export class PlayerManagementComponent implements OnInit {
     public allowUpdatePlayer() {
         this.canEditPlayer = true;
 
-        // document.getElementById('background-shader-box').style.backgroundColor = 'rgba(0, 0, 0, 0.4)';
+        document.getElementById('background-shader-box').style.display = 'initial';
 
         // fill in the fields with the corresponding values from the player object. tbh there should be a cleaner way to do this
         this.updateNameField = this.selectedPlayer.name;
@@ -130,6 +130,7 @@ export class PlayerManagementComponent implements OnInit {
     // would trigger an update anyway
     public cancelUpdatePlayer() {
         this.canEditPlayer = false;
+        document.getElementById('background-shader-box').style.display = 'none';
 
     }
 
