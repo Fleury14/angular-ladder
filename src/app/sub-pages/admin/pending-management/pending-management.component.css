@@ -6,3 +6,18 @@
     height: 34px;
     margin-top: 5px;
 }
+
+.pending-border-bottom {
+    border-bottom: 2px solid #000;
+}
+
+.pending-alternate-list-bg {
+    background-color: #dedede;
+}
+
+.pending-list-item {
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
