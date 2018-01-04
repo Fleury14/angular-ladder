@@ -1,7 +1,8 @@
-<div>
+<div class="font-titi">
     <h3 class="text-center font-bangers">List of pending entrants</h3>
     <div class="container-fluid">
-        <div class="row pending-header-row">
+        <h2 class="text-center" *ngIf="pendingList?.length === 0">There are no requests to join a ladder at this time</h2>
+        <div class="row pending-header-row" *ngIf="pendingList?.length > 0">
             <div class="col-sm-2 col-sm-offset-1">Game</div>
             <div class="col-sm-2">Name</div>
             <div class="col-sm-2">PsnId</div>
