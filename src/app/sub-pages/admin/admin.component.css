@@ -2,3 +2,106 @@
     justify-content: space-around;
     margin-bottom: 25px;
 }
+
+.admin-menu {
+    height: 300px;
+    width: 200px;
+    background-color: #a63346;
+    color: #ddd;
+    overflow: hidden;
+    float: left;
+    position: absolute;
+    transition: 0.5s all;
+}
+
+.admin-menu-hidden {
+    width: 10px;
+    color: #a63346;
+}
+
+.admin-list {
+    list-style: none;
+    width: 100%;
+    padding: 0;
+    margin-top: 50px;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.admin-list > li {
+    margin-bottom: 10px;
+}
+
+.admin-list > li:hover {
+    color: #fff;
+}
+
+.admin-body {
+    margin-left: 200px;
+    min-height: 300px;
+    transition: 0.5s all;
+}
+
+.admin-body-menu-hidden {
+    margin-left: 10px;
+}
+
+
+.admin-burger {
+    height: 50px;
+    width: 50px;
+    border-radius: 5%;
+    margin-left: 25px;
+    border: 1px solid black;
+    position: absolute;
+    padding: 12.5px;
+    transition: 0.3s all;
+}
+
+.admin-burger:hover {
+    background-color: #a63346;
+}
+
+.admin-burger-bun {
+    background-color: #a63346;
+    height: 5px;
+    transition: 0.3s all;
+}
+
+.admin-burger:hover .admin-burger-bun {
+    background-color: #fff;
+}
+
+.admin-burger-meat {
+    background-color: #fff;
+    height: 5px;
+    transition: 0.3s all;
+}
+
+.admin-burger:hover .admin-burger-meat {
+    background-color: #a63346;
+}
+
+@media only screen and (max-width: 768px) {
+    .admin-body {
+        margin-top: 330px;
+        margin-left: 0;
+    }
+    
+    .admin-burger {
+        display: none;
+    }
+
+    .admin-body {
+        min-height: 0;
+    }
+
+    .admin-menu {
+        width: 300px;
+    }
+
+    .admin-menu-hidden {
+        width: 300px;
+        color: #ddd;
+    }
+}

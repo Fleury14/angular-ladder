@@ -1,7 +1,6 @@
 <div>
-    <p>This is where players will be managed</p>
-    <div class="container">
-        <div class="row font-bangers game-select-row">
+    <div class="container-fluid">
+        <div class="row font-bangers game-select-row space-cadet-bg">
             <div class="col-sm-2">Select your game:</div>
             <div class="col-sm-2 game-select-item" *ngFor="let game of gameList" [ngClass]="{'current-game': currentGame.ref === game.ref}" (click)="switchGame(game.ref, game.title)">{{ game.title }}</div>
         </div>
@@ -11,10 +10,10 @@
             </div>
         </div> <!-- end player header row -->
         <div class="row">
-            <div class="col-sm-6"> <!-- Begin left half of player management -->
+            <div class="col-sm-6" *ngIf="currentGame?.ref !=='placeholder'"> <!-- Begin left half of player management -->
                 <h3 class="text-center font-bangers">List of Players</h3>
                 <h3 *ngIf="currentGame.ref === 'placeholder'">Please Select a game</h3>
-                <p *ngFor="let player of listOfPlayers" class="player-listing font-bangers" [ngClass]="{'current-game': selectedPlayer?.name === player?.name}" (click)="displayPlayerInfo(player.id)">{{ player.name }}</p>
+                <p *ngFor="let player of listOfPlayers" class="player-listing space-cadet-bg" [ngClass]="{'current-game': selectedPlayer?.name === player?.name}" (click)="displayPlayerInfo(player.id)">{{ player.name }}</p>
                 <div class="flex-container justify-center">
                     <button class="btn btn-success" [disabled]="currentGame.title === ''" (click)="openAddPlayer()">Add Player</button>
                 </div>
@@ -40,7 +39,7 @@
             <div class="col-sm-12">
                 <h3 class="font-bangers text-center">Add player</h3>
             </div>
-            <div class="col-sm-4 col-sm-offset-4">
+            <div class="col-sm-4 col-sm-offset-4 player-add-form">
                 <label for="">Player Name</label>
                 <input type="text" [(ngModel)]="nameField"><br>
                 <label>PSN ID</label>
@@ -53,8 +52,8 @@
             </div>
         </div><!-- end add row -->
         <div class="row" *ngIf="canEditPlayer === true"> <!-- begin update row -->
-            <h3 class="text-center font-bangers">Player edit</h3>
-            <form #playerUpdateForm="ngForm" (ngSubmit)="updatePlayer(playerUpdateForm.value, selectedPlayer.id)" action="">
+            <!-- <h3 class="text-center font-bangers">Player edit</h3> -->
+            <form #playerUpdateForm="ngForm" (ngSubmit)="updatePlayer(playerUpdateForm.value, selectedPlayer.id)"  class="player-edit-form" [ngClass]="{'edit-player-show': canEditPlayer === true}">
                 <label>Name:</label>
                 <input name="updateNameField" type="text" [(ngModel)]="updateNameField" required><br>
                 <label>PSN ID:</label>

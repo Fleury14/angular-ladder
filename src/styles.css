@@ -32,6 +32,17 @@ body {
     margin: 0 auto;
 }
 
+#background-shader-box {
+    height: 100%;
+    z-index: 2;
+    width: 100%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    display: none;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
 .flex-container {
     display: flex;
 }

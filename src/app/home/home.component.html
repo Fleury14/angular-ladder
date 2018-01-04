@@ -49,7 +49,7 @@
             </div>
             
             <div class="hidden-news">
-                <div *ngFor="let item of databaseTheRest | async" class="row">
+                <div *ngFor="let item of databaseTheRest" class="row">
                     <div class="col-sm-12">
                         <div class="panel panel-danger">
                             <div class="panel-heading panel-heading-custom">{{item?.date}}</div>

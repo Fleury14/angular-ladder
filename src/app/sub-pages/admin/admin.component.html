@@ -1,11 +1,23 @@
-<p class="header-column">ADMIN</p>
-<div class="sub-menu-row flex-container">
-    <button class="btn btn-danger" routerLink="./news">News Items</button>
-    <button class="btn btn-danger" routerLink="./challenges">Challenges</button>
-    <button class="btn btn-danger" routerLink="./players">Add/Remove Players</button>
-    <button class="btn btn-danger" routerLink="./pending">Pending Joins</button>
-    <button class="btn btn-danger" routerLink="./pending-link">Pending Link Requests</button>
-    <button class="btn btn-danger" routerLink="./match-history">Match History</button>
+<div class="font-titi">
+    <p class="header-column">ADMIN</p>
+    <div class="admin-menu" [ngClass]="{'admin-menu-hidden': hideMenu === true}">
+        <ul class="admin-list">
+            <li routerLink="./news">News Management</li>
+            <li routerLink="./challenges">Challenge Management</li>
+            <li routerLink="./players">Player Management</li>
+            <li routerLink="./pending">Pending Join Request</li>
+            <li routerLink="./pending-link">Pending Link Request</li>
+            <li routerLink="./match-history">Match History Management</li>
+        </ul>
+    </div>
+    <div class="admin-body" [ngClass]="{'admin-body-menu-hidden': hideMenu === true}">
+        <div class="admin-burger" (click)="toggleMenu()">
+            <div class="admin-burger-bun"></div>
+            <div class="admin-burger-meat"></div>
+            <div class="admin-burger-bun"></div>
+            <div class="admin-burger-meat"></div>
+            <div class="admin-burger-bun"></div>
+        </div>
+        <router-outlet></router-outlet>
+    </div>
 </div>
-<hr>
-<router-outlet></router-outlet>
