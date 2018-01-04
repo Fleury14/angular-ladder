@@ -23,6 +23,14 @@
     color: orange;
 }
 
+.player-add-form {
+    border: 5px ridge #19034f;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background-color: #dedede;
+}
+
 .player-edit-form {
     border: 5px ridge #19034f;
     width: 25%;
