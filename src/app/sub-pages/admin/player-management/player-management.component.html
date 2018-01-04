@@ -52,8 +52,8 @@
             </div>
         </div><!-- end add row -->
         <div class="row" *ngIf="canEditPlayer === true"> <!-- begin update row -->
-            <h3 class="text-center font-bangers">Player edit</h3>
-            <form #playerUpdateForm="ngForm" (ngSubmit)="updatePlayer(playerUpdateForm.value, selectedPlayer.id)" action="">
+            <!-- <h3 class="text-center font-bangers">Player edit</h3> -->
+            <form #playerUpdateForm="ngForm" (ngSubmit)="updatePlayer(playerUpdateForm.value, selectedPlayer.id)"  class="player-edit-form" [ngClass]="{'edit-player-show': canEditPlayer === true}">
                 <label>Name:</label>
                 <input name="updateNameField" type="text" [(ngModel)]="updateNameField" required><br>
                 <label>PSN ID:</label>

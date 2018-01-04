@@ -50,9 +50,6 @@ export class PlayerManagementComponent implements OnInit {
 
     ngOnInit() {
         this.currentGame.ref = 'placeholder';
-        // this._ladderDB.getPlayers('tekken').subscribe(data => {
-        //     this.tekkenPlayers = data;
-        // });
     }
 
     // method for displaying info on the right half of the screen when the user click on a player from the player list
@@ -117,6 +114,8 @@ export class PlayerManagementComponent implements OnInit {
     public allowUpdatePlayer() {
         this.canEditPlayer = true;
 
+        // document.getElementById('background-shader-box').style.backgroundColor = 'rgba(0, 0, 0, 0.4)';
+
         // fill in the fields with the corresponding values from the player object. tbh there should be a cleaner way to do this
         this.updateNameField = this.selectedPlayer.name;
         this.updatePsnIdField = this.selectedPlayer.psnId;
@@ -131,6 +130,7 @@ export class PlayerManagementComponent implements OnInit {
     // would trigger an update anyway
     public cancelUpdatePlayer() {
         this.canEditPlayer = false;
+
     }
 
     // method to update a players info.

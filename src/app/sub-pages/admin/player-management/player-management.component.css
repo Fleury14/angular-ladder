@@ -22,3 +22,19 @@
 .current-game {
     color: orange;
 }
+
+.player-edit-form {
+    border: 5px ridge #19034f;
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #dedede;
+    margin-top: 25px;
+
+}
+
+.edit-player-show {
+    transform: translateX(0px);
+}
