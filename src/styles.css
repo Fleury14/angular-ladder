@@ -58,3 +58,11 @@ body {
 .align-center {
     align-items: center;
 }
+
+.ticker-match-score-box {
+    background-color: gold;
+    color: #000;
+    padding: 3px;
+    margin-left: 10px;
+    margin-right: 60px;
+}
