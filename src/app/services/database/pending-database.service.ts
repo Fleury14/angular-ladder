@@ -141,6 +141,12 @@ export class PendingDatabaseService {
         this._database.list('/w-pending/new-challenge').remove(id);
     }
 
+    public getNumOfChallenges() {
+        return this._database.list('/w-pending/new-challenge').valueChanges().map(challenges => {
+            return challenges.length;
+        });
+    }
+
     // method to add a challenge result for approval
     public addResult(result) {
         this._database.list('/w-pending/result').push(result);
