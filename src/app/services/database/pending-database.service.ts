@@ -14,19 +14,25 @@ export class PendingDatabaseService {
     private _MAXPENDING = 30; // maximum number of pending entries
     private _listOfPendingLinks;
     private _listOfResults;
+    public joinLength;
+    public linkLength;
+    public resultLength;
 
     // instantiate list of pending applications
     constructor( private _database: AngularFireDatabase ) {
         this._database.list('/w-pending/join').valueChanges().subscribe(pendingList => {
             this._listOfPending = pendingList;
+            this.joinLength = pendingList.length;
         });
 
         this._database.list('/w-pending/link').valueChanges().subscribe(listOfLinks => {
             this._listOfPendingLinks = listOfLinks;
+            this.linkLength = listOfLinks.length;
         });
 
         this._database.list('/w-pending/result').valueChanges().subscribe(resultList => {
             this._listOfResults = resultList;
+            this.resultLength = resultList.length;
         });
     }
 
