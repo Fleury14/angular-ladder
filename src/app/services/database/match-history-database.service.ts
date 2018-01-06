@@ -19,6 +19,10 @@ export class MatchHistoryDatabaseService {
         this._database.list('/y-match-history').remove(id);
     }
 
+    public getMatchListSnapshot() {
+        return this._database.list('/y-match-history').snapshotChanges();
+    }
+
     public getListOfMatches() {
         return this._database.list('/y-match-history').valueChanges().map( matchList => {
 
