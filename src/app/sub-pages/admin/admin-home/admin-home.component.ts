@@ -10,13 +10,22 @@ import { PendingDatabaseService } from './../../../services/database/pending-dat
 
 export class AdminHomeComponent {
     public numOfJoins;
+    public numOfLinks;
+    public numOfChallenges;
+    public numOfResults;
 
     constructor(private _pendingDB: PendingDatabaseService) {
-        // this._pendingDB.getListOfPending().subscribe(list => {
-        //     this.numOfJoins = list.length;
-        // });
         this._pendingDB.getNumOfJoin().subscribe(length => {
             this.numOfJoins = length;
+        });
+        this._pendingDB.getNumOfLinks().subscribe(length => {
+            this.numOfLinks = length;
+        });
+        this._pendingDB.getNumOfChallenges().subscribe(length => {
+            this.numOfChallenges = length;
+        });
+        this._pendingDB.getNumOfResults().subscribe(length => {
+            this.numOfResults = length;
         });
     }
 }
