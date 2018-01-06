@@ -10,6 +10,7 @@ import { PlayerManagementComponent } from './player-management/player-management
 import { PendingManagementComponent } from './pending-management/pending-management.component';
 import { LinkManagementComponent } from './link-management/link-management.component';
 import { MatchHistoryManagementComponent } from './match-history-management/match-history-management';
+import { AdminHomeComponent } from './admin-home/admin-home.component';
 
 const routes: Routes = [{
         path: 'admin',
@@ -39,6 +40,15 @@ const routes: Routes = [{
         {
             path: 'match-history',
             component: MatchHistoryManagementComponent
+        },
+        {
+            path: 'home',
+            component: AdminHomeComponent
+        },
+        {
+            path: '',
+            redirectTo: 'home',
+            pathMatch: 'full'
         }]
 
 }];
@@ -52,4 +62,4 @@ const routes: Routes = [{
 export class AdminRoutingModule {}
 
 export const RoutingComponents =  [NewsManagementComponent, PlayerManagementComponent, ChallengeManagementComponent,
-    PendingManagementComponent, LinkManagementComponent, MatchHistoryManagementComponent];
+    PendingManagementComponent, LinkManagementComponent, MatchHistoryManagementComponent, AdminHomeComponent];

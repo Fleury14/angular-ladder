@@ -64,6 +64,13 @@ export class PendingDatabaseService {
         return this._database.list('/w-pending/').valueChanges();
     }
 
+    // get number of join request
+    public getNumOfJoin() {
+        return this._database.list('/w-pending/join').valueChanges().map(joins => {
+            return joins.length;
+        });
+    }
+
     // take in an object and add it to the pending database
     public addPending(pending) {
         this._database.list('/w-pending/join').push(pending);
@@ -83,6 +90,13 @@ export class PendingDatabaseService {
     public deletePendingLink(id) {
         console.log('removing link request with id', id);
         this._database.list('/w-pending/link').remove(id);
+    }
+
+    // get number of link requests
+    public getNumOfLinks() {
+        return this._database.list('/w-pending/link').valueChanges().map(links => {
+            return links.length;
+        });
     }
 
     // method to make sure a duplicate link request isnt being sent. returns t/f
@@ -127,6 +141,12 @@ export class PendingDatabaseService {
         this._database.list('/w-pending/new-challenge').remove(id);
     }
 
+    public getNumOfChallenges() {
+        return this._database.list('/w-pending/new-challenge').valueChanges().map(challenges => {
+            return challenges.length;
+        });
+    }
+
     // method to add a challenge result for approval
     public addResult(result) {
         this._database.list('/w-pending/result').push(result);
@@ -134,7 +154,13 @@ export class PendingDatabaseService {
 
     // method to delete a challenge result for approval
     public deleteResult(id: string) {
-        this._database.list('w-pending/result').remove(id);
+        this._database.list('/w-pending/result').remove(id);
+    }
+
+    public getNumOfResults() {
+        return this._database.list('/w-pending/result').valueChanges().map(results => {
+            return results.length;
+        });
     }
 
     // method to get a list of all pending result postings
