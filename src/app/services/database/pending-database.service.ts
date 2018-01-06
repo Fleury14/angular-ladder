@@ -157,6 +157,12 @@ export class PendingDatabaseService {
         this._database.list('w-pending/result').remove(id);
     }
 
+    public getNumOfResults() {
+        return this._database.list('/w-pending/result').valueChanges().map(results => {
+            return results.length;
+        });
+    }
+
     // method to get a list of all pending result postings
     public getListOfResults() {
         return this._database.list('/w-pending/result').valueChanges().map(pendingList => {
