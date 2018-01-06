@@ -9,11 +9,14 @@ import { PendingDatabaseService } from './../../../services/database/pending-dat
 })
 
 export class AdminHomeComponent {
-    public numOfJoins = 0;
+    public numOfJoins;
 
     constructor(private _pendingDB: PendingDatabaseService) {
-        this._pendingDB.getListOfPending().subscribe(list => {
-            this.numOfJoins = list.length;
+        // this._pendingDB.getListOfPending().subscribe(list => {
+        //     this.numOfJoins = list.length;
+        // });
+        this._pendingDB.getNumOfJoin().subscribe(length => {
+            this.numOfJoins = length;
         });
     }
 }

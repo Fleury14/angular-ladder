@@ -70,6 +70,13 @@ export class PendingDatabaseService {
         return this._database.list('/w-pending/').valueChanges();
     }
 
+    // get number of join request
+    public getNumOfJoin() {
+        return this._database.list('/w-pending/join').valueChanges().map(joins => {
+            return joins.length;
+        });
+    }
+
     // take in an object and add it to the pending database
     public addPending(pending) {
         this._database.list('/w-pending/join').push(pending);
