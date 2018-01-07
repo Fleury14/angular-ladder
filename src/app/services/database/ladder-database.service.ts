@@ -106,19 +106,29 @@ export class LadderDatabaseService {
     } // end get gamelist
 
     public getGameListNew() {
-        return this._database.list('/ladder/').valueChanges().map(data => {
+        return this._database.list('/ladder/').snapshotChanges().map(data => {
             const refList = [];
-            this._database.list('/ladder').snapshotChanges().subscribe(snapshotList => {
-                snapshotList.forEach(function(snapshot) {
-                    refList.push(snapshot.key);
-                });
-                data.forEach(function(item, index) {
-                    data[index]['ref'] = refList[index];
-                    delete data[index]['players'];
-                });
+            
+            data.forEach(game => {
+                const newGame = {
+                    title: game.payload.val().title,
+                    ref: game.payload.val()
+                };
+                delete newGame.ref.title;
+                delete newGame.ref.players;
+                refList.push(newGame);
             });
+            // this._database.list('/ladder').snapshotChanges().subscribe(snapshotList => {
+            //     snapshotList.forEach(function(snapshot) {
+            //         refList.push(snapshot.key);
+            //     });
+            //     data.forEach(function(item, index) {
+            //         data[index]['ref'] = refList[index];
+            //         delete data[index]['players'];
+            //     });
+            // });
 
-            return data;
+            return refList;
         });
     }
 
