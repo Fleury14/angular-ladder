@@ -20,7 +20,8 @@ export class MatchHistoryManagementComponent {
 
     public deleteMatch(id) {
         if (confirm('Are you sure you want to delete this match from the database?')) {
-            this._matchDB.deleteMatch(id);
+            console.log('deleting match with id:', id);
+            // this._matchDB.deleteMatch(id);
         }
     }
 }
