@@ -53,6 +53,9 @@
                 <div *ngFor="let challenge of listOfChallenges.def" class="dashboard-challenge-item">
                     <h3>vs. Rank {{ challenge.challengerRank }}: {{ challenge.challengerName }}</h3>
                     <p><strong>Game:</strong> {{ challenge.game }} <strong>Deadline:</strong> {{ unixConvert(challenge.deadline) | date: 'fullDate' }}</p>
+                    <div class="flex-container justify-center">
+                        <button class="btn btn-info" (click)="postResults(challenge)">Post Results</button>
+                    </div>
                 </div>
             </div> <!-- end right half -->
         </div>
