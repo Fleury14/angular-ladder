@@ -41,3 +41,7 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+# files with api keys
+/src/app/services/twitch-status.service.ts
+/src/environments
