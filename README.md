@@ -12,6 +12,10 @@ The list of players, player info, standings, recent matches, and everything pend
 
 There is also an admin section allowing admins to approve applications to join a ladder, approve anonymous challenges and approve score postings. The admin can also post news onto the front page as well as manually add/edit/remove any player from the ladder.
 
+## Missing Pages
+
+I have purposely not uploaded some files to github as they contain API keys for the Firebase backend and the Twitch API. If you would like a copy of those files without the keys, or help setting up, I would be happy to.
+
 ## Credits
 
 This is created in Angular2, using a Firebase backend. 99% of the code was created by me, J.R. Ruggiero. Some other credits include:
