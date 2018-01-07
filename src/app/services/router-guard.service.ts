@@ -6,7 +6,8 @@ import { LoginService } from './login.service';
 
 export class RouterGuard implements CanActivate {
 
-    private _adminUidList = ['mkomTbU76VUR5tIoLmmyP1luR5q1', 'Gxr9qQ1pczOCLyncfhLiLdhvhy32', 'xFDVJ8Dq9CZR8PmiixbSNX5FpNv2'];
+    private _adminUidList = ['mkomTbU76VUR5tIoLmmyP1luR5q1', 'Gxr9qQ1pczOCLyncfhLiLdhvhy32',
+    'xFDVJ8Dq9CZR8PmiixbSNX5FpNv2', 'VtvMxuaYxGQp1eROh63SkO1S13k1'];
 
 
     constructor (private login: LoginService, private route: Router) {}
