@@ -24,11 +24,11 @@ export class ChallengeComponent {
 
         this._challengeDB.getListOfChallenges().subscribe(challengeList => {
             this.listOfChallenges = challengeList;
-            // console.log('list of challenges', this.listOfChallenges);
         });
 
         this._ladderDB.getGameListNew().subscribe(gameList => {
             this.newListOfGames = gameList;
+            console.log('gamelist', gameList);
         });
 
     }

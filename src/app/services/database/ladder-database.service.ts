@@ -108,14 +108,12 @@ export class LadderDatabaseService {
     public getGameListNew() {
         return this._database.list('/ladder/').snapshotChanges().map(data => {
             const refList = [];
-            
+
             data.forEach(game => {
                 const newGame = {
                     title: game.payload.val().title,
-                    ref: game.payload.val()
+                    ref: game.key
                 };
-                delete newGame.ref.title;
-                delete newGame.ref.players;
                 refList.push(newGame);
             });
             // this._database.list('/ladder').snapshotChanges().subscribe(snapshotList => {
