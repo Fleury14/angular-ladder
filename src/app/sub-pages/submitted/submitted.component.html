@@ -1,5 +1,6 @@
 <div class="font-titi submit-container flex-container justify-center">
     <h4 *ngIf="!currentParam">Thank you for submitting something! We don't know how you got here, but here you are.</h4>
+    <h4 *ngIf="currentParam === 'join'">Thank you for showing interest in the Fresno Gaming Community ladder. Your entry has been submitted and is awaiting approval by an admin.</h4>
     <p>You should be routed to the home page automatically in 3 seconds. Please click the button to go there in case you don't want to wait.</p>
     <button class="btn btn-info" routerLink="/home">Home</button>
 </div>

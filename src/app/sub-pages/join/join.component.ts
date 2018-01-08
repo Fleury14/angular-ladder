@@ -30,7 +30,7 @@ export class JoinComponent implements OnInit {
 
     // instantiate list of games. also do immedite check to see if the DB is over capacity
     constructor( private _ladderDB: LadderDatabaseService, private _login: LoginService, private _pending: PendingDatabaseService,
-    private _actRouter: ActivatedRoute) {
+    private _actRouter: ActivatedRoute, private _router: Router) {
         this._ladderDB.getGameList().subscribe(gameList =>
         this.gameList = gameList);
         this.fullWarning = this._pending.pendingFull(); // db check is here
@@ -78,15 +78,18 @@ export class JoinComponent implements OnInit {
             // passed conditions, submit OK
             console.log(`Submitting the following pending:`, pendingToBeAdded);
             this._pending.addPending(pendingToBeAdded);
-            // adjust warning flags
-            this.dupeWarning = false;
-            this.userSubmitted = true;
-            setTimeout(function() { this.userSubmitted = false; }, 3000);
+            // route to submission page
+            this._router.navigate(['/submit', {type: 'join'}]);
 
-            // reset field
-            this.joinName = '';
-            this.joinPsnId = '';
-            this.selectedGame = undefined;
+            // // adjust warning flags
+            // this.dupeWarning = false;
+            // this.userSubmitted = true;
+            // setTimeout(function() { this.userSubmitted = false; }, 3000);
+
+            // // reset field
+            // this.joinName = '';
+            // this.joinPsnId = '';
+            // this.selectedGame = undefined;
         } // end if
 
     } // end addPending
