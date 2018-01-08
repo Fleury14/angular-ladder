@@ -38,8 +38,7 @@ export class JoinComponent implements OnInit {
 
     ngOnInit() {
         this._actRouter.params.subscribe((params: Params) => {
-            console.log('params obs', params);
-            if(params.game) {
+            if (params.game) {
                 this.selectGame(params.game);
             }
         });
