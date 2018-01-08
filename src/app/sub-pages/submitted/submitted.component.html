@@ -1,3 +1,5 @@
-<div class="font-titi">
-    <p class="text-center">Thank you for submitting</p>
+<div class="font-titi submit-container flex-container justify-center">
+    <h4 *ngIf="!currentParam">Thank you for submitting something! We don't know how you got here, but here you are.</h4>
+    <p>You should be routed to the home page automatically in 3 seconds. Please click the button to go there in case you don't want to wait.</p>
+    <button class="btn btn-info" routerLink="/home">Home</button>
 </div>

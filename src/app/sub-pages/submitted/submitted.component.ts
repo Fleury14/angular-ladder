@@ -20,8 +20,8 @@ export class SubmitComponent implements OnInit {
             }
         });
 
-        setTimeout(function() {
-            this._router.navigate(['home']);
+        setTimeout(() => {
+            this._router.navigate(['home'], {});
         }, 3000);
     }
 }
