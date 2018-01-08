@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { LadderDatabaseService } from './../../services/database/ladder-database.service';
 import { LoginService } from './../../services/login.service';
 import { PendingDatabaseService } from './../../services/database/pending-database.service';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { FormsModule } from '@angular/forms';
 
@@ -12,7 +13,7 @@ import { FormsModule } from '@angular/forms';
     styleUrls: [ './join.component.css']
 })
 
-export class JoinComponent {
+export class JoinComponent implements OnInit {
 
     public gameList; // will contain list of games on the ladder
     public selectedGame: string; // will contain game player clicked on
@@ -28,10 +29,19 @@ export class JoinComponent {
     public fullWarning = false;
 
     // instantiate list of games. also do immedite check to see if the DB is over capacity
-    constructor( private _ladderDB: LadderDatabaseService, private _login: LoginService, private _pending: PendingDatabaseService) {
+    constructor( private _ladderDB: LadderDatabaseService, private _login: LoginService, private _pending: PendingDatabaseService,
+    private _actRouter: ActivatedRoute, private _router: Router) {
         this._ladderDB.getGameList().subscribe(gameList =>
         this.gameList = gameList);
         this.fullWarning = this._pending.pendingFull(); // db check is here
+    }
+
+    ngOnInit() {
+        this._actRouter.params.subscribe((params: Params) => {
+            if (params.game) {
+                this.selectGame(params.game);
+            }
+        });
     }
 
     // function for switching selected game from HTML
@@ -68,15 +78,18 @@ export class JoinComponent {
             // passed conditions, submit OK
             console.log(`Submitting the following pending:`, pendingToBeAdded);
             this._pending.addPending(pendingToBeAdded);
-            // adjust warning flags
-            this.dupeWarning = false;
-            this.userSubmitted = true;
-            setTimeout(function() { this.userSubmitted = false; }, 3000);
+            // route to submission page
+            this._router.navigate(['/submit', {type: 'join'}]);
 
-            // reset field
-            this.joinName = '';
-            this.joinPsnId = '';
-            this.selectedGame = undefined;
+            // // adjust warning flags
+            // this.dupeWarning = false;
+            // this.userSubmitted = true;
+            // setTimeout(function() { this.userSubmitted = false; }, 3000);
+
+            // // reset field
+            // this.joinName = '';
+            // this.joinPsnId = '';
+            // this.selectedGame = undefined;
         } // end if
 
     } // end addPending

@@ -14,6 +14,7 @@ import { AdminComponent } from './sub-pages/admin/admin.component';
 import { JoinComponent } from './sub-pages/join/join.component';
 import { DashboardComponent } from './sub-pages/dashboard/dashboard.component';
 import { PlaceChallengeComponent } from './sub-pages/place-challenge/place-challenge.component';
+import { SubmitComponent } from './sub-pages/submitted/submitted.component';
 
 import { RouterGuard } from './services/router-guard.service';
 
@@ -63,6 +64,10 @@ const routes: Routes = [{
     component: PlaceChallengeComponent
   },
   {
+    path: 'submit',
+    component: SubmitComponent
+  },
+  {
     path: '',
     redirectTo: 'home',
     pathMatch: 'full'
@@ -83,5 +88,5 @@ export class MainRoutingModule {}
 
 export const MainRoutingComponents = [ HomeComponent, AboutComponent, ContactComponent, RulesComponent, ChallengeComponent,
     MatchHistoryComponent, StandingsComponent, MissingPageComponent, AdminComponent, JoinComponent, DashboardComponent,
-    PlaceChallengeComponent];
+    PlaceChallengeComponent, SubmitComponent];
 

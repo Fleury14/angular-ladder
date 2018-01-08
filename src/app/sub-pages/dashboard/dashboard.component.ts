@@ -4,6 +4,7 @@ import { LoginService } from './../../services/login.service';
 import { LadderDatabaseService } from './../../services/database/ladder-database.service';
 import { PendingDatabaseService } from './../../services/database/pending-database.service';
 import { ChallengeDatabaseService } from './../../services/database/challenge-database.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-dashboard',
@@ -37,7 +38,7 @@ export class DashboardComponent {
 
     // instantiate necessary lists...
     constructor(public login: LoginService, private _ladderDB: LadderDatabaseService, private _pending: PendingDatabaseService,
-    private _challengeDB: ChallengeDatabaseService) {
+    private _challengeDB: ChallengeDatabaseService, private _router: Router) {
 
         // ..login info
         this.login.getLoggedInUserObs().map(user => {
@@ -169,8 +170,13 @@ export class DashboardComponent {
                 this._pending.addResult(this.selectedChallenge);
                 this.allowPost = false;
                 this.submittedResult = true;
+                this._router.navigate(['/submit', {type: 'score-post'}]);
             }
         }
+    }
+
+    public joinLadder(game) {
+        this._router.navigate(['/join', {game: game}]);
     }
 
     public unixConvert(unix: number): Date {

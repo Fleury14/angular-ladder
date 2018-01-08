@@ -1,0 +1,10 @@
+.submit-container {
+    height: 60vh;
+    align-items: center;
+    flex-direction: column;
+}
+
+.submit-container h4 {
+    padding-left: 25px;
+    padding-right: 25px;
+}

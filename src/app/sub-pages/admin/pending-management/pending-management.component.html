@@ -3,22 +3,20 @@
     <div class="container-fluid">
         <h2 class="text-center" *ngIf="pendingList?.length === 0">There are no requests to join a ladder at this time</h2>
         <div class="row pending-header-row pending-border-bottom" *ngIf="pendingList?.length > 0">
-            <div class="col-sm-2 col-sm-offset-1">Game</div>
-            <div class="col-sm-2">Name</div>
-            <div class="col-sm-2">PsnId</div>
-            <div class="col-sm-2">Linked Google?</div>
-            <div class="col-sm-2">
-
-            </div>
+            <div class="col-xs-2 col-sm-offset-1">Game</div>
+            <div class="col-xs-2">Name</div>
+            <div class="col-xs-2">PsnId</div>
+            <div class="col-xs-2">Linked Google?</div>
+            <div class="col-xs-2"></div>
         </div> <!-- end header row -->
         <div class="row pending-header-looped" *ngFor="let pending of pendingList; let i = index" [ngClass]="{'pending-alternate-list-bg': i % 2 === 0}"> <!-- begin looped row -->
-            <div class="col-sm-2 col-sm-offset-1 pending-list-item">{{ pending.game }}</div>
-            <div class="col-sm-2 pending-list-item">{{ pending.name }}</div>
-            <div class="col-sm-2 pending-list-item">{{ pending.psnId }}</div>
-            <div class="col-sm-2 pending-list-item">{{ pending.google && 'Yes' || 'No' }}</div>
-            <div class="col-sm-2 flex-container justify-around">
-                <button class="btn btn-success" (click)="approvePending(pending.id)">Accept</button>
-                <button class="btn btn-danger" (click)="denyPending(pending.id)">Deny</button>
+            <div class="col-xs-2 col-sm-offset-1 pending-list-item">{{ pending.game }}</div>
+            <div class="col-xs-2 pending-list-item">{{ pending.name }}</div>
+            <div class="col-xs-2 pending-list-item">{{ pending.psnId }}</div>
+            <div class="col-xs-2 pending-list-item">{{ pending.google && 'Yes' || 'No' }}</div>
+            <div class="col-sm-2 col-xs-2 flex-container justify-around">
+                <button class="btn btn-success pending-approve-buttons" (click)="approvePending(pending.id)">Accept</button>
+                <button class="btn btn-danger pending-approve-buttons" (click)="denyPending(pending.id)">Deny</button>
             </div>
         </div> <!-- end looped row -->
     </div> <!-- end container -->

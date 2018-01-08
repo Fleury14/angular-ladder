@@ -9,9 +9,11 @@
         </div>
     </div>
     <div class="join-form-container">
-        <label>Your ID:</label>
+        <label>Your Name:</label>
+        <p>This is simply what you will be known as on the ladder.</p>
         <input type="text" [(ngModel)]="joinName"><br>
-        <label>Your PSN/CFN ID</label>
+        <label>{{ selectedGame === 'sfv' && "Your CFN:" || "Your PSN ID:" }} </label>
+        <p>This is so people can contact you in game.</p>
         <input type="text" [(ngModel)]="joinPsnId"><br>
         <div>
             <label for="">Would you like to link your Google account to this ladder entry? (Recommended): </label>

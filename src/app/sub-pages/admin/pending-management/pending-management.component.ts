@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import Player from './../../../interfaces/player';
 
@@ -11,26 +11,44 @@ import { LadderDatabaseService } from './../../../services/database/ladder-datab
     styleUrls: [ './pending-management.component.css']
 })
 
-export class PendingManagementComponent {
+export class PendingManagementComponent implements OnInit {
 
     public pendingList; // will contain list of pending apps
     public listOfGames; // will contain list of games
 
     // instantiate list of games (now with length!) and list of applicants with ids
     constructor(private _pending: PendingDatabaseService, private _ladderDB: LadderDatabaseService) {
-        this._pending.getListOfPending().map(gameList => {
-            // use dunlavy RR tech to put key in object
-            const pendingList = [];
-            for (const pendKey in gameList[0]) {
-                const pendLoop = gameList[0][pendKey];
-                pendLoop.id = pendKey;
-                pendingList.push(pendLoop);
-            }
-            return pendingList;
-        })
-        .subscribe(gameList => {
-            this.pendingList = gameList;
-            console.log(this.pendingList);
+        // this._pending.getListOfPending().map(gameList => {
+        //     // use dunlavy RR tech to put key in object
+        //     const pendingList = [];
+        //     for (const pendKey in gameList[0]) {
+        //         const pendLoop = gameList[0][pendKey];
+        //         pendLoop.id = pendKey;
+        //         pendingList.push(pendLoop);
+        //     }
+        //     return pendingList;
+        // })
+        // .subscribe(gameList => {
+        //     this.pendingList = gameList;
+        //     console.log(this.pendingList);
+        // });
+
+        
+    }
+
+    ngOnInit() {
+
+        // map the snapshotChanges obs to more workable data
+        this._pending.getListOfJoins().map(data => {
+            const joinList = [];
+            data.forEach(item => {
+                const joinLoop = item.payload.val();
+                joinLoop.id = item.key;
+                joinList.push(joinLoop);
+            });
+            return joinList;
+        }).subscribe(joinList => {
+            this.pendingList = joinList;
         });
 
         // this time we use a nested subscribe to add the length of players from the ladder database as a property

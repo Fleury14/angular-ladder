@@ -21,3 +21,16 @@
     align-items: center;
     justify-content: flex-start;
 }
+
+@media only screen and (max-width: 768px) {
+    .pending-header-row {
+        margin-bottom: 10px;
+        height: 50px;
+    }
+
+    .pending-header-looped {
+        height: 100%;
+        font-size: 10px;
+    }
+    
+}

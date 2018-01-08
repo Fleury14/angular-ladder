@@ -64,6 +64,24 @@ export class PendingDatabaseService {
         return this._database.list('/w-pending/').valueChanges();
     }
 
+    // new list of pending joins using snapshot changes to retain data. will do mapping on component level
+    public getListOfJoins() {
+        return this._database.list('/w-pending/join').snapshotChanges();
+    }
+
+    // new list of pending link requests using snapshot changes to get key
+    public getListOfPendingLinks() {
+        return this._database.list('/w-pending/link').snapshotChanges().map(data => {
+            const linkList = [];
+            data.forEach(entry => {
+                const linkLoop = entry.payload.val();
+                linkLoop.id = entry.key;
+                linkList.push(linkLoop);
+            });
+            return linkList;
+        });
+    }
+
     // get number of join request
     public getNumOfJoin() {
         return this._database.list('/w-pending/join').valueChanges().map(joins => {

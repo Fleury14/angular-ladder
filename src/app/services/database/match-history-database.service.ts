@@ -24,18 +24,18 @@ export class MatchHistoryDatabaseService {
     }
 
     public getListOfMatches() {
-        return this._database.list('/y-match-history').valueChanges().map( matchList => {
-
-            const listOfKeys = [];
-            this._database.list('/y-match-history/').snapshotChanges().subscribe(snapshotList => {
-                snapshotList.forEach(function(snapshot) {
-                    listOfKeys.push(snapshot.key);
-                });
-                matchList.forEach(function(pendingItem, index) {matchList[index]['id'] = listOfKeys[index]; });
+        return this._database.list('/y-match-history').snapshotChanges().map(data => {
+            const matchList = [];
+            data.forEach(match => {
+                const loopedMatch = match.payload.val();
+                loopedMatch.id = match.key;
+                matchList.push(loopedMatch);
             });
-            // sort matched in descending order by datecompleted
-            matchList.sort(function(a, b) { return b['dateCompleted'] - a['dateCompleted']; });
+            matchList.sort(function(a, b) {
+                return b.dateCompleted - a.dateCompleted;
+            });
             return matchList;
         });
     }
+
 }
