@@ -170,6 +170,7 @@ export class DashboardComponent {
                 this._pending.addResult(this.selectedChallenge);
                 this.allowPost = false;
                 this.submittedResult = true;
+                this._router.navigate(['/submit', {type: 'score-post'}]);
             }
         }
     }
