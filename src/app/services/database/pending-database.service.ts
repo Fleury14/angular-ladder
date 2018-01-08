@@ -73,6 +73,7 @@ export class PendingDatabaseService {
                 linkLoop.id = entry.key;
                 linkList.push(linkLoop);
             });
+            return linkList;
         });
     }
 

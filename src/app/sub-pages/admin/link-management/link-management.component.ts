@@ -14,19 +14,8 @@ export class LinkManagementComponent {
     public listOfPendingLinks; // will contain list of pending links
 
     constructor(private _ladderDB: LadderDatabaseService, private _pending: PendingDatabaseService) {
-        this._pending.getListOfPending().map(gameList => {
-            // use dunlavy RR tech to put key in object
-            const pendingList = [];
-            for (const pendKey in gameList[1]) {
-                const pendLoop = gameList[1][pendKey];
-                pendLoop.id = pendKey;
-                pendingList.push(pendLoop);
-            }
-            return pendingList;
-        })
-        .subscribe(gameList => {
-            this.listOfPendingLinks = gameList;
-            console.log(this.listOfPendingLinks);
+        this._pending.getListOfPendingLinks().subscribe(linkList => {
+            this.listOfPendingLinks = linkList;
         });
     } // end constructor
 
