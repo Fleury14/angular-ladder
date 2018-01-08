@@ -22,6 +22,6 @@ export class SubmitComponent implements OnInit {
 
         setTimeout(() => {
             this._router.navigate(['home'], {});
-        }, 3000);
+        }, 5000);
     }
 }
