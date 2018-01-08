@@ -20,6 +20,7 @@ export class PendingManagementComponent {
     constructor(private _pending: PendingDatabaseService, private _ladderDB: LadderDatabaseService) {
         this._pending.getListOfPending().map(gameList => {
             // use dunlavy RR tech to put key in object
+            console.log('pendinglist', gameList);
             const pendingList = [];
             for (const pendKey in gameList[0]) {
                 const pendLoop = gameList[0][pendKey];
