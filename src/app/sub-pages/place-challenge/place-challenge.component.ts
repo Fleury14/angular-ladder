@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { LadderDatabaseService } from './../../services/database/ladder-database.service';
 import { LoginService } from './../../services/login.service';
@@ -33,7 +34,7 @@ export class PlaceChallengeComponent {
     public submittedChallenge = 0; // displays succesful submit message based on challenge method
 
     constructor(private _ladderDB: LadderDatabaseService, private _login: LoginService, private _pending: PendingDatabaseService,
-    private _challengeDB: ChallengeDatabaseService) {
+    private _challengeDB: ChallengeDatabaseService, private _router: Router) {
         this._ladderDB.getGameList().subscribe(gameList => {
             // instantiate game list
             this.listOfGames = gameList;
@@ -211,14 +212,14 @@ export class PlaceChallengeComponent {
                 console.log('submitting:', challengeToBeApproved, 'attacker:', this.selectedChallenger, 'defender', this.selectedDefender);
                 console.log('Challenge added to challenge DB');
                 this.submittedChallenge = 1;
-                this.startOver();
+                this._router.navigate(['/submit', {type: 'challenge-linked'}]);
             }
             if (this.challengeMethod === 2) {
                 // ANONYMOUS CHALLENGE SECTION
                 this._pending.addPendingChallenge(challengeToBeApproved);
                 console.log('challenge added to pending list');
                 this.submittedChallenge = 2;
-                this.startOver();
+                this._router.navigate(['/submit', {type: 'challenge-anon'}]);
             }
                 break;
 
