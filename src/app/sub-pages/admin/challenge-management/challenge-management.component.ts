@@ -231,4 +231,52 @@ export class ChallengeManagementComponent {
         return new Date(unix);
     }
 
+    // method to update a players streak field. takes a string of the old stream and a number denoting result
+    // 0 == loss, 1 = win
+    private _streakUpdate(oldStreak: string, result: number): string {
+
+        let resultStreak = '';
+        // if the result is a win...
+        if (result === 1) {
+
+            // check to see if the current streak is a win
+            if (oldStreak.charAt(0) === 'W') {
+                // if so find the space in the string
+                const space = oldStreak.search(' ');
+                // grab everything in the result after the space
+                const oldNum = oldStreak.substr(space + 1);
+                // increment it
+                const newNum = parseInt(oldNum, 10) + 1;
+                // create a new streak with an incremented number
+                resultStreak = 'Won '.concat(newNum.toString());
+            } else if (oldStreak.charAt(0) === 'L' || oldStreak.charAt(0) === 'N') {
+                // if previous streak is a loss, reset to one win
+                resultStreak = 'Won 1';
+            } else {
+                console.log('Error, invalid original streak');
+            }
+        } else if (result === 0 ) {
+            // loss would be the inverse of the win effect
+            // check to see if the current streak is a win
+            if (oldStreak.charAt(0) === 'L') {
+                // if so find the space in the string
+                const space = oldStreak.search(' ');
+                // grab everything in the result after the space
+                const oldNum = oldStreak.substr(space + 1);
+                // increment it
+                const newNum = parseInt(oldNum, 10) + 1;
+                // create a new streak with an incremented number
+                resultStreak = 'Lost '.concat(newNum.toString());
+            } else if (oldStreak.charAt(0) === 'W' || oldStreak.charAt(0) === 'N') {
+                // if previous streak is a loss, reset to one win
+                resultStreak = 'Lost 1';
+            } else {
+                console.log('Error, invalid original streak');
+            }
+        } else {
+            console.log('invalid number in result argument, should be 1 or 0');
+        }
+        return resultStreak;
+    }
+
 }
