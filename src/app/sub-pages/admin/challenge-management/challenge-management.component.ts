@@ -151,8 +151,8 @@ export class ChallengeManagementComponent {
         this.listOfAffectedPlayers[chall].wins++;
 
         // adjust streak
-        this._currentDefender.streak = this._streakUpdate(this._currentDefender.streak, 1);
-        this.listOfAffectedPlayers[chall].streak = this._streakUpdate(this.listOfAffectedPlayers[chall].streak, 0);
+        this._currentDefender.streak = this._streakUpdate(this._currentDefender.streak, 0);
+        this.listOfAffectedPlayers[chall].streak = this._streakUpdate(this.listOfAffectedPlayers[chall].streak, 1);
 
         // adjust ELO
         const challELO = this.listOfAffectedPlayers[chall].elo;
@@ -162,12 +162,10 @@ export class ChallengeManagementComponent {
 
         // make sure defender isnt included in both affectedPlayers and currentDefender
         // if current defender is actually in the afectedPlayers list, he should always be first so a simple shift() should work
-        // we should also adjust the defenders rank if thats the case
         if (this._currentDefender.id === this.listOfAffectedPlayers[0].id) {
             // console.log('shifting selected players. oldlist', this.listOfAffectedPlayers);
             this.listOfAffectedPlayers.shift();
             // console.log('new list', this.listOfAffectedPlayers);
-            // this._currentDefender.rank++;
         }
 
         console.log('post win defender adjustments', this.listOfAffectedPlayers, this._currentDefender);
@@ -198,6 +196,10 @@ export class ChallengeManagementComponent {
         const defELO = this._currentDefender.elo;
         this.listOfAffectedPlayers[chall].elo = this._getNewRating(challELO, defELO, 0);
         this._currentDefender.elo = this._getNewRating(defELO, challELO, 1);
+
+        // adjust streak
+        this._currentDefender.streak = this._streakUpdate(this._currentDefender.streak, 1);
+        this.listOfAffectedPlayers[chall].streak = this._streakUpdate(this.listOfAffectedPlayers[chall].streak, 0);
 
         // if the challenger rank is #2, force them to wait a couple days to place another challenge so that they can't
         // constantly have a lock on the title shot. we'll give them 3 days, 259200000 seconds
