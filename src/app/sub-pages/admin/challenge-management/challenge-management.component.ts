@@ -150,6 +150,10 @@ export class ChallengeManagementComponent {
         this._currentDefender.losses++;
         this.listOfAffectedPlayers[chall].wins++;
 
+        // adjust streak
+        this._currentDefender.streak = this._streakUpdate(this._currentDefender.streak, 1);
+        this.listOfAffectedPlayers[chall].streak = this._streakUpdate(this.listOfAffectedPlayers[chall].streak, 0);
+
         // adjust ELO
         const challELO = this.listOfAffectedPlayers[chall].elo;
         const defELO = this._currentDefender.elo;
