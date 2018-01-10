@@ -119,8 +119,11 @@ export class PlaceChallengeComponent {
 
         // make sure rank difference is greater than 0 (i.e. theyre not challenging someone below them)
         // also make sure that the rank difference is less than 4 (i.e. theyre not challenging someone too high for them)
+        // make an exception for sf5 - can challenge 5 ahead (fornow) in that game
         const rankDiff = challenger.rank - defender.rank;
-        if (rankDiff < 1 || rankDiff > 3) {result = false; }
+        if (this.selectedGame === 'sfv') {
+            if (rankDiff < 1 || rankDiff > 5) { result = false; }
+        } else if (rankDiff < 1 || rankDiff > 3) {result = false; }
 
         // see if the defender has a recent opponent id. if so, make sure its not matching the challnger
         if (defender.recentId) {
