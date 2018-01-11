@@ -24,6 +24,7 @@ export class PlaceChallengeComponent {
     private _user; // user login info
     private _listofPendingChallenges; // for anon: the list of pending challenges to avoid dupes
     private _listOfDBChallenges; // list of challenges in the database
+    private _CHALLENGETIME = 604800000; // how long a challenge has before the deadline passes in milliseconds
 
     // progression flags
     public canSelectGame = true;
@@ -209,8 +210,8 @@ export class PlaceChallengeComponent {
 
             if (this.challengeMethod === 1) {
                 // push to challenge db
-                const deadlineDate = Date.now() + 864000000; // new date + no. seconds in 10 days
-                challengeToBeApproved.deadline = deadlineDate; // assign deadline to 10 days from now
+                const deadlineDate = Date.now() + this._CHALLENGETIME; // new date + challenge deadline time
+                challengeToBeApproved.deadline = deadlineDate; // assign deadline to however long the current deadline window is
                 this._challengeDB.addChallenge(challengeToBeApproved);
                 console.log('submitting:', challengeToBeApproved, 'attacker:', this.selectedChallenger, 'defender', this.selectedDefender);
                 console.log('Challenge added to challenge DB');
