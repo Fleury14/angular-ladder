@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { PendingDatabaseService } from './../../../services/database/pending-database.service';
 import { ChallengeDatabaseService } from './../../../services/database/challenge-database.service';
@@ -11,7 +11,7 @@ import { MatchHistoryDatabaseService } from './../../../services/database/match-
     styleUrls: [ './challenge-management.component.css' ]
 })
 
-export class ChallengeManagementComponent {
+export class ChallengeManagementComponent implements OnInit {
 
     public listOfPendingChallenges; // will contain a list of anon chasllenges that are pending
     public listOfActiveChallenges; // will conatin a list of active challenges
@@ -26,8 +26,7 @@ export class ChallengeManagementComponent {
     public challengerScoreInput: string;
     public defenderScoreInput: string;
 
-    constructor (private _pending: PendingDatabaseService, private _challengeDB: ChallengeDatabaseService,
-        private _ladderDB: LadderDatabaseService, private _matchDB: MatchHistoryDatabaseService) {
+    ngOnInit() {
         this._pending.getListOfPendingChallenges().subscribe(pendingList => {
             this.listOfPendingChallenges = pendingList;
             // onsole.log('list of pendings:', this.listOfPendingChallenges);
@@ -41,6 +40,11 @@ export class ChallengeManagementComponent {
         this._pending.getListOfResults().subscribe(resultList => {
             this.listOfResults = resultList;
         });
+    }
+
+    constructor (private _pending: PendingDatabaseService, private _challengeDB: ChallengeDatabaseService,
+        private _ladderDB: LadderDatabaseService, private _matchDB: MatchHistoryDatabaseService) {
+
     }
 
     // method to deny challenge. deletes it from the pending list
