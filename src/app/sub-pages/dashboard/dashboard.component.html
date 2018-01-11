@@ -42,8 +42,9 @@
                 <div *ngFor="let challenge of listOfChallenges.att" class="dashboard-challenge-item">
                     <h3>vs. Rank {{ challenge.defenderRank }}: {{ challenge.defenderName }}</h3>
                     <p><strong>Game:</strong> {{ challenge.game }} <strong>Deadline:</strong> {{ unixConvert(challenge.deadline) | date: 'fullDate' }}</p>
-                    <div class="flex-container justify-center">
+                    <div class="flex-container justify-around">
                         <button class="btn btn-info" (click)="postResults(challenge)">Post Results</button>
+                        <button class="btn btn-danger" (click)="forfeitChallenge(challenge, 'c')">Forfeit</button>
                     </div>
                 </div>
             </div> <!-- end left side -->
@@ -53,8 +54,9 @@
                 <div *ngFor="let challenge of listOfChallenges.def" class="dashboard-challenge-item">
                     <h3>vs. Rank {{ challenge.challengerRank }}: {{ challenge.challengerName }}</h3>
                     <p><strong>Game:</strong> {{ challenge.game }} <strong>Deadline:</strong> {{ unixConvert(challenge.deadline) | date: 'fullDate' }}</p>
-                    <div class="flex-container justify-center">
+                    <div class="flex-container justify-around">
                         <button class="btn btn-info" (click)="postResults(challenge)">Post Results</button>
+                        <button class="btn btn-danger" (click)="forfeitChallenge(challenge, 'd')">Forfeit</button>
                     </div>
                 </div>
             </div> <!-- end right half -->
