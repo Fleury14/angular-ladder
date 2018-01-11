@@ -21,6 +21,7 @@ export class ChallengeManagementComponent implements OnInit {
     private _postButtonClicked = false; // flag to make sure post button was clicked. more explanation on result posting function
     public editScore = false; // is the user editing score?
     public selectedChallenge;
+    private _CHALLENGETIME = 604800000; // how long a challenge has to be completed after approval, in milliseconds
 
     // ngmodel fields
     public challengerScoreInput: string;
@@ -56,7 +57,7 @@ export class ChallengeManagementComponent implements OnInit {
     public approveChallenge(challenge, id) {
         if (confirm('Confirm adding selected challenge to official challenge list')) {
             // add 10 days in ubnix time to the current date to pass correct deadling
-            challenge['deadline'] = Date.now() + 864000000;
+            challenge['deadline'] = Date.now() + this._CHALLENGETIME;
             this._pending.deletePendingChallenge(id);
             challenge.id = null; // remove the challenge id from the pending list so that its not confused with the id in the challenge list
             console.log('submitting challenge:', challenge);
