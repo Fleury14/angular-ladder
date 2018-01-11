@@ -39,26 +39,27 @@
             <div class="col-sm-6"> <!-- begin left side: attacking -->
                 <h2 class="text-center">Attacking</h2>
                 <p class="text-center" *ngIf="listOfChallenges.att.length === 0">You are not challenging anyone at this time</p>
-                <div *ngFor="let challenge of listOfChallenges.att" class="dashboard-challenge-item">
+                <div *ngFor="let challenge of listOfChallenges.att" class="dashboard-challenge-item" [ngClass]="{'dashboard-light-red-bg': challenge.isPending === true}">
                     <h3>vs. Rank {{ challenge.defenderRank }}: {{ challenge.defenderName }}</h3>
                     <p><strong>Game:</strong> {{ challenge.game }} <strong>Deadline:</strong> {{ unixConvert(challenge.deadline) | date: 'fullDate' }}</p>
                     <div class="flex-container justify-around">
-                        <button class="btn btn-info" (click)="postResults(challenge)">Post Results</button>
-                        <button class="btn btn-danger" (click)="forfeitChallenge(challenge, 'c')">Forfeit</button>
+                        <button class="btn btn-info" (click)="postResults(challenge)" [disabled]="challenge.isPending === true">Post Results</button>
+                        <button class="btn btn-danger" (click)="forfeitChallenge(challenge, 'c')" [disabled]="challenge.isPending === true">Forfeit</button>
                     </div>
+                    <h3 *ngIf="challenge.isPending === true" class="text-center">Result Pending Approval</h3>
                 </div>
             </div> <!-- end left side -->
             <div class="col-sm-6"> <!-- begin right half: defending -->
                 <h2 class="text-center">Defending</h2>
                 <p class="text-center" *ngIf="listOfChallenges.def.length === 0">You do not have anyone challenging you at this time.</p>
-                <div *ngFor="let challenge of listOfChallenges.def" class="dashboard-challenge-item">
+                <div *ngFor="let challenge of listOfChallenges.def" class="dashboard-challenge-item" [ngClass]="{'dashboard-light-red-bg': challenge.isPending === true}">
                     <h3>vs. Rank {{ challenge.challengerRank }}: {{ challenge.challengerName }}</h3>
                     <p><strong>Game:</strong> {{ challenge.game }} <strong>Deadline:</strong> {{ unixConvert(challenge.deadline) | date: 'fullDate' }}</p>
                     <div class="flex-container justify-around">
-                        <button class="btn btn-info" (click)="postResults(challenge)">Post Results</button>
-                        <button class="btn btn-danger" (click)="forfeitChallenge(challenge, 'd')">Forfeit</button>
+                        <button class="btn btn-info" (click)="postResults(challenge)" [disabled]="challenge.isPending === true">Post Results</button>
+                        <button class="btn btn-danger" (click)="forfeitChallenge(challenge, 'd')" [disabled]="challenge.isPending === true">Forfeit</button>
                     </div>
-                </div>
+                    <h3 *ngIf="challenge.isPending === true" class="text-center">Result Pending Approval</h3>
             </div> <!-- end right half -->
         </div>
         <div class="row" *ngIf="allowPost===true"> <!-- begin challenge posting row -->

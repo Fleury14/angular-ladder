@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { LoginService } from './../../services/login.service';
 import { LadderDatabaseService } from './../../services/database/ladder-database.service';
@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
     styleUrls: [ './dashboard.component.css']
 })
 
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
 
     public listOfGames; // will contain list of games
     public userStatus = {}; // will contain user status on each ladder
@@ -37,6 +37,32 @@ export class DashboardComponent {
     public submittedResult = false; // flag to display submitted message
 
     // instantiate necessary lists...
+    ngOnInit() {
+        // instantiate list of challenges then put them in teh correct array
+        this._challengeDB.getListOfChallenges().subscribe(challengeList => {
+            challengeList.forEach(challenge => {
+                if (challenge['challengerGoogle'] === this._user.uid) {
+                    // console.log('selected challenge', challenge);
+                    this.listOfChallenges.att.push(challenge);
+                }
+                if (challenge['defenderGoogle'] === this._user.uid) {
+                    // console.log('selected challenge', challenge);
+                    // challenge['isPending'] = this.isResultPending(challenge['id']);
+                    this.listOfChallenges.def.push(challenge);
+                }
+            });
+            console.log('challengeArrayBefore', this.listOfChallenges);
+            this.listOfChallenges.att.forEach(challenge => {
+                console.log(challenge.id, challenge, challenge.deadline, challenge.id);
+                challenge['isPending'] = this.isResultPending(challenge.challengerId, challenge.defenderId);
+            });
+            this.listOfChallenges.def.forEach(challenge => {
+                challenge['isPending'] = this.isResultPending(challenge.challengerId, challenge.defenderId);
+            });
+            console.log('challenge array yarrr', this.listOfChallenges);
+        });
+
+    }
     constructor(public login: LoginService, private _ladderDB: LadderDatabaseService, private _pending: PendingDatabaseService,
     private _challengeDB: ChallengeDatabaseService, private _router: Router) {
 
@@ -80,19 +106,7 @@ export class DashboardComponent {
             }); // end gamelist iteration
         }); // end gamelist subscribe
 
-        // instantiate list of challenges then put them in teh correct array
-        this._challengeDB.getListOfChallenges().subscribe(challengeList => {
-            challengeList.forEach(challenge => {
-                if (challenge['challengerGoogle'] === this._user.uid) {
-                    this.listOfChallenges.att.push(challenge);
-                }
-                if (challenge['defenderGoogle'] === this._user.uid) {
-                    this.listOfChallenges.def.push(challenge);
-                }
-            });
-            console.log('challenge array yarrr', this.listOfChallenges);
-        });
-
+        
     } // end constructor
 
     // method to initiate linking a google account to a spot on the ladder. takes in the game ref from the appropriatte entry
@@ -199,8 +213,8 @@ export class DashboardComponent {
         }
     }
 
-    public isResultPending(id: string) {
-        return this._pending.dupeResultCheck(id);
+    public isResultPending(challId: string, defId: string) {
+        return this._pending.isResultPending(challId, defId);
     }
 
     public joinLadder(game) {
