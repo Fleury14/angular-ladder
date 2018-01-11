@@ -244,7 +244,7 @@ export class ChallengeManagementComponent implements OnInit {
     // method to update a players streak field. takes a string of the old stream and a number denoting result
     // 0 == loss, 1 = win
     private _streakUpdate(oldStreak: string, result: number): string {
-
+        // console.log('running streak adjust with following arguments', oldStreak, result);
         let resultStreak = '';
         // if the result is a win...
         if (result === 1) {
