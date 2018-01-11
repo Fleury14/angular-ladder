@@ -17,7 +17,6 @@ import NewsItem from './../../../interfaces/news-item';
 
 export class NewsManagementComponent implements OnInit {
 
-    public newsTotal = this.news.getNewsLength();
     public newsList = [];
     public newsListWithId = [];
 
@@ -34,14 +33,14 @@ export class NewsManagementComponent implements OnInit {
     public todaysDate = new Date();
     private _days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
-    constructor( public news: NewsService, private _newsData: NewsDatabaseService) {
+    constructor(private _newsData: NewsDatabaseService) {
 
 
     }
 
     ngOnInit() {
 
-        const lol = this._newsData.getNews()
+        this._newsData.getNews()
         .map(data => {
             data.sort(function(a, b) { return b.dateUnix - a.dateUnix; } );
             return data.map(newsItem => {
@@ -60,25 +59,7 @@ export class NewsManagementComponent implements OnInit {
             this.newsListWithId = result;
             // console.log('rr method result',this.newsListWithId);
         });
-        // map observable from the service and then subscribe to it via the newslist array
-        this._newsData.newsObservable.map(newslist => {
-            return newslist.map(newsItem => {
 
-                const myNewsItem: NewsItem = {
-                    author: newsItem.author,
-                    date: newsItem.date,
-                    content: newsItem.content.replace('\n', 'LINEBREAK')
-                };
-                return myNewsItem;
-            });
-        })
-        .subscribe( moreNews => {
-            this.newsList = [];
-            this.newsList = this.newsList.concat(moreNews);
-            console.log('from news base component', this.newsList);
-        });
-
-        
     }
 
     // method for submitting a new news item via form
@@ -90,7 +71,7 @@ export class NewsManagementComponent implements OnInit {
             dateUnix: Date.now(),
             author: formValue.author,
             content: formValue.content
-        }
+        };
 
         // confirm a send before actually pushing to the database
         if (confirm(`Verify sending of news item by ${newsItemToBeSent.author}`)) {
@@ -123,7 +104,7 @@ export class NewsManagementComponent implements OnInit {
 
         this._newsData.getNewsById(id).map(data => {
             // because the data gotten from the service is sent back in array form, we use the map to translate it back to object form
-            // NOTE: this particular method doesnt jive with the NewsItem typing which is why I did not delcared selectedNewsItem 
+            // NOTE: this particular method doesnt jive with the NewsItem typing which is why I did not delcared selectedNewsItem
             // as a :NewsItem above
             const result = {
                 author: data[0],
@@ -136,7 +117,7 @@ export class NewsManagementComponent implements OnInit {
         })
         .subscribe(data => {
             // with the data now transforms into a more readable object we can do stuff with it. First a simple error check with an if
-            if(data) {
+            if (data) {
                 console.log('selected item:', data);
                 // ..then set the selected news item to the entire object
                 this.selectedNewsItem = data;

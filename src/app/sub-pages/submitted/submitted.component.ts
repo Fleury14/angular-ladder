@@ -10,6 +10,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 export class SubmitComponent implements OnInit {
 
     public currentParam;
+    private _timeOut;
 
     constructor (private _router: Router, private _actRoute: ActivatedRoute) {}
 
@@ -20,8 +21,19 @@ export class SubmitComponent implements OnInit {
             }
         });
 
-        setTimeout(() => {
+        this._timeOut = setTimeout(() => {
             this._router.navigate(['home'], {});
         }, 5000);
+
+        // cancel timeout if they navigate somewhere else prior to being routed home
+        this._router.events.subscribe(routeChange => {
+            clearTimeout(this._timeOut);
+        });
+    }
+
+    // cancel timeout if they click the button themselves
+    public goHome() {
+        clearTimeout(this._timeOut);
+        this._router.navigate(['home']);
     }
 }

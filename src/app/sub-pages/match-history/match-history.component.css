@@ -19,6 +19,14 @@
     width: 20%;
 }
 
+.match-history-text-winner {
+    color: #0d0;
+}
+
+.match-history-text-loser {
+    color: #d00;
+}
+
 .match-history-date {
     background-color: #a63446;
     color: #fff;

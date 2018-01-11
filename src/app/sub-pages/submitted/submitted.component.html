@@ -5,5 +5,5 @@
     <h4 *ngIf="currentParam === 'challenge-anon'">You challenge has been submitted. Since you did not link your Google account, we don't know if it's actually you who submitted it, so an admin will have to approve it. You should be contacted by an admin in discord relatively soon.</h4>
     <h4 *ngIf="currentParam === 'score-post'">Thank you for submitting your score. It is now awaiting admin approval. You should be contacted by an admin in discord to verify the score.</h4>
     <p>You should be routed to the home page automatically in 5 seconds. Please click the button to go there in case you don't want to wait.</p>
-    <button class="btn btn-info" routerLink="/home">Home</button>
+    <button class="btn btn-info" (click)="goHome()">Home</button>
 </div>

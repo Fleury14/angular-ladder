@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { PendingDatabaseService } from './../../../services/database/pending-database.service';
 import { ChallengeDatabaseService } from './../../../services/database/challenge-database.service';
@@ -11,7 +11,7 @@ import { MatchHistoryDatabaseService } from './../../../services/database/match-
     styleUrls: [ './challenge-management.component.css' ]
 })
 
-export class ChallengeManagementComponent {
+export class ChallengeManagementComponent implements OnInit {
 
     public listOfPendingChallenges; // will contain a list of anon chasllenges that are pending
     public listOfActiveChallenges; // will conatin a list of active challenges
@@ -21,13 +21,13 @@ export class ChallengeManagementComponent {
     private _postButtonClicked = false; // flag to make sure post button was clicked. more explanation on result posting function
     public editScore = false; // is the user editing score?
     public selectedChallenge;
+    private _CHALLENGETIME = 604800000; // how long a challenge has to be completed after approval, in milliseconds
 
     // ngmodel fields
     public challengerScoreInput: string;
     public defenderScoreInput: string;
 
-    constructor (private _pending: PendingDatabaseService, private _challengeDB: ChallengeDatabaseService,
-        private _ladderDB: LadderDatabaseService, private _matchDB: MatchHistoryDatabaseService) {
+    ngOnInit() {
         this._pending.getListOfPendingChallenges().subscribe(pendingList => {
             this.listOfPendingChallenges = pendingList;
             // onsole.log('list of pendings:', this.listOfPendingChallenges);
@@ -43,6 +43,11 @@ export class ChallengeManagementComponent {
         });
     }
 
+    constructor (private _pending: PendingDatabaseService, private _challengeDB: ChallengeDatabaseService,
+        private _ladderDB: LadderDatabaseService, private _matchDB: MatchHistoryDatabaseService) {
+
+    }
+
     // method to deny challenge. deletes it from the pending list
     public denyChallenge(id) {
         this._pending.deletePendingChallenge(id);
@@ -52,7 +57,7 @@ export class ChallengeManagementComponent {
     public approveChallenge(challenge, id) {
         if (confirm('Confirm adding selected challenge to official challenge list')) {
             // add 10 days in ubnix time to the current date to pass correct deadling
-            challenge['deadline'] = Date.now() + 864000000;
+            challenge['deadline'] = Date.now() + this._CHALLENGETIME;
             this._pending.deletePendingChallenge(id);
             challenge.id = null; // remove the challenge id from the pending list so that its not confused with the id in the challenge list
             console.log('submitting challenge:', challenge);
@@ -150,6 +155,10 @@ export class ChallengeManagementComponent {
         this._currentDefender.losses++;
         this.listOfAffectedPlayers[chall].wins++;
 
+        // adjust streak
+        this._currentDefender.streak = this._streakUpdate(this._currentDefender.streak, 0);
+        this.listOfAffectedPlayers[chall].streak = this._streakUpdate(this.listOfAffectedPlayers[chall].streak, 1);
+
         // adjust ELO
         const challELO = this.listOfAffectedPlayers[chall].elo;
         const defELO = this._currentDefender.elo;
@@ -158,12 +167,10 @@ export class ChallengeManagementComponent {
 
         // make sure defender isnt included in both affectedPlayers and currentDefender
         // if current defender is actually in the afectedPlayers list, he should always be first so a simple shift() should work
-        // we should also adjust the defenders rank if thats the case
         if (this._currentDefender.id === this.listOfAffectedPlayers[0].id) {
             // console.log('shifting selected players. oldlist', this.listOfAffectedPlayers);
             this.listOfAffectedPlayers.shift();
             // console.log('new list', this.listOfAffectedPlayers);
-            // this._currentDefender.rank++;
         }
 
         console.log('post win defender adjustments', this.listOfAffectedPlayers, this._currentDefender);
@@ -194,6 +201,10 @@ export class ChallengeManagementComponent {
         const defELO = this._currentDefender.elo;
         this.listOfAffectedPlayers[chall].elo = this._getNewRating(challELO, defELO, 0);
         this._currentDefender.elo = this._getNewRating(defELO, challELO, 1);
+
+        // adjust streak
+        this._currentDefender.streak = this._streakUpdate(this._currentDefender.streak, 1);
+        this.listOfAffectedPlayers[chall].streak = this._streakUpdate(this.listOfAffectedPlayers[chall].streak, 0);
 
         // if the challenger rank is #2, force them to wait a couple days to place another challenge so that they can't
         // constantly have a lock on the title shot. we'll give them 3 days, 259200000 seconds
@@ -229,6 +240,54 @@ export class ChallengeManagementComponent {
 
     public unixConvert(unix: number): Date {
         return new Date(unix);
+    }
+
+    // method to update a players streak field. takes a string of the old stream and a number denoting result
+    // 0 == loss, 1 = win
+    private _streakUpdate(oldStreak: string, result: number): string {
+        // console.log('running streak adjust with following arguments', oldStreak, result);
+        let resultStreak = '';
+        // if the result is a win...
+        if (result === 1) {
+
+            // check to see if the current streak is a win
+            if (oldStreak.charAt(0) === 'W') {
+                // if so find the space in the string
+                const space = oldStreak.search(' ');
+                // grab everything in the result after the space
+                const oldNum = oldStreak.substr(space + 1);
+                // increment it
+                const newNum = parseInt(oldNum, 10) + 1;
+                // create a new streak with an incremented number
+                resultStreak = 'Won '.concat(newNum.toString());
+            } else if (oldStreak.charAt(0) === 'L' || oldStreak.charAt(0) === 'N') {
+                // if previous streak is a loss, reset to one win
+                resultStreak = 'Won 1';
+            } else {
+                console.log('Error, invalid original streak');
+            }
+        } else if (result === 0 ) {
+            // loss would be the inverse of the win effect
+            // check to see if the current streak is a win
+            if (oldStreak.charAt(0) === 'L') {
+                // if so find the space in the string
+                const space = oldStreak.search(' ');
+                // grab everything in the result after the space
+                const oldNum = oldStreak.substr(space + 1);
+                // increment it
+                const newNum = parseInt(oldNum, 10) + 1;
+                // create a new streak with an incremented number
+                resultStreak = 'Lost '.concat(newNum.toString());
+            } else if (oldStreak.charAt(0) === 'W' || oldStreak.charAt(0) === 'N') {
+                // if previous streak is a loss, reset to one win
+                resultStreak = 'Lost 1';
+            } else {
+                console.log('Error, invalid original streak');
+            }
+        } else {
+            console.log('invalid number in result argument, should be 1 or 0');
+        }
+        return resultStreak;
     }
 
 }

@@ -208,4 +208,14 @@ export class PendingDatabaseService {
         });
         return dupeCheck;
     }
+
+    public isResultPending(challId, defId) {
+        let endResult = false;
+        this._listOfResults.forEach(result => {
+            if (result.challengerId === challId && result.defenderId === defId ) {
+                endResult = true;
+            }
+        });
+        return endResult;
+    }
 }

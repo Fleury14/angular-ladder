@@ -152,7 +152,8 @@ export class LadderDatabaseService {
         dbRef.update(def.id, {
             losses: def.losses,
             elo: def.elo,
-            rank: def.rank
+            rank: def.rank,
+            streak: def.streak
         });
 
         // update everyone in the list of affected players array
@@ -162,7 +163,8 @@ export class LadderDatabaseService {
             dbRef.update(chall.id, {
                 wins: chall.wins,
                 elo: chall.elo,
-                rank: chall.rank
+                rank: chall.rank,
+                streak: chall.streak
             });
         });
     }
@@ -175,14 +177,16 @@ export class LadderDatabaseService {
         // update defender stats. only wins and elo should be adjusted
         dbRef.update(def.id, {
             wins: def.wins,
-            elo: def.elo
+            elo: def.elo,
+            streak: def.streak
         });
 
         // update challenger. losses, elo, and recent player should be adjusted
         dbRef.update(chall.id, {
             losses: chall.losses,
             elo: chall.elo,
-            recentOpponent: chall.recentOpponent
+            recentOpponent: chall.recentOpponent,
+            streak: chall.streak
         });
     }
 

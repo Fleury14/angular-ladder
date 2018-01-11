@@ -8,9 +8,11 @@
                   <div class="match-history-game flex-container justify-center align-center font-bangers">{{ match.game }}</div>
                   <div class="match-history-date font-bangers text-center">{{ match.dateCompleted | date: 'fullDate' }}</div>
                   <button type="button" class="list-group-item match-history-button-align">
-                      <span class="label label-default space-cadet-bg">Rank {{ match.challengerRank }}</span><strong> {{ match.challengerName }}</strong>
+                      <span class="label label-default space-cadet-bg">Rank {{ match.challengerRank }}</span>
+                      <span [ngClass]="{'match-history-text-winner': match.challengerScore > match.defenderScore, 'match-history-text-loser': match.challengerScore < match.defenderScore}"><strong> {{ match.challengerName }}</strong></span>
                       <span class="font-bangers match-history-score">{{ match.challengerScore }} : {{ match.defenderScore }}</span>
-                      <strong> {{ match.defenderName }}</strong> <span class="label label-default space-cadet-bg">Rank {{ match.defenderRank }}</span>
+                      <span [ngClass]="{'match-history-text-winner': match.challengerScore < match.defenderScore, 'match-history-text-loser': match.challengerScore > match.defenderScore}"><strong> {{ match.defenderName }}</strong></span> 
+                      <span class="label label-default space-cadet-bg">Rank {{ match.defenderRank }}</span>
                     </button></div>
               
             </div>
