@@ -176,23 +176,26 @@ export class DashboardComponent {
     }
 
     public forfeitChallenge(challenge: object, playerPos: string) {
-        const pendingResult = challenge;
-        let breakFlag = false;
-        if (playerPos === 'c') {
-            pendingResult['challengerScore'] = 0;
-            pendingResult['defenderScore'] = 5;
-        } else if (playerPos === 'd') {
-            pendingResult['challengerScore'] = 5;
-            pendingResult['defenderScore'] = 0;
-        } else {
-            console.log('Error: invalid argument for player position, must be "c" or "d"');
-            breakFlag = true;
-        }
+        if (confirm('Do you reallt want to forfeit this challenge?')) {
+            const pendingResult = challenge;
+            let breakFlag = false;
+            if (playerPos === 'c') {
+                pendingResult['challengerScore'] = 0;
+                pendingResult['defenderScore'] = 5;
+            } else if (playerPos === 'd') {
+                pendingResult['challengerScore'] = 5;
+                pendingResult['defenderScore'] = 0;
+            } else {
+                console.log('Error: invalid argument for player position, must be "c" or "d"');
+                breakFlag = true;
+            }
 
-        if (breakFlag === false) {
-            pendingResult['challengeDBId'] = pendingResult['id'];
-            pendingResult['id'] = null;
-            console.log('submitting following forfeiture result:', pendingResult);
+            if (breakFlag === false) {
+                pendingResult['challengeDBId'] = pendingResult['id'];
+                pendingResult['id'] = null;
+                console.log('submitting following forfeiture result:', pendingResult);
+                this._pending.addResult(pendingResult);
+            }
         }
     }
 
