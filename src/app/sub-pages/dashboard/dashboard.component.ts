@@ -199,6 +199,10 @@ export class DashboardComponent {
         }
     }
 
+    public isResultPending(id: string) {
+        return this._pending.dupeResultCheck(id);
+    }
+
     public joinLadder(game) {
         this._router.navigate(['/join', {game: game}]);
     }
