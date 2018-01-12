@@ -290,7 +290,7 @@ export class ChallengeManagementComponent implements OnInit {
         return resultStreak;
     }
 
-    public matchTest() {
+    public matchRank() {
         this._challengeDB.matchChallengeRank();
     }
 
