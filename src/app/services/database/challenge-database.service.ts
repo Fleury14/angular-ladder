@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
 import { AngularFireDatabase } from 'angularfire2/database';
+import { LadderDatabaseService } from './../database/ladder-database.service';
 
 import NewsItem from './../../interfaces/news-item';
 import { AngularFireList, AngularFireObject, FirebaseOperation } from 'angularfire2/database/interfaces';
@@ -12,10 +13,43 @@ import ChallengeDB from './../../interfaces/challenge-db';
 
 export class ChallengeDatabaseService {
 
-    constructor (private _database: AngularFireDatabase) {}
+    private _challengeList;
+    private _currentPlayerList;
+
+    constructor (private _database: AngularFireDatabase, private _ladderDB: LadderDatabaseService) {
+        this.getListOfChallenges().subscribe(list => {
+            this._challengeList = list;
+        });
+    }
 
     public addChallenge(challenge: ChallengeDB) {
         this._database.list('/x-challenges').push(challenge);
+    }
+
+    public matchChallengeRank() {
+        this._challengeList.forEach(challenge => {
+            const foundChallenge = [];
+            this._ladderDB.getPlayers(challenge.game).subscribe(playerList => {
+                playerList.forEach(player => {
+                    if (player.id === challenge.challengerId) {
+                        console.log('Match found - Challenger');
+                        if (player.rank === challenge.challengerRank) {
+                            console.log('Ranks match');
+                        } else {
+                            console.log('Ranks do NOT match');
+                        }
+                    }
+                    if (player.id === challenge.defenderId) {
+                        console.log('Match found - Defender');
+                        if (player.rank === challenge.challengerRank) {
+                            console.log('Ranks match');
+                        } else {
+                            console.log('Ranks do NOT match');
+                        }
+                    }
+                });
+            });
+        });
     }
 
     public deleteChallenge(id) {
