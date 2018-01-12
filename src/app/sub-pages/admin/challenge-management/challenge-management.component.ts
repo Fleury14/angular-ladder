@@ -290,6 +290,8 @@ export class ChallengeManagementComponent implements OnInit {
         return resultStreak;
     }
 
+    // method to force a rank update on challenges
+    // use this if the ranks on the challenge do not match the ranks on the ladder due to player movement
     public matchRank() {
         this._challengeDB.matchChallengeRank();
     }
