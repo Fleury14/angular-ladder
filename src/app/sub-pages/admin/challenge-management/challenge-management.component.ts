@@ -22,6 +22,7 @@ export class ChallengeManagementComponent implements OnInit {
     public editScore = false; // is the user editing score?
     public selectedChallenge;
     private _CHALLENGETIME = 604800000; // how long a challenge has to be completed after approval, in milliseconds
+    private _MAXCHALLENGERANK = 5; // the number of spots a player can challenge above.
 
     // ngmodel fields
     public challengerScoreInput: string;
@@ -114,14 +115,29 @@ export class ChallengeManagementComponent implements OnInit {
 
                 // make sure we're coming from the challenge management page with this flag check
                 if (this._postButtonClicked === true) {
-                    // sort list by rank lol
 
+                    // find the appropriate player and assign him as the defender
                     this._currentDefender = playerList.find(function(e, i, a) {
                         if (e.id === result.defenderId) { return true; }
                     });
-                    for (let rank = result.defenderRank - 1; rank < result.challengerRank; rank++ ) {
-                        this.listOfAffectedPlayers.push(playerList[rank]);
+                    // check to see if the defenders rank is more than the allowed 5 spot move up. this can happen if
+                    // someone was challenged, but before completing the defending challenged, completed their own attacking
+                    // challenge and moved up. if the rank difference is fine, stick to the current method of grabbing players
+                    if (result.challengerRank - result.defenderRank <= this._MAXCHALLENGERANK) {
+                        // grab all players affected by the challenge. note that because we are getting players from a sorted array,
+                        // it starts at index 0, not 1. this is why we go from defender rank - 1 to challenger rank - 1:
+                        // in the array, first place is index 0, not index 1
+                        for (let rank = result.defenderRank - 1; rank < result.challengerRank; rank++ ) {
+                            this.listOfAffectedPlayers.push(playerList[rank]);
+                        }
+                    } else {
+                        // if its not, then grab the 5 affected players above the challenger including the challenger
+                        // note that we start at max challenge - 1 to account for the array starting at 0
+                        for (let rank = result.challengerRank - this._MAXCHALLENGERANK - 1; rank < result.challengerRank; rank++ ) {
+                            this.listOfAffectedPlayers.push(playerList[rank]);
+                        }
                     }
+
                     console.log('affected players:', this.listOfAffectedPlayers);
                     console.log('current defender', this._currentDefender);
                     const lastIndex = this.listOfAffectedPlayers.length - 1;
