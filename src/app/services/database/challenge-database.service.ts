@@ -59,6 +59,11 @@ export class ChallengeDatabaseService {
         });
     }
 
+    public updateChallenger(id, challenge) {
+        const challengeRef = this._database.list('/x-challenges');
+        challengeRef.update(id, challenge);
+    }
+
     public deleteChallenge(id) {
         this._database.list('/x-challenges').remove(id);
     }
