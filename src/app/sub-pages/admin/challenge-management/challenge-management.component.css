@@ -33,6 +33,15 @@
     background-color: #eeeeff;
 }
 
+.challenge-pending-force-rank-row {
+    align-items: center;
+    margin-top: 10px;
+}
+
+.challenge-pending-force-rank-row button {
+    margin-left: 30px;
+}
+
 .challenge-pending-result-side-row {
     min-height: 86px;
     display: flex;

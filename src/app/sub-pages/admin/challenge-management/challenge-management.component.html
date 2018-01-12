@@ -55,6 +55,10 @@
                 <button class="btn btn-danger" (click)="deleteActiveChallenge(challenge.id)">Delete</button>
             </div>
         </div> <!-- end looped active challenge row -->
+        <div class="flex-container justify-center challenge-pending-force-rank-row">
+            <p>To force a rank update on challenges, click this button.</p>
+            <button class="btn btn-defualt" (click)="matchRank()">Update Ranks</button>
+        </div>
         <div class="row" *ngIf="editScore === true"> <!-- begin score edit div -->
             <div class="col-sm-3 col-sm-offset-3">
                 <label>Challenger Score: </label>
