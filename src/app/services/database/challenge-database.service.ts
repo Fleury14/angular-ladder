@@ -32,6 +32,7 @@ export class ChallengeDatabaseService {
     // those are the ranks eneter in. but lets say someone below them jumped them both and now they are #5 and #6
     // the challenge ranks are not updated and when the score goes to post, bad things happen. this resolves that problem
     public matchChallengeRank() {
+        console.log('Updating ranks in Challenge DB...');
         // iterate through each challenge
         this._challengeList.forEach(challenge => {
             // grab a list of players and subscribe to it. assign it to a var so we can unsub later
