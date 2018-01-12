@@ -32,25 +32,27 @@ export class ChallengeDatabaseService {
             const playerSub = this._ladderDB.getPlayers(challenge.game).subscribe(playerList => {
                 playerList.forEach(player => {
                     if (player.id === challenge.challengerId) {
-                        console.log('Match found - Challenger');
+                        // console.log('Match found - Challenger');
                         if (player.rank === challenge.challengerRank) {
-                            console.log('Ranks match');
+                            // console.log('Ranks match');
                         } else {
-                            console.log('Ranks do NOT match');
-                            console.log(`${challenge.challengerName}'s rank is ${challenge.challengerRank} but is ${player.rank} on the ladder.`);
+                            // console.log('Ranks do NOT match');
+                            // console.log(`${challenge.challengerName}'s rank is ${challenge.challengerRank} but is ${player.rank} on the ladder.`);
                             challenge.challengerRank = player.rank;
-                            console.log('Send the following object with updates to the challenge:', challenge);
+                            this.updateChallenge(challenge.id, challenge);
+                            // console.log('Send the following object with updates to the challenge:', challenge);
                         }
                     }
                     if (player.id === challenge.defenderId) {
-                        console.log('Match found - Defender');
+                        // console.log('Match found - Defender');
                         if (player.rank === challenge.defenderRank) {
-                            console.log('Ranks match');
+                            // console.log('Ranks match');
                         } else {
-                            console.log('Ranks do NOT match');
-                            console.log(`${challenge.defenderName}'s rank is ${challenge.defenderRank} but is ${player.rank} on the ladder.`);
+                            // console.log('Ranks do NOT match');
+                            // console.log(`${challenge.defenderName}'s rank is ${challenge.defenderRank} but is ${player.rank} on the ladder.`);
                             challenge.defenderRank = player.rank;
-                            console.log('Send the following object with updates to the challenge:', challenge);
+                            this.updateChallenge(challenge.id, challenge);
+                            // console.log('Send the following object with updates to the challenge:', challenge);
                         }
                     }
                 });
@@ -59,7 +61,7 @@ export class ChallengeDatabaseService {
         });
     }
 
-    public updateChallenger(id, challenge) {
+    public updateChallenge(id, challenge) {
         const challengeRef = this._database.list('/x-challenges');
         challengeRef.update(id, challenge);
     }
