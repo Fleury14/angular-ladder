@@ -6,6 +6,8 @@ interface Player {
     elo: number;
     streak: string;
     rank: number;
+    gameWins?: number;
+    gameLosses?: number;
     google?: string;
 }
 
