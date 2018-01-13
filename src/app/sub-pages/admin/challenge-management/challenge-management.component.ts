@@ -145,10 +145,10 @@ export class ChallengeManagementComponent implements OnInit {
                     console.log('current defender', this._currentDefender);
                     const lastIndex = this.listOfAffectedPlayers.length - 1;
                     this.listOfAffectedPlayers[lastIndex].recentOpponent = result.defenderId;
-                    if (result.challengerScore > result.defenderScore) {
+                    if (result.defenderForfeit === true  || result.challengerScore > result.defenderScore) {
                         this._winAdjust(result, lastIndex);
                     }
-                    if (result.challengerScore < result.defenderScore) {
+                    if (result.challengerForfeit === true || result.challengerScore < result.defenderScore) {
                         this._lossAdjust(result, lastIndex);
                     }
                     if (result.challengerScore === result.defenderScore) {
@@ -170,25 +170,33 @@ export class ChallengeManagementComponent implements OnInit {
         // then readjust challengers rank based on the challenge data
         this.listOfAffectedPlayers[chall].rank = result.defenderRank;
 
-        // adjust wins and losses
-        this._currentDefender.losses++;
-        this.listOfAffectedPlayers[chall].wins++;
+        // make sure the defender didn't forfeit, because we don't want forfeitures affecting stats
+        if(!result.defenderForfeit) {
+            // adjust wins and losses
+            this._currentDefender.losses++;
+            this.listOfAffectedPlayers[chall].wins++;
 
-        // adjust game wins and losses
-        this._currentDefender.gameWins += result.defenderScore;
-        this._currentDefender.gameLosses += result.challengerScore;
-        this.listOfAffectedPlayers[chall].gameWins += result.challengerScore;
-        this.listOfAffectedPlayers[chall].gameLosses += result.defenderScore;
+            // adjust game wins and losses
+            this._currentDefender.gameWins += result.defenderScore;
+            this._currentDefender.gameLosses += result.challengerScore;
+            this.listOfAffectedPlayers[chall].gameWins += result.challengerScore;
+            this.listOfAffectedPlayers[chall].gameLosses += result.defenderScore;
 
-        // adjust streak
-        this._currentDefender.streak = this._streakUpdate(this._currentDefender.streak, 0);
-        this.listOfAffectedPlayers[chall].streak = this._streakUpdate(this.listOfAffectedPlayers[chall].streak, 1);
+            // adjust streak
+            this._currentDefender.streak = this._streakUpdate(this._currentDefender.streak, 0);
+            this.listOfAffectedPlayers[chall].streak = this._streakUpdate(this.listOfAffectedPlayers[chall].streak, 1);
 
-        // adjust ELO
-        const challELO = this.listOfAffectedPlayers[chall].elo;
-        const defELO = this._currentDefender.elo;
-        this.listOfAffectedPlayers[chall].elo = this._getNewRating(challELO, defELO, 1);
-        this._currentDefender.elo = this._getNewRating(defELO, challELO, 0);
+            // adjust ELO
+            const challELO = this.listOfAffectedPlayers[chall].elo;
+            const defELO = this._currentDefender.elo;
+            this.listOfAffectedPlayers[chall].elo = this._getNewRating(challELO, defELO, 1);
+            this._currentDefender.elo = this._getNewRating(defELO, challELO, 0);
+        } else {
+            // if it is a forfeit, edit scores so it should up reasonably on the match history
+            result.defenderScore = 'Forfeit';
+            result.challengerScore = 0;
+        }
+
 
         // make sure defender isnt included in both affectedPlayers and currentDefender
         // if current defender is actually in the afectedPlayers list, he should always be first so a simple shift() should work
@@ -220,23 +228,30 @@ export class ChallengeManagementComponent implements OnInit {
         // in the event of a defender win, that's all we're interested in since no ranks will be moved
         // const chall = this.listOfAffectedPlayers.length() - 1;
 
-        // add wins and losses
-        this._currentDefender.wins++;
-        this.listOfAffectedPlayers[chall].losses++;
-        // adjust game wins and losses
-        this._currentDefender.gameWins += result.defenderScore;
-        this._currentDefender.gameLosses += result.challengerScore;
-        this.listOfAffectedPlayers[chall].gameWins += result.challengerScore;
-        this.listOfAffectedPlayers[chall].gameLosses += result.defenderScore;
-        // adjust elo
-        const challELO = this.listOfAffectedPlayers[chall].elo;
-        const defELO = this._currentDefender.elo;
-        this.listOfAffectedPlayers[chall].elo = this._getNewRating(challELO, defELO, 0);
-        this._currentDefender.elo = this._getNewRating(defELO, challELO, 1);
+        // check for challenger forfeiture so forfeits dont affect stats
+        if (!result.challengerForfeit) {
+            // add wins and losses
+            this._currentDefender.wins++;
+            this.listOfAffectedPlayers[chall].losses++;
+            // adjust game wins and losses
+            this._currentDefender.gameWins += result.defenderScore;
+            this._currentDefender.gameLosses += result.challengerScore;
+            this.listOfAffectedPlayers[chall].gameWins += result.challengerScore;
+            this.listOfAffectedPlayers[chall].gameLosses += result.defenderScore;
+            // adjust elo
+            const challELO = this.listOfAffectedPlayers[chall].elo;
+            const defELO = this._currentDefender.elo;
+            this.listOfAffectedPlayers[chall].elo = this._getNewRating(challELO, defELO, 0);
+            this._currentDefender.elo = this._getNewRating(defELO, challELO, 1);
 
-        // adjust streak
-        this._currentDefender.streak = this._streakUpdate(this._currentDefender.streak, 1);
-        this.listOfAffectedPlayers[chall].streak = this._streakUpdate(this.listOfAffectedPlayers[chall].streak, 0);
+            // adjust streak
+            this._currentDefender.streak = this._streakUpdate(this._currentDefender.streak, 1);
+            this.listOfAffectedPlayers[chall].streak = this._streakUpdate(this.listOfAffectedPlayers[chall].streak, 0);
+        } else {
+            // otherwise modify scores so forfeit displays reasonably
+            result.defenderScore = 0;
+            result.challengerScore = 'Forfeit';
+        }
 
         // if the challenger rank is #2, force them to wait a couple days to place another challenge so that they can't
         // constantly have a lock on the title shot. we'll give them 3 days, 259200000 seconds
