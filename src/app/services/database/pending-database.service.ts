@@ -172,7 +172,7 @@ export class PendingDatabaseService {
 
     // method to delete a challenge result for approval
     public deleteResult(id: string) {
-        this._database.list('/w-pending/result').remove(id);
+        this._database.list('/w-pending/result').remove(id).catch(error => alert(error));
     }
 
     public getNumOfResults() {
