@@ -14,6 +14,7 @@ export class LadderDatabaseService {
 
     private _tempPlayers = this._ladder.getPlayers('tekken');
     public ladderObs = this._database.list('/ladder').valueChanges();
+    private _sortListSub;
 
     constructor(private _database: AngularFireDatabase, private _ladder: LadderService) {
         // console.log(this._tempPlayers);
@@ -65,7 +66,7 @@ export class LadderDatabaseService {
     // method to sort the list by ascending rank. used when someone is deleted
     public sortAndRerank(game: string) {
         console.log(`sorting game ${game}...`);
-        const unSortedList = this.getPlayers(game).subscribe(playerList => {
+        this._sortListSub = this.getPlayers(game).subscribe(playerList => {
             playerList.sort(function(a, b) { return a.rank - b.rank; });
 
             for (let i = 0; i < playerList.length; i++) {
@@ -85,6 +86,18 @@ export class LadderDatabaseService {
                 } // end if.. if we're this far then that means the players rank is what it should be and no action needs to be taken
             }
         });
+    }
+
+    // for now, this undoes the subscription to the list of players by the sort mechanism because as of now this reranks on any
+    // adjustment to the ladder, which causes a problem when score posting.
+    // TODO: move the sort logic into the component
+    public unSubToSort() {
+        if (!this._sortListSub) {
+            return;
+        }
+        if (!(this._sortListSub.closed === true)) {
+            this._sortListSub.unsubscribe();
+        }
     }
 
     // gets a list of games in the ladder. returns both a .ref and .title property so the future calls to the databse from this game
@@ -153,7 +166,9 @@ export class LadderDatabaseService {
             losses: def.losses,
             elo: def.elo,
             rank: def.rank,
-            streak: def.streak
+            streak: def.streak,
+            gameWins: def.gameWins,
+            gameLosses: def.gameLosses
         });
 
         // update everyone in the list of affected players array
@@ -164,7 +179,9 @@ export class LadderDatabaseService {
                 wins: chall.wins,
                 elo: chall.elo,
                 rank: chall.rank,
-                streak: chall.streak
+                streak: chall.streak,
+                gameWins: chall.gameWins,
+                gameLosses: chall.gameLosses
             });
         });
     }
@@ -178,7 +195,9 @@ export class LadderDatabaseService {
         dbRef.update(def.id, {
             wins: def.wins,
             elo: def.elo,
-            streak: def.streak
+            streak: def.streak,
+            gameWins: def.gameWins,
+            gameLosses: def.gameLosses
         });
 
         // update challenger. losses, elo, and recent player should be adjusted
@@ -186,7 +205,9 @@ export class LadderDatabaseService {
             losses: chall.losses,
             elo: chall.elo,
             recentOpponent: chall.recentOpponent,
-            streak: chall.streak
+            streak: chall.streak,
+            gameWins: chall.gameWins,
+            gameLosses: chall.gameLosses
         });
     }
 

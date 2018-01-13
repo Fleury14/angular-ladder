@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import Player from './../../../interfaces/player';
 
@@ -11,10 +11,14 @@ import { LadderDatabaseService } from './../../../services/database/ladder-datab
     styleUrls: [ './pending-management.component.css']
 })
 
-export class PendingManagementComponent implements OnInit {
+export class PendingManagementComponent implements OnInit, OnDestroy {
 
     public pendingList; // will contain list of pending apps
     public listOfGames; // will contain list of games
+
+    // subs to later unsub
+    private _joinListSub;
+    private _gameListSub;
 
     // instantiate list of games (now with length!) and list of applicants with ids
     constructor(private _pending: PendingDatabaseService, private _ladderDB: LadderDatabaseService) {
@@ -33,13 +37,12 @@ export class PendingManagementComponent implements OnInit {
         //     console.log(this.pendingList);
         // });
 
-        
     }
 
     ngOnInit() {
 
         // map the snapshotChanges obs to more workable data
-        this._pending.getListOfJoins().map(data => {
+        this._joinListSub = this._pending.getListOfJoins().map(data => {
             const joinList = [];
             data.forEach(item => {
                 const joinLoop = item.payload.val();
@@ -53,7 +56,7 @@ export class PendingManagementComponent implements OnInit {
 
         // this time we use a nested subscribe to add the length of players from the ladder database as a property
         // on to our list of games. this is necessary when calculating rank for new players
-        this._ladderDB.getGameList().subscribe(gameList => {
+        this._gameListSub = this._ladderDB.getGameList().subscribe(gameList => {
             this.listOfGames = gameList;
             this.listOfGames.forEach( game => {
                 this._ladderDB.getNumOfPlayer(game.ref).subscribe( result => {
@@ -62,6 +65,11 @@ export class PendingManagementComponent implements OnInit {
             });
             // console.log(`list of games... with length??`, this.listOfGames);
         });
+    }
+
+    ngOnDestroy() {
+        this._joinListSub.unsubscribe();
+        this._gameListSub.unsubscribe();
     }
 
     // deny application button. simple database delete call
@@ -90,6 +98,8 @@ export class PendingManagementComponent implements OnInit {
                 wins: 0,
                 losses: 0,
                 elo: 1500,
+                gameWins: 0,
+                gameLosses: 0,
                 streak: 'None',
                 rank: targetGame.playerLength + 1,
                 google: fromList.google

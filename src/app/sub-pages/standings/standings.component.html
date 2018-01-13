@@ -9,8 +9,8 @@
                         <th>Rank</th>
                         <th>Name</th>
                         <th>{{ game.ref === 'sfv' && 'CFN' || 'PSN ID' }}</th>
-                        <th>Win-Loss</th>
-                        <th>ELO</th>
+                        <th>Match Win-Loss</th>
+                        <th>Game Win-Loss</th>
                         <th>Streak</th>
                     </tr>
                 </thead>
@@ -19,16 +19,17 @@
                         <th>{{item.rank}}</th>
                         <td>{{item.name}}</td>
                         <td>{{item.psnId}}</td>
-                        <td>{{item.wins}}-{{item.losses}}</td>
-                        <td>{{item.elo}}</td>
+                        <td>{{item.wins}}-{{item.losses}} ({{(item.wins + item.losses > 0) && (item.wins / (item.wins + item.losses) * 100 | number: '1.0-0') || '0'}}%)</td>
+                        <td>{{item.gameWins && item.gameWins || '0'}}-{{item.gameLosses && item.gameLosses || '0'}} ({{ item.gameWins && (item.gameWins/(item.gameWins + item.gameLosses) * 100 | number: '1.0-0') || '0'}}%)</td>
                         <td>{{item.streak}}</td>    
                     </tr>    
                 </tbody>
             </table>
             <div class="standing-sort-button-row">
                 <button class="btn standing-button font-titi" id="sort-rank" (click)="sortPlayerList(game.ref, 'rank', 'a')">Sort by ladder rank</button>
-                <button class="btn standing-button font-titi" id="sort-elo" (click)="sortPlayerList(game.ref, 'elo', 'd')">Sort by ELO</button>
-                <button class="btn standing-button font-titi" id="sort-wins" (click)="sortPlayerList(game.ref, 'wins', 'd')">Sort by Wins</button>
+                <button class="btn standing-button font-titi" id="sort-wins" (click)="sortPlayerList(game.ref, 'wins', 'd')">Sort by Match Wins</button>
+                <button class="btn standing-button font-titi" id="sort-elo" (click)="sortPlayerList(game.ref, 'gamepct', 'd')">Sort by Game %</button>
+                <button class="btn standing-button font-titi" id="sort-game-wins" (click)="sortPlayerList(game.ref, 'gameWins', 'd')">Sort by Game Wins</button>
                 <button class="btn standing-button font-titi" id="sort-losses" (click)="sortPlayerList(game.ref, 'losses', 'd')">Sort by Losses</button>
             </div>              
         </div>
