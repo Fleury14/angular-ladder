@@ -177,6 +177,7 @@ export class ChallengeManagementComponent implements OnInit {
             this.listOfAffectedPlayers[chall].wins++;
 
             // adjust game wins and losses
+            console.log('game win adjustment vars:', this._currentDefender.gameLosses, result.challengerScore, result);
             this._currentDefender.gameWins += result.defenderScore;
             this._currentDefender.gameLosses += result.challengerScore;
             this.listOfAffectedPlayers[chall].gameWins += result.challengerScore;
@@ -215,6 +216,7 @@ export class ChallengeManagementComponent implements OnInit {
         result.dateCompleted = Date.now();
 
         this._matchDB.addMatch(result);
+        console.log(`sending deleterequest for challenge ID ${result.challengeDBId}`);
         this._challengeDB.deleteChallenge(result.challengeDBId);
         this._pending.deleteResult(result.id);
         // run a check on the challenge database to adjust the ranks of any players who might have moved
