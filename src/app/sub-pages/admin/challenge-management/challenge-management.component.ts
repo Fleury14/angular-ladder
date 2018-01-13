@@ -174,6 +174,12 @@ export class ChallengeManagementComponent implements OnInit {
         this._currentDefender.losses++;
         this.listOfAffectedPlayers[chall].wins++;
 
+        // adjust game wins and losses
+        this._currentDefender.gameWins += result.defenderScore;
+        this._currentDefender.gameLosses += result.challengerScore;
+        this.listOfAffectedPlayers[chall].gameWins += result.challengerScore;
+        this.listOfAffectedPlayers[chall].gameLosses += result.defenderScore;
+
         // adjust streak
         this._currentDefender.streak = this._streakUpdate(this._currentDefender.streak, 0);
         this.listOfAffectedPlayers[chall].streak = this._streakUpdate(this.listOfAffectedPlayers[chall].streak, 1);
@@ -217,6 +223,11 @@ export class ChallengeManagementComponent implements OnInit {
         // add wins and losses
         this._currentDefender.wins++;
         this.listOfAffectedPlayers[chall].losses++;
+        // adjust game wins and losses
+        this._currentDefender.gameWins += result.defenderScore;
+        this._currentDefender.gameLosses += result.challengerScore;
+        this.listOfAffectedPlayers[chall].gameWins += result.challengerScore;
+        this.listOfAffectedPlayers[chall].gameLosses += result.defenderScore;
         // adjust elo
         const challELO = this.listOfAffectedPlayers[chall].elo;
         const defELO = this._currentDefender.elo;
