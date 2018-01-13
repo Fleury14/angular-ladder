@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { PendingDatabaseService } from './../../../services/database/pending-database.service';
 import { ChallengeDatabaseService } from './../../../services/database/challenge-database.service';
@@ -11,7 +11,7 @@ import { MatchHistoryDatabaseService } from './../../../services/database/match-
     styleUrls: [ './challenge-management.component.css' ]
 })
 
-export class ChallengeManagementComponent implements OnInit {
+export class ChallengeManagementComponent implements OnInit, OnDestroy {
 
     public listOfPendingChallenges; // will contain a list of anon chasllenges that are pending
     public listOfActiveChallenges; // will conatin a list of active challenges
@@ -24,24 +24,35 @@ export class ChallengeManagementComponent implements OnInit {
     private _CHALLENGETIME = 604800000; // how long a challenge has to be completed after approval, in milliseconds
     private _MAXCHALLENGERANK = 5; // the number of spots a player can challenge above.
 
+    // component subs so we can later unsub
+    private _pendingListSub;
+    private _challengeListSub;
+    private _resultListSub;
+
     // ngmodel fields
     public challengerScoreInput: string;
     public defenderScoreInput: string;
 
     ngOnInit() {
-        this._pending.getListOfPendingChallenges().subscribe(pendingList => {
+        this._pendingListSub = this._pending.getListOfPendingChallenges().subscribe(pendingList => {
             this.listOfPendingChallenges = pendingList;
             // onsole.log('list of pendings:', this.listOfPendingChallenges);
         });
 
-        this._challengeDB.getListOfChallenges().subscribe(challengeList => {
+        this._challengeListSub = this._challengeDB.getListOfChallenges().subscribe(challengeList => {
             this.listOfActiveChallenges = challengeList;
             // console.log('list of actives:', this.listOfActiveChallenges);
         });
 
-        this._pending.getListOfResults().subscribe(resultList => {
+        this._resultListSub = this._pending.getListOfResults().subscribe(resultList => {
             this.listOfResults = resultList;
         });
+    }
+
+    ngOnDestroy() {
+        this._pendingListSub.unsubscribe();
+        this._challengeListSub.unsubscribe();
+        this._resultListSub.unsubscribe();
     }
 
     constructor (private _pending: PendingDatabaseService, private _challengeDB: ChallengeDatabaseService,
@@ -104,7 +115,7 @@ export class ChallengeManagementComponent implements OnInit {
 
     // method to approve result. note that because we are using a subscription to valuechanges, this will run EACH TIME
     // an edit is made on a player. in order to prevent that, we want to make sure that it runs only once, and only when
-    // the button on the page is clicked. because the only code thats executes is inside the subscription {}, we use a 
+    // the button on the page is clicked. because the only code thats executes is inside the subscription {}, we use a
     // boolean flag outside of it as a conditional
     public approveResult(result) {
         if (confirm('Are you sure you want to approve this result? This will update results, remove the pending result and the challenge from the DB.')) {
@@ -171,7 +182,7 @@ export class ChallengeManagementComponent implements OnInit {
         this.listOfAffectedPlayers[chall].rank = result.defenderRank;
 
         // make sure the defender didn't forfeit, because we don't want forfeitures affecting stats
-        if(!result.defenderForfeit) {
+        if (!result.defenderForfeit) {
             // adjust wins and losses
             this._currentDefender.losses++;
             this.listOfAffectedPlayers[chall].wins++;
