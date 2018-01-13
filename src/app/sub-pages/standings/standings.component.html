@@ -9,8 +9,8 @@
                         <th>Rank</th>
                         <th>Name</th>
                         <th>{{ game.ref === 'sfv' && 'CFN' || 'PSN ID' }}</th>
-                        <th>Win-Loss</th>
-                        <th>ELO</th>
+                        <th>Match Win-Loss</th>
+                        <th>Game Win-Loss</th>
                         <th>Streak</th>
                     </tr>
                 </thead>
@@ -19,8 +19,8 @@
                         <th>{{item.rank}}</th>
                         <td>{{item.name}}</td>
                         <td>{{item.psnId}}</td>
-                        <td>{{item.wins}}-{{item.losses}}</td>
-                        <td>{{item.elo}}</td>
+                        <td>{{item.wins}}-{{item.losses}} ({{(item.wins + item.losses > 0) && (item.wins / (item.wins + item.losses) * 100 | number: '1.0-0') || '0'}}%)</td>
+                        <td>{{item.gameWins && item.gameWins || '0'}}-{{item.gameLosses && item.gameLosses || '0'}} ({{ item.gameWins && (item.gameWins/(item.gameWins + item.gameLosses) * 100 | number: '1.0-0') || '0'}}%)</td>
                         <td>{{item.streak}}</td>    
                     </tr>    
                 </tbody>
