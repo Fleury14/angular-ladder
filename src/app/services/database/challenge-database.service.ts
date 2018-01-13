@@ -80,7 +80,7 @@ export class ChallengeDatabaseService {
     }
 
     public deleteChallenge(id) {
-        this._database.list('/x-challenges').remove(id);
+        this._database.list('/x-challenges').remove(id).catch(error => alert(error));
     }
 
     public getListOfChallenges() {
