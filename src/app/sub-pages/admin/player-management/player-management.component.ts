@@ -169,7 +169,9 @@ export class PlayerManagementComponent implements OnInit, OnDestroy {
     public deletePlayer() {
         if (confirm(`Do you really want to delete ${this.selectedPlayer.name}?`)) {
             this._ladderDB.deletePlayer(this.currentGame.ref, this.selectedPlayer.id)
-            .then(() => {this._ladderDB.sortAndRerank(this.currentGame.ref); });
+            .then(() => {this._ladderDB.sortAndRerank(this.currentGame.ref); }).then(
+                () => {this._ladderDB.unSubToSort(); }
+            );
         }
     }
 
