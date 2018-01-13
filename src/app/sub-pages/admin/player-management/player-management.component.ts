@@ -58,9 +58,9 @@ export class PlayerManagementComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        if(this.gameListSub) { this.gameListSub.unsubscribe(); }
-        if(this.switchNumSub) { this.switchNumSub.unsubscribe(); }
-        if(this.switchPlayerSub) { this.switchPlayerSub.unsubscribe(); }
+        if (this.gameListSub) { this.gameListSub.unsubscribe(); }
+        if (this.switchNumSub) { this.switchNumSub.unsubscribe(); }
+        if (this.switchPlayerSub) { this.switchPlayerSub.unsubscribe(); }
     }
 
     // method for displaying info on the right half of the screen when the user click on a player from the player list
