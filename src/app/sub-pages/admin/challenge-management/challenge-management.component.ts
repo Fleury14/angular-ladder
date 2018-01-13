@@ -220,7 +220,7 @@ export class ChallengeManagementComponent implements OnInit {
         this._challengeDB.deleteChallenge(result.challengeDBId);
         this._pending.deleteResult(result.id);
         // run a check on the challenge database to adjust the ranks of any players who might have moved
-        this._challengeDB.matchChallengeRank();
+        // this._challengeDB.matchChallengeRank();
         this._postButtonClicked = false;
 }
 
@@ -271,7 +271,7 @@ export class ChallengeManagementComponent implements OnInit {
         this._challengeDB.deleteChallenge(result.challengeDBId);
         this._pending.deleteResult(result.id);
         // run a check on the challenge database to adjust the ranks of any players who might have moved
-        this._challengeDB.matchChallengeRank();
+        // this._challengeDB.matchChallengeRank();
         this._postButtonClicked = false;
     }
 

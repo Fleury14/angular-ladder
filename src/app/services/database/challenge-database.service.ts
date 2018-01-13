@@ -15,15 +15,18 @@ export class ChallengeDatabaseService {
 
     private _challengeList;
     private _currentPlayerList;
+    private _inServiceSub;
 
     constructor (private _database: AngularFireDatabase, private _ladderDB: LadderDatabaseService) {
-        this.getListOfChallenges().subscribe(list => {
+        this._inServiceSub = this.getListOfChallenges().subscribe(list => {
             this._challengeList = list;
         });
     }
 
     public addChallenge(challenge: ChallengeDB) {
-        this._database.list('/x-challenges').push(challenge);
+        this._database.list('/x-challenges').push(challenge).then(
+            () => { console.log('Challenge Added.'); }
+        );
     }
 
     // method used when updating the ranks on the challenge list to match the ranks on the ladder
@@ -33,6 +36,14 @@ export class ChallengeDatabaseService {
     // the challenge ranks are not updated and when the score goes to post, bad things happen. this resolves that problem
     public matchChallengeRank() {
         console.log('Updating ranks in Challenge DB...');
+        // resub if necessary
+        if (this._inServiceSub.closed === true) {
+            // console.log('sub open');
+            this._inServiceSub = this.getListOfChallenges().subscribe(list => {
+                this._challengeList = list;
+            });
+            
+        }
         // iterate through each challenge
         this._challengeList.forEach(challenge => {
             // grab a list of players and subscribe to it. assign it to a var so we can unsub later
@@ -70,6 +81,11 @@ export class ChallengeDatabaseService {
                 });
                 // unsub when we're done because we dont want this running everytime theres a database edit
                 playerSub.unsubscribe();
+                this._inServiceSub.unsubscribe();
+                // console.log('this is how an unssub looks:', this._inServiceSub);
+                if (this._inServiceSub.closed === true) {
+                    // console.log('sub closed!');
+                }
             });
         });
     }
@@ -79,8 +95,14 @@ export class ChallengeDatabaseService {
         challengeRef.update(id, challenge);
     }
 
+    // method to delete a challenge. since this is called every time there a score update,
+    // lets update the ranks on all the challenges post deletion
     public deleteChallenge(id) {
-        this._database.list('/x-challenges').remove(id).catch(error => alert(error));
+        this._database.list('/x-challenges').remove(id).catch(error => alert(error)).then(
+            () => {
+                console.log('Challenge Deleted.');
+            }
+        );
     }
 
     public getListOfChallenges() {
