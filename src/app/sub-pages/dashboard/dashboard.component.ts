@@ -194,11 +194,9 @@ export class DashboardComponent implements OnInit {
             const pendingResult = challenge;
             let breakFlag = false;
             if (playerPos === 'c') {
-                pendingResult['challengerScore'] = 0;
-                pendingResult['defenderScore'] = 5;
+                pendingResult['challengerForfeit'] = true;
             } else if (playerPos === 'd') {
-                pendingResult['challengerScore'] = 5;
-                pendingResult['defenderScore'] = 0;
+                pendingResult['defenderForfeit'] = true;
             } else {
                 console.log('Error: invalid argument for player position, must be "c" or "d"');
                 breakFlag = true;
