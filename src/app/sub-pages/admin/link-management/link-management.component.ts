@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { PendingDatabaseService } from './../../../services/database/pending-database.service';
 import { LadderDatabaseService } from './../../../services/database/ladder-database.service';
@@ -9,15 +9,23 @@ import { LadderDatabaseService } from './../../../services/database/ladder-datab
     styleUrls: [ './link-management.component.css']
 })
 
-export class LinkManagementComponent {
+export class LinkManagementComponent implements OnInit, OnDestroy {
 
     public listOfPendingLinks; // will contain list of pending links
+    private _linkListSub; // subscription to link list
 
     constructor(private _ladderDB: LadderDatabaseService, private _pending: PendingDatabaseService) {
-        this._pending.getListOfPendingLinks().subscribe(linkList => {
+    } // end constructor
+
+    ngOnInit() {
+        this._linkListSub = this._pending.getListOfPendingLinks().subscribe(linkList => {
             this.listOfPendingLinks = linkList;
         });
-    } // end constructor
+    }
+
+    ngOnDestroy() {
+        this._linkListSub.unsubscribe();
+    }
 
     public deleteRequest(id) {
         if (confirm('Are youo sure you want to delete this request?')) {
