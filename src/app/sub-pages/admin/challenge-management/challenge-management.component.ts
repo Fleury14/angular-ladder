@@ -82,7 +82,10 @@ export class ChallengeManagementComponent implements OnInit {
         }
     }
 
+    // method to allow input of a score
     public addScore(challenge) {
+        // run the challenge match here to ensure that the ranks are up to date
+        this._challengeDB.matchChallengeRank();
         this.editScore = true;
         this.selectedChallenge = challenge;
     }
