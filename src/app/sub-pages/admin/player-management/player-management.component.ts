@@ -86,7 +86,7 @@ export class PlayerManagementComponent implements OnInit, OnDestroy {
     }
 
     // methods for allovwing and disallowing the user to have access to the add player div. this should eventually be refactored into its
-    // own child component 
+    // own child component
     public openAddPlayer() {
         this.canAddPlayers = true;
     }
