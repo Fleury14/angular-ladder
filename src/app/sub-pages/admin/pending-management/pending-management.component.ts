@@ -90,10 +90,10 @@ export class PendingManagementComponent implements OnInit {
                 wins: 0,
                 losses: 0,
                 elo: 1500,
-                streak: 'None',
-                rank: targetGame.playerLength + 1,
                 gameWins: 0,
                 gameLosses: 0,
+                streak: 'None',
+                rank: targetGame.playerLength + 1,
                 google: fromList.google
             };
             console.log(`player to be added`, playerToBeAdded);

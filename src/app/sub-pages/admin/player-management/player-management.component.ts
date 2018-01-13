@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 import { LadderDatabaseService } from './../../../services/database/ladder-database.service';
@@ -11,7 +11,7 @@ import Player from './../../../interfaces/player';
     styleUrls: [ './player-management.component.css']
 })
 
-export class PlayerManagementComponent implements OnInit {
+export class PlayerManagementComponent implements OnInit, OnDestroy {
 
     public listOfPlayers; // will hold player list for selected game
     public selectedPlayer; // player that was selected by user from list
@@ -28,6 +28,11 @@ export class PlayerManagementComponent implements OnInit {
     public nameField: string;
     public psnField: string;
 
+    // subscription flags so we can unsub when leaving
+    public gameListSub;
+    public switchNumSub;
+    public switchPlayerSub;
+
     // update player stuffs
     public canEditPlayer = false;
     @ViewChild('playerUpdateForm')
@@ -42,14 +47,20 @@ export class PlayerManagementComponent implements OnInit {
     public updateStreakField: string;
 
     constructor(private _ladderDB: LadderDatabaseService) {
-        // instantiate the game list first so that game list and subsequent player list can be built dynamically
-        this._ladderDB.getGameList().subscribe(data => {
-            this.gameList = data;
-        });
     }
 
     ngOnInit() {
         this.currentGame.ref = 'placeholder';
+        // instantiate the game list first so that game list and subsequent player list can be built dynamically
+        this.gameListSub = this._ladderDB.getGameList().subscribe(data => {
+            this.gameList = data;
+        });
+    }
+
+    ngOnDestroy() {
+        if(this.gameListSub) { this.gameListSub.unsubscribe(); }
+        if(this.switchNumSub) { this.switchNumSub.unsubscribe(); }
+        if(this.switchPlayerSub) { this.switchPlayerSub.unsubscribe(); }
     }
 
     // method for displaying info on the right half of the screen when the user click on a player from the player list
@@ -66,10 +77,10 @@ export class PlayerManagementComponent implements OnInit {
         this.currentGame.title = title;
 
         // the total number of players in a ladder is used when adding a player
-        this._ladderDB.getNumOfPlayer(ref).subscribe(result => {
+        this.switchNumSub = this._ladderDB.getNumOfPlayer(ref).subscribe(result => {
             this.currentGame.numOfPlayers = result;
         });
-        this._ladderDB.getPlayers(this.currentGame.ref).subscribe(result => {
+        this.switchPlayerSub = this._ladderDB.getPlayers(this.currentGame.ref).subscribe(result => {
             this.listOfPlayers = result;
         });
     }
