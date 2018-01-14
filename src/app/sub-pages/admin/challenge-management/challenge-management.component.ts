@@ -96,7 +96,7 @@ export class ChallengeManagementComponent implements OnInit, OnDestroy {
     // method to allow input of a score
     public addScore(challenge) {
         // run the challenge match here to ensure that the ranks are up to date
-        this._challengeDB.matchChallengeRank();
+        this._challengeDB.matchChallengeRank(true);
         this.editScore = true;
         this.selectedChallenge = challenge;
     }
@@ -355,7 +355,7 @@ export class ChallengeManagementComponent implements OnInit, OnDestroy {
     // method to force a rank update on challenges
     // use this if the ranks on the challenge do not match the ranks on the ladder due to player movement
     public matchRank() {
-        this._challengeDB.matchChallengeRank();
+        this._challengeDB.matchChallengeRank(true);
     }
 
 }

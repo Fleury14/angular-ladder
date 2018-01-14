@@ -34,7 +34,9 @@ export class ChallengeDatabaseService {
     // on the challenge stays the same. for example if #5 challenged #4 then at the point of the challenge
     // those are the ranks eneter in. but lets say someone below them jumped them both and now they are #5 and #6
     // the challenge ranks are not updated and when the score goes to post, bad things happen. this resolves that problem
-    public matchChallengeRank() {
+    public matchChallengeRank(flag: boolean) {
+        // bonly run this when its called
+        if (flag !== true) { return; }
         console.log('Updating ranks in Challenge DB...');
         // resub if necessary
         if (this._inServiceSub.closed === true) {
@@ -85,6 +87,7 @@ export class ChallengeDatabaseService {
                 // console.log('this is how an unssub looks:', this._inServiceSub);
                 if (this._inServiceSub.closed === true) {
                     // console.log('sub closed!');
+                    flag = false;
                 }
             });
         });
@@ -101,6 +104,7 @@ export class ChallengeDatabaseService {
         this._database.list('/x-challenges').remove(id).catch(error => alert(error)).then(
             () => {
                 console.log('Challenge Deleted.');
+                // this.matchChallengeRank(true);
             }
         );
     }

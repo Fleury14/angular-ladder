@@ -42,7 +42,7 @@
     margin-top: 25px;
     z-index: 40 !important;
     position: absolute;
-    top: 5%;
+    top: 5vh;
     left: 32.5%;
     transform: translate(-270%, 0px);
     transition: 1s all;
