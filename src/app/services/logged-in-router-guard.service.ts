@@ -6,21 +6,23 @@ import { LoginService } from './login.service';
 
 export class LoggedInRouterGuard implements CanActivate {
 
-    private _adminUidList = ['mkomTbU76VUR5tIoLmmyP1luR5q1', 'Gxr9qQ1pczOCLyncfhLiLdhvhy32',
-    'xFDVJ8Dq9CZR8PmiixbSNX5FpNv2', 'VtvMxuaYxGQp1eROh63SkO1S13k1'];
-
-
     constructor (private login: LoginService, private route: Router) {}
 
     // this router guard prevents people from visiting a page if they're not logged in
     canActivate() {
-        if (this.login.afAuth.auth.currentUser === null) { // check to see if a user is logged in at all
-            this.route.navigate(['home']); // if not, get them out
-            console.log('returned false...');
+        // map the observable from the login service...
+        return this.login.getLoggedInUserObs().map(user => {
+            // if the user exists, we good...
+            if (user) {
+                return true;
+            }
+
+            // since if the user was good we already returned, this means any code here only executes if there's no user
+            // thus, send em packing...
+            this.route.navigate(['home']);
             return false;
-        } else { // if so, yay
-            console.log('returned true...');
-            return true;
-        }
+
+        });
+
     }
 }
