@@ -16,7 +16,7 @@ import { DashboardComponent } from './sub-pages/dashboard/dashboard.component';
 import { PlaceChallengeComponent } from './sub-pages/place-challenge/place-challenge.component';
 import { SubmitComponent } from './sub-pages/submitted/submitted.component';
 
-import { RouterGuard } from './services/router-guard.service';
+import { LoggedInRouterGuard } from './services/logged-in-router-guard.service';
 
 
 const routes: Routes = [{
@@ -57,7 +57,8 @@ const routes: Routes = [{
   },
   {
     path: 'dashboard',
-    component: DashboardComponent
+    component: DashboardComponent,
+    canActivate: [ LoggedInRouterGuard ]
   },
   {
     path: 'place-challenge',
@@ -81,7 +82,7 @@ const routes: Routes = [{
 @NgModule({
     imports: [ RouterModule.forRoot(routes)],
     exports: [ RouterModule ],
-    providers: [ RouterGuard ]
+    providers: [ LoggedInRouterGuard ]
   })
 
 export class MainRoutingModule {}

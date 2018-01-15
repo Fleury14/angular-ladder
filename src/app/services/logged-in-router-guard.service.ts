@@ -16,9 +16,10 @@ export class LoggedInRouterGuard implements CanActivate {
     canActivate() {
         if (this.login.afAuth.auth.currentUser === null) { // check to see if a user is logged in at all
             this.route.navigate(['home']); // if not, get them out
+            console.log('returned false...');
             return false;
-        } else { // if not, get them out too
-            this.route.navigate(['home']);
+        } else { // if so, yay
+            console.log('returned true...');
             return true;
         }
     }

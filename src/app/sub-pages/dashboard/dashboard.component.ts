@@ -38,43 +38,19 @@ export class DashboardComponent implements OnInit {
 
     // instantiate necessary lists...
     ngOnInit() {
-        // instantiate list of challenges then put them in teh correct array
-        this._challengeDB.getListOfChallenges().subscribe(challengeList => {
-            challengeList.forEach(challenge => {
-                if (challenge['challengerGoogle'] === this._user.uid) {
-                    // console.log('selected challenge', challenge);
-                    this.listOfChallenges.att.push(challenge);
-                }
-                if (challenge['defenderGoogle'] === this._user.uid) {
-                    // console.log('selected challenge', challenge);
-                    // challenge['isPending'] = this.isResultPending(challenge['id']);
-                    this.listOfChallenges.def.push(challenge);
-                }
-            });
-            console.log('challengeArrayBefore', this.listOfChallenges);
-            this.listOfChallenges.att.forEach(challenge => {
-                console.log(challenge.id, challenge, challenge.deadline, challenge.id);
-                challenge['isPending'] = this.isResultPending(challenge.challengerId, challenge.defenderId);
-            });
-            this.listOfChallenges.def.forEach(challenge => {
-                challenge['isPending'] = this.isResultPending(challenge.challengerId, challenge.defenderId);
-            });
-            console.log('challenge array yarrr', this.listOfChallenges);
-        });
-
-    }
-    constructor(public login: LoginService, private _ladderDB: LadderDatabaseService, private _pending: PendingDatabaseService,
-    private _challengeDB: ChallengeDatabaseService, private _router: Router) {
-
-        // ..login info
-        this.login.getLoggedInUserObs().map(user => {
-            const newUser = {
-                email: user.email,
-                displayName: user.displayName,
-                photoUrl: user.photoURL,
-                uid: user.uid
-            };
-            return newUser;
+         // ..login info
+         this.login.getLoggedInUserObs().map(user => {
+             if (user) {
+                const newUser = {
+                    email: user.email,
+                    displayName: user.displayName,
+                    photoUrl: user.photoURL,
+                    uid: user.uid
+                };
+                return newUser;
+             } else {
+                 return null;
+             }
         })
         .subscribe(user => {
             this._user = user;
@@ -106,7 +82,33 @@ export class DashboardComponent implements OnInit {
             }); // end gamelist iteration
         }); // end gamelist subscribe
 
-        
+        // instantiate list of challenges then put them in teh correct array
+        this._challengeDB.getListOfChallenges().subscribe(challengeList => {
+            challengeList.forEach(challenge => {
+                if (challenge['challengerGoogle'] === this._user.uid) {
+                    // console.log('selected challenge', challenge);
+                    this.listOfChallenges.att.push(challenge);
+                }
+                if (challenge['defenderGoogle'] === this._user.uid) {
+                    // console.log('selected challenge', challenge);
+                    // challenge['isPending'] = this.isResultPending(challenge['id']);
+                    this.listOfChallenges.def.push(challenge);
+                }
+            });
+            console.log('challengeArrayBefore', this.listOfChallenges);
+            this.listOfChallenges.att.forEach(challenge => {
+                console.log(challenge.id, challenge, challenge.deadline, challenge.id);
+                challenge['isPending'] = this.isResultPending(challenge.challengerId, challenge.defenderId);
+            });
+            this.listOfChallenges.def.forEach(challenge => {
+                challenge['isPending'] = this.isResultPending(challenge.challengerId, challenge.defenderId);
+            });
+            console.log('challenge array yarrr', this.listOfChallenges);
+        });
+
+    }
+    constructor(public login: LoginService, private _ladderDB: LadderDatabaseService, private _pending: PendingDatabaseService,
+    private _challengeDB: ChallengeDatabaseService, private _router: Router) { 
     } // end constructor
 
     // method to initiate linking a google account to a spot on the ladder. takes in the game ref from the appropriatte entry
