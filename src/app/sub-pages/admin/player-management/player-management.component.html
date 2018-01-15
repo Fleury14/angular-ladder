@@ -27,6 +27,8 @@
                     <p class="text-center">PSN Id: {{ selectedPlayer.psnId }}</p>
                     <p class="text-center">Wins: {{ selectedPlayer.wins }}</p>
                     <p class="text-center">Losses: {{ selectedPlayer.losses }}</p>
+                    <p class="text-center">Game Wins: {{ selectedPlayer.gameWins }}</p>
+                    <p class="text-center">Game Losses: {{ selectedPlayer.gameLosses }}</p>
                     <p class="text-center">Streak: {{ selectedPlayer.streak }}</p>
                     <div class="flex-container justify-around">
                         <button class="btn btn-success" (click)="allowUpdatePlayer()">Update Player</button>
@@ -66,6 +68,10 @@
                 <input type="number" name="updateLossesField" [(ngModel)]="updateLossesField" required><br>
                 <label>ELO:</label>
                 <input type="number" name="updateEloField" [(ngModel)]="updateEloField" required><br>
+                <label>Game Wins:</label>
+                <input type="number" name="updateGameWinsField" [(ngModel)]="updateGameWinsField" required><br>
+                <label>Game Losses:</label>
+                <input type="number" name="updateGameLossesField" [(ngModel)]="updateGameLossesField" required><br>
                 <label>Streak</label>
                 <input type="text" name="updateStreakField" [(ngModel)]="updateStreakField" required><br>
                 <input type="submit" class="btn btn-success" [disabled]="playerUpdateForm.invalid">

@@ -45,6 +45,8 @@ export class PlayerManagementComponent implements OnInit, OnDestroy {
     public updateLossesField: number;
     public updateEloField: number;
     public updateStreakField: string;
+    public updateGameWinsField: number;
+    public updateGameLossesField: number;
 
     constructor(private _ladderDB: LadderDatabaseService) {
     }
@@ -135,6 +137,8 @@ export class PlayerManagementComponent implements OnInit, OnDestroy {
         this.updateStreakField = this.selectedPlayer.streak;
         this.updateEloField = this.selectedPlayer.elo;
         this.updateRankField = this.selectedPlayer.rank;
+        this.updateGameWinsField = this.selectedPlayer.gameWins;
+        this.updateGameLossesField = this.selectedPlayer.gameLosses;
     }
 
     // method to hide the edit player box. doesn't reset the fields since you can't see them and any reappearance of the fields
@@ -155,7 +159,9 @@ export class PlayerManagementComponent implements OnInit, OnDestroy {
             losses: value.updateLossesField,
             elo: value.updateEloField,
             streak: value.updateStreakField,
-            rank: value.updateRankField
+            rank: value.updateRankField,
+            gameWins: value.updateGameWinsField,
+            gameLosses: value.updateGameLossesField
         };
         this._ladderDB.updatePlayer(updatedInfo, id, this.currentGame.ref);
         // after the update call, hide the edit player field if its shown, then remove any selected player.

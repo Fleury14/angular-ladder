@@ -21,7 +21,7 @@ export class LoginService {
 
     public logout() {
         this.afAuth.auth.signOut();
-        if (this.route.url.includes('admin')) {
+        if (this.route.url.includes('admin') || (this.route.url.includes('dashboard'))) {
             this.route.navigateByUrl('home');
         }
     }

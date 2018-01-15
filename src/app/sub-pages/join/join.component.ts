@@ -52,6 +52,12 @@ export class JoinComponent implements OnInit {
     // method for added pending request
     public addPending(game: string) {
 
+        // make sure that the player didn't click the box without logging, and if they did, warn them
+        if (this._login.afAuth.auth.currentUser === null && this.joinGoogle === true) {
+            alert('You are attempting to link a google account without logging in first. Please login.');
+            return;
+        }
+
         // create the object to be pushed
         const pendingToBeAdded = {
             name: this.joinName,
