@@ -15,7 +15,7 @@ export class AdminComponent implements OnInit {
 
     // method to toggle hideMenu to true or false on a click
     public toggleMenu() {
-        console.log('burger triggered');
+        // console.log('burger triggered');
         if (this.hideMenu === true) {
             this.hideMenu = false;
         } else {
