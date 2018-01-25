@@ -30,12 +30,10 @@ export class FooterComponent implements AfterViewInit {
         // console.log(tickerSub);
 
         // content here
-        textContent.push(['Tournament Results', 'Bitwise Beatdown 7 Results from 10/28']);
-        textContent.push(['Tournament Results', 'Marvel: 1. Negus Eyoel  2. ThatOneOtherDude  3. Domezy']);
-        textContent.push(['Tournament Results', 'Hearthstone: 1. Moonfish  2. Osvirius  3. Audriolen ']);
-        textContent.push(['Tournament Results', 'Mixup Monthly: Special Edition Results from 9/28 (Marvel Only)']);
-        textContent.push(['Tournament Results', '1. Scott Lee  2. Kevin  3. Tristen  4. Negus Eyoel']);
-        textContent.push(['Tournament Results', '5. Negaduck  5. Fleury14  7. Kindafresh  7. Siphon']);
+        textContent.push(['Tournament Results', 'Bitwise Beatdown 8 Results from 1/20']);
+        textContent.push(['Tournament Results', 'SFV: 1. BBoyKomaedaX  2. NFR | ThotBuster  3. PG | DjKiba ']);
+        textContent.push(['Tournament Results', 'Marvel: 1. Negus Eyoel  2. KindaFresh  3. MCD | Jawnsun']);
+        textContent.push(['Tournament Results', 'Tekken: 1. guardcory  2. NFR | ThotBuster  3. TZN | LeftShoe']);
         // textContent.push(['Recent Matches - Tekken', '8/16: (2) Domezy(Kat) def. (1) Reckless(Steve/Hwo) 5-1.']);
         // textContent.push(['Recent Matches - Tekken', '8/16: (4) Fobi_Yo(Yoshi/Jack) def. (5) Fleury14(Lars) 5-2.']);
         // textContent.push(['Recent Matches - Tekken', '8/3: (6) Fleury14(Lars) def. (5) Jard(Paul) 5-1.']);
